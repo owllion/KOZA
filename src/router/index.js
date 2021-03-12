@@ -15,6 +15,11 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
+    path: '/products/:category',
+    name: 'Products',
+    component: () => import('../views/Products.vue')
+  },
+  {
     path:'/error',
     name:'error',
     component:() => import('../views/Error.vue')

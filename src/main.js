@@ -11,7 +11,14 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import './assets/tailwind.css'
 import '@/assets/global.css'
+import Cookies from 'js-cookie'
+import vuetify from './plugins/vuetify';
+import '@/assets/font-icon/style.css'
 
+
+
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
 
 Vue.use(VueAxios, axios)
 Vue.use(Loading,{
@@ -25,13 +32,16 @@ Vue.use(Loading,{
 
 Vue.component("Loading" , Loading)
 
+
 Vue.config.productionTip = false
 Vue.prototype.$lottie =lottie
 Vue.prototype.$axios = axios
+Vue.prototype.$cookie = Cookies
 
 
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')

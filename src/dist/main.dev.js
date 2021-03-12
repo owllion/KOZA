@@ -24,7 +24,17 @@ require("./assets/tailwind.css");
 
 require("@/assets/global.css");
 
+var _jsCookie = _interopRequireDefault(require("js-cookie"));
+
+var _vuetify = _interopRequireDefault(require("./plugins/vuetify"));
+
+require("@/assets/font-icon/style.css");
+
+var _vuelidate = _interopRequireDefault(require("vuelidate"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+_vue["default"].use(_vuelidate["default"]);
 
 _vue["default"].use(_vueAxios["default"], _axios["default"]);
 
@@ -42,9 +52,11 @@ _vue["default"].component("Loading", _vueLoadingOverlay["default"]);
 _vue["default"].config.productionTip = false;
 _vue["default"].prototype.$lottie = _lottieWeb["default"];
 _vue["default"].prototype.$axios = _axios["default"];
+_vue["default"].prototype.$cookie = _jsCookie["default"];
 new _vue["default"]({
   router: _router["default"],
   store: _store["default"],
+  vuetify: _vuetify["default"],
   render: function render(h) {
     return h(_App["default"]);
   }

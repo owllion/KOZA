@@ -1,9 +1,27 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+<v-app>
+  <Layout>  
+     <router-view></router-view>    
+  </Layout>
+ </v-app>
 </template>
 
-<style lang="scss">
+<script>
+import Layout from '@/components/Layout.vue'
+export default {
+  name: 'App',
+  components: {
+    Layout
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+
+#app {
+  font-family: 'Quicksand', sans-serif;
+  box-sizing: border-box;
+     
+} 
 
 </style>

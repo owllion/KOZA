@@ -7,7 +7,7 @@ import instance from './axios'
     export const loginCaptcha = () => instance.get('/captcha')
    
    //register
-   export const userRegister = data => instance.post('/register',data)
+   export const  userRegister = data => instance.post('/register',data)
    
    //get new token 
    export const getNewToken = data => instance.post('/getNewToken', data)

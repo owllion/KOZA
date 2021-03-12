@@ -1,6 +1,7 @@
 module.exports = {
+  prefix: 'pa-',
   purge: [],
-  darkMode: 'class', // or 'media' or 'class'
+  darkMode: 'class', 
   theme: {
     extend: {
         screens: {
@@ -25,7 +26,10 @@ module.exports = {
         spacing: {
             '99': '40rem',
             '100':'50rem',
-            '110':'70rem'
+            '110':'70rem',
+            '120':'80rem',
+            '130':'90rem',
+            '150':'110rem'
           },
         minHeight: {
             '120': '30rem',
@@ -56,7 +60,8 @@ module.exports = {
         fontSize: {
             '5xl': '3.375rem',
             'xxl': '1.375rem',
-            '10xl':'15rem'
+            '10xl':'15rem',
+            '30xl':'30rem'
         },
         boxShadow: {
             'lg': '0px 0px 10px #00000033',
@@ -70,9 +75,11 @@ module.exports = {
             '11': '2.75rem',
             '17': '4.25rem',
             '1/2': '50%',
+            '4/5':'85%'
         },
         backgroundImage: {
             'hero-lg': "url('../assets/img/login-bg.png')",
+            'logo':"url('../assets/img/logo.png')"
             
         },
     }

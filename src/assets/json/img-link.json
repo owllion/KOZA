@@ -1,0 +1,40 @@
+{
+    "carousellImages": [
+        {
+            "src":"https://images.unsplash.com/photo-1606836483111-e08386681a8b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+        },
+        {
+            "src":"https://images.unsplash.com/photo-1460819739742-50e4486578f5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"
+        },
+        {
+            "src":"https://images.unsplash.com/photo-1559058789-672da06263d8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1347&q=80"
+        }
+    ],
+    "galleryImages": [
+        {
+            "src":"https://images.unsplash.com/photo-1590666379301-3fceee6b838b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" ,
+            "link":"BREAD"
+        },
+        {
+            "src":"https://cdn.pixabay.com/photo/2014/11/05/15/57/salmon-518032_960_720.jpg" ,
+            "link":"SEAFOOD"
+        },
+        {
+            "src":"https://cdn.pixabay.com/photo/2017/08/07/09/46/meat-2602031_960_720.jpg",
+            "link":"MEAT"
+        },
+        {
+            "src":"https://images.pexels.com/photos/821365/pexels-photo-821365.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            "link":"CHEESE" 
+        },
+        {
+            "src":"https://cdn.pixabay.com/photo/2016/04/15/08/04/strawberry-1330459_960_720.jpg",
+            "link":"FRUIT" 
+        },
+        {
+            "src":"https://images.pexels.com/photos/196643/pexels-photo-196643.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            "link":"VEG" 
+        }
+
+    ]
+}

@@ -1,35 +1,52 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
+
 // import store from '../store'
 // console.log( `store--> ${store}`)
-
 // const token = store.getters['auth/token']
 // const refreshToken =store.getters['auth/refreshToken']
 
+const token = Cookies.get('token')
+
 const instance = axios.create({
-    baseURL:'http://localhost:5000/api',
-    //'Authorization': token
-    // }
+    baseURL: process.env.VUE_APP_AXIOS_BASE_URL,
+    headers: {
+    'Authorization': token
+    }
+    
+    
 })
 
-// instance.interceptors.response.use( res => res ,
-//     err => {
-//        if( err && err.response  ) {
-//            const status = err.response.status
-//            const originalReq = err.config
+instance.interceptors.response.use( res => res ,
+    err => {
+       if( err && err.response  ) {
+           const status = err.response.status
+           const originalReq = err.config
 
-//            if( status=== 401 ) {
-//                //get new tokens
-//                store.dispatch('auth/refresh', refreshToken);
+           if( status=== 401 ) {
+               //get new tokens
+            const refresh = Cookies.get(refreshToken)
+            if(!refresh) {
+                alert('Please login again!')
+                this.$router.push('/')
+            }
+            const res = instance.post('/getNewToken', refreshToken)
+            
+            const token = res.data.result.token
+            const refreshToken = res.data.result.refreshToken
 
-//                originalReq.headers['Authorization'] = `Bearer ${token}`;
+            Cookies.set('token', token)
+            Cookies.set('refreshToken',refreshToken)
 
-//                //original request already have one, no need to add it again
-//                originalReq.baseURL = '';
+            originalReq.headers['Authorization'] = `Bearer ${token}`;
 
-//                return instance(originalReq)
-//            }        
-//        }
-//        return Promise.reject(err)
-//     })
+            //original request already have one, no need to add it again
+            originalReq.baseURL = '';
+
+            return instance(originalReq)
+        }        
+    }
+    return Promise.reject(err)
+})
 
 export default instance

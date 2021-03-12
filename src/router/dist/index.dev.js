@@ -36,6 +36,14 @@ var routes = [{
     });
   }
 }, {
+  path: '/products/:category',
+  name: 'Products',
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Products.vue'));
+    });
+  }
+}, {
   path: '/error',
   name: 'error',
   component: function component() {

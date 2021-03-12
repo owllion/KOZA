@@ -1,31 +1,31 @@
-import { userRegister,getNewToken,userLogin ,getCart, userInfo } from '@/api/user'
-
+import { userRegister, userLogin ,getCart, userInfo } from '@/api/user'
+import Cookies from 'js-cookie'
 const state = {
     token: null,
     refreshToken:null,
     userData:'',
     cartList:null,
-    cartLength:null,
-    test:'測試'
+    cartLength:'',
 }
 
 const getters = { 
    isAuthenticated : state => state.token !== null,
    token: state => state.token,
    refreshToken: state => state.refreshToken,
-   userData:state => state.userData
+   userData:state => state.userData,
+   cartLength: state => state.cartLength
 }
 
 const actions = { 
     async register ({ commit } , data) {
-        try{   
+        try{       
            
            const res = await userRegister(data)
             
            const { token, refreshToken , user } = res.data.result
           
-         //   Cookies.set('token', token, { expires: 7 })
-         //   Cookies.set('refreshToken', refreshToken, {expires: 30 })
+            Cookies.set('token', token, { expires: 7 })
+            Cookies.set('refreshToken', refreshToken, {expires: 30 })
   
            commit('setToken', token)
            commit('setRefreshToken', refreshToken)
@@ -40,53 +40,34 @@ const actions = {
           throw error      
        }
      },
-     async login ({ commit } , data ) {
-        try{   
-           const {data: { result }}= await userLogin(data)
+     async login ({ commit } ,data ) {
+        try{ 
+            
+           const res = await userLogin(data)
 
-           const { token, refreshToken ,user } = result
+           const { token, refreshToken ,user } = res.data.result
 
-         //   Cookies.set('token', token, { expires: 7 })
-         //   Cookies.set('refreshToken', refreshToken, { expires: 30 })
+            Cookies.set('token', token, { expires: 7 })
+            Cookies.set('refreshToken', refreshToken, { expires: 30 })
      
            commit('setToken', token)
            commit('setRefreshToken', refreshToken)
            commit('setUserData', user)
-  
-           alert('login successfully')
-  
-           this.$router.push('/')
+           alert('Login Successfully')
+           this.$router.push('/')     
   
        }catch(err) {
         const error = err.response.data.msg 
+        if(error) {
          throw error
+        }
+         
        }
      },
-     async refresh ( { commit } , refresh ) {    
-          //get new token (access & refresh)
-          try {
-            const { data: { result } } = await getNewToken(refresh)
-            
-            const { token, refreshToken } = result
-         
-            commit('setToken', token ) 
-            commit('setRefreshToken', refreshToken)
-
-          }catch(err) {
-             //if refreshToken also expired
-             if(err.response.data.status === 401) {
-               alert('Please login again!')
-               this.$router.push({ path: '/' });
-             }
-          }
-         //  Cookies.set('token',token, { expires: 7 })
-         //  Cookies.set('refreshToken', refreshToken, { expires: 7 })
-
-   },
      async logout( { commit } ) {
         commit("clearToken")
-      //   Cookies.remove("token")
-      //   Cookies.remove("refreshToken")
+         Cookies.remove("token")
+         Cookies.remove("refreshToken")
      },
      async getUserInfo({ commit }) {
         try {
@@ -115,7 +96,7 @@ const actions = {
 }
 
 const mutations = {
-    setToken(state,token) { 
+      setToken(state,token) { 
         state.token = token      
       },
       setRefreshToken(state, refreshToken) {
