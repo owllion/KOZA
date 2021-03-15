@@ -1,6 +1,6 @@
 <template>
-  <footer class="pa-relative pa-bg-white pa-w-full  pa-py-3 pa-px-20 xxs:pa-px-0 s:pa-px-0 xs:pa-px-0
-   pa-border-t-2 pa-border-gray-200">
+  <footer class="pa-relative pa-bg-white pa-w-full  pa-py-3 pa-px-20 xxs:pa-px-0   xxs:pa-px-10 s:pa-px-10 xs:pa-px-10
+   pa-border-t-2 pa-border-gray-200" v-scrollAnimation>
 
       <div class="inner-footer  pa-max-w-7xl pa-flex pa-flex-wrap pa-justify-center pa-m-auto pa-px-2.5 pa-py-7">
             
@@ -66,7 +66,20 @@ export default {
       transform: scale($scale_num);
       color: $color
   }
-  
+  @mixin animation ($opacity,$trans) {
+  opacity: $opacity;
+  transform:$trans;
+   
+}
+
+.before-enter {
+   @include animation(0,translateX(-500px));
+   transition: all 6s ease-in-out;
+}
+.enter {
+  @include animation(1,translateX(0px)); 
+}
+
   .footer-items {
       width: 20%;
       padding: 0.5rem;     

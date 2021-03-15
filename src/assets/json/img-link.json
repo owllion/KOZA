@@ -1,13 +1,14 @@
 {
     "carousellImages": [
         {
-            "src":"https://images.unsplash.com/photo-1606836483111-e08386681a8b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+            "src":"https://i.imgur.com/SjQKK6C.jpg"
         },
         {
-            "src":"https://images.unsplash.com/photo-1460819739742-50e4486578f5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"
+            "src":"https://i.imgur.com/eohjNYn.jpg"
         },
+       
         {
-            "src":"https://images.unsplash.com/photo-1559058789-672da06263d8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1347&q=80"
+            "src":"https://i.imgur.com/6J6nlR7.jpg"
         }
     ],
     "galleryImages": [
@@ -36,5 +37,39 @@
             "link":"VEG" 
         }
 
+    ],
+    "featureIcon":[
+        {
+            "title":"High Quality bread",
+            "text":"Contains Wheat and Their Derivatives.",
+            "name":"bread"
+        },
+        {
+            "title":"High Quality Cheese",
+            "text":"Contains pasteurized milk,cheese culture, salt,enzymes.",
+            "name":"cheese"
+        },
+        {
+            "title":"High Quality Veg",
+            "text":"We have carrots,super sweet corn, green beans, peas and so on.",
+            "name":"harvest"
+        },
+        {
+            "title":"High Quality Food",
+            "text":"Everything is 100% organic here! Take your time and enjoy it!",
+            "name":"healthy-food"
+        },
+       
+        {
+            "title":"High Quality Fruits",
+            "text":"We have lemon chicken breasts,chicken broth,beef,turkey,pork and so on.",
+            "name":"fruits"
+        },
+        {
+            "title":"High Quality Meat",
+            "text":"We have lemon chicken breasts,chicken broth,beef,turkey,pork and so on.",
+            "name":"meat"
+        }
     ]
+   
 }

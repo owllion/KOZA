@@ -1,5 +1,5 @@
 <template>
-<div class="pa-w-full pa-h-full">
+<div >
   <div
     v-if="show"
     class="sidenav-backdrop pa-w-full pa-h-full pa-fixed pa-top-0 pa-left-0"
@@ -7,7 +7,7 @@
 
     <transition name="slide-side">
     <!-- side menu -->
-      <div v-if='show' class="aside pa-bg-red-800 pa-w-72 pa-h-full pa-absolute pa-top-0 pa-bottom-0 pa-flex-col pa-z-50">
+      <div v-if='show' class="aside pa-bg-red-800 pa-w-72 pa-h-full pa-fixed pa-top-0 pa-bottom-0 pa-flex-col pa-z-50">
 
         <!-- close icon -->
             <i class="fas fa-times pa-cursor-pointer pa-text-4xl pa-inline-block pa-flex pa-justify-end pa-p-4" @click="$emit('close')"></i> 

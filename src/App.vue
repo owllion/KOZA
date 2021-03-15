@@ -17,11 +17,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 #app {
   font-family: 'Quicksand', sans-serif;
   box-sizing: border-box;
      
 } 
+
 
 </style>

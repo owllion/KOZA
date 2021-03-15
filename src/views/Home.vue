@@ -1,11 +1,9 @@
 <template>
-  <div class="wrapper pa-relative pa-w-full pa-px-7  pa-py-5 pa-mb-9">
-    <div class="container pa-my-0 pa-mx-auto">
-
+  <div class="wrapper pa-relative pa-w-full pa-py-5 pa-mb-9">
     <!-- slideshow -->
-    <div class="pa-w-full ">
+    <div class="pa-w-full" >
     <div class="pa-mx-auto pa-my-10 ">
-      <v-carousel hide-delimiters height='700'>
+      <v-carousel  show-arrows-on-hover hide-delimiters height='900'>
     <v-carousel-item
       v-for="(item,i) in items"
       :key="i"
@@ -17,55 +15,75 @@
 </div>
     <!-- slideshow -->
 
+
+    <div class="container pa-my-0 pa-mx-auto">
      <!-- main-content -->
-    <div>
      <main>
+
+        <!-- icon features -->
+         <section class="features-wrapper " v-scrollAnimation >
+           <div class="features-container ">
+
+            <div class="feature " v-for="(item,i) in featureIcon" :key="i" >          
+              <div class="pa-w-24 pa-h-24">
+             <img :src="require( `../assets/img/${item.name}.png`)" alt="icon" >
+             </div>
+               <h4  class="pa-font-black pa-text-2xl">{{item.title}}</h4>
+               <p class="pa-text-2xl ">{{item.text}}</p>
+              </div>
+
+           </div>
+        </section>
+          
+        <!-- icon features -->
+
        <!-- product category img&link -->
          <section class="gallery pa-w-full">
            <div class="gallery-container" >
   
-             <div v-for='(img,i) in galleryImages' :key='i' class="gallery-img-container pa-relative">
+             <div v-for='(img,i) in galleryImages' :key='i' class="gallery-img-container pa-relative" v-scrollAnimation >
                 <img :src=img.src  alt="galleryImage">
                  <div class="gallery-link pa-absolute pa-top-1/2 pa-left-1/2 pa-max-w-sm  pa--translate-x-1/2 pa--translate-y-1/2  pa-text-3xl pa-bg-white">
                 <router-link :to='{name:"Products"}' >
                   <p class="pa-pt-6 pa-text-center">{{img.link}}</p>
                 </router-link>       
                 </div>  
-
-              </div> 
-              
-                             
+              </div>                          
            </div>           
-         </section>
-       
+         </section>  
        <!-- product category link -->
-
-   <section>
-   <h2 class ='pa-text-gray-500 pa-text-5xl'></h2>
-   </section>
-
-  </main>
-   </div>
+        <my-ad/>
+      <!-- features products -->
+      
+         <!-- <my-card/> -->
+     
+        
+      <!-- features products -->       
+       </main>
    <!-- main-content -->
-
-   
 
    <!-- SCROLL TO TOP (component)--> 
    <!-- SCROLL TO TOP -->
 
       </div> <!-- container -->
    </div> <!-- wrapper -->
-
 </template>
 
 <script>
 import img from '@/assets/json/img-link.json'
+import myAd from '@/components/Ad.vue'
+//import myCard from '@/components/Card.vue'
 export default {
+  components: {
+    //myCard,
+    myAd
+  },
   data() {
     return {
        productList:'',
        items: img.carousellImages,
        galleryImages: img.galleryImages,
+       featureIcon:img.featureIcon
     }
   },
 
@@ -75,54 +93,89 @@ export default {
 <style lang="scss" scoped>
 $width:100%;
 $height:100%;
-@mixin transition {
+ %transition {
     transition: all .3s ease-in-out;
 }
+%grid {
+    display: grid;
+    grid-template-columns: [full-start] repeat(8,[col-start]  minmax(min-content, 10rem) [col-end] ) [full-end] ;
+   padding: 3rem;
 
+}
+.before-enter {
+  opacity: 0;
+  transform:scale(.5) rotateZ(-25deg) ;
+  // transform: translateY(100px);
+   transition: all 1s ease-out;
+}
+.enter {
+  opacity: 1;
+  //transform: translateY(0px);
+  transform:scale(1) rotateZ(0deg);
+}
 .container {
-  max-width:1400px;
-}
-h1 {
-  font-family:'Finger Paint', cursive;
-}
-.gallery-container {
-   width: $width;
-   padding-bottom: 3rem ;
-   display: grid;
-   grid-template-columns:auto auto auto;
-   grid-auto-rows:minmax(15rem,auto);
-   grid-gap:1rem;
-   grid-auto-flow: dense;
-   div {
-     height: $height;
-     width: $width;
-     overflow:hidden;
+    .features-wrapper { 
+        max-width:1600px;
+        margin: 0 auto;       
+        @extend %grid;   
+        grid-template-rows:min-content; 
 
-     &:first-child {
-     grid-column-start: span 2;
-     grid-row-start: span 2;
-    }
-     &:nth-child(4),&:nth-child(5),&:nth-child(6) {  
-     grid-row-start: span 2;
-    }
-       img {
-         width: $width;
-         height: $height;
-         object-fit: cover;
-         @include transition;
+      .features-container {
+        grid-column: col-start 1 / full-end;     
+        display: grid;
+        margin: 2rem 0;
+        grid-template-columns:repeat(auto-fit,minmax(20rem,1fr)) ;    
+        grid-gap:3rem;
+        align-items: start;
+       
+          .feature {
+            display: grid;
+            grid-template-columns:min-content 1fr ;
+            grid-row-gap: 1.5rem;
+            grid-column-gap:2.5rem ;
+             div {
+                grid-row: 1 /span 2 ;
+                transform: translateY(-1rem);
+             }
+          }
       }
-   }
+    }
+    .gallery-container {
+      width: $width;
+      padding: 2rem ;
+      display: grid;
+      grid-template-columns:auto auto auto;
+      grid-auto-rows:minmax(15rem,auto);
+      grid-gap:1rem;
+      grid-auto-flow: dense;
+      div {
+        height: $height;
+        width: $width;
+        overflow:hidden;
+
+        &:first-child {
+        grid-column-start: span 2;
+        grid-row-start: span 2;
+        }
+        &:nth-child(4),&:nth-child(5),&:nth-child(6) {  
+        grid-row-start: span 2;
+        }
+          img {
+            width: $width;
+            height: $height;
+            object-fit: cover;
+            @extend %transition;
+          }
+      }
    .gallery-img-container {
      &:hover {
-       @include transition;
-       filter: drop-shadow(4px 4px 5px rgb(126, 121, 121));
+       @extend %transition;
+       box-shadow: 4px 4px 5px rgb(126, 121, 121);
        transform: scale(0.98);
-     }
-     &:hover img {
-       filter:blur(3px)
+      
      }
       .gallery-link {
-        @include transition;
+        @extend %transition;
         width: 16rem;
         height: 5rem;   
         transform: translate(-500%,-50%);
@@ -136,7 +189,7 @@ h1 {
         }
           a {
             color:brown;
-           @include transition;
+           @extend %transition;
           }        
       }
       &:hover .gallery-link{
@@ -144,7 +197,7 @@ h1 {
     }
   }  
 }
-@media (max-width:900px) {    
+  @media (max-width:900px) {    
       .gallery-container  div {
           &:nth-child(4) {
           grid-column:1/3;         
@@ -158,8 +211,12 @@ h1 {
         }    
       }
  @media (max-width:769px) {
+     .features-wrapper {
+       grid-template-rows: 6rem calc(100vh -6rem);
+       
+     }
       .gallery-container {
-        display: block;
+        display: block ;
          div {
           display: block;
           width: $width;
@@ -168,5 +225,15 @@ h1 {
        } 
      }     
   }
+  @media (max-width:400px) {
+      .features-container {  
+         h1,p {
+             font-size: 1rem;   
+         } 
+      }
+  } 
+
+}
+
 
 </style>

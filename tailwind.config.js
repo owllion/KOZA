@@ -78,8 +78,8 @@ module.exports = {
             '4/5':'85%'
         },
         backgroundImage: {
-            'hero-lg': "url('../assets/img/login-bg.png')",
-            'logo':"url('../assets/img/logo.png')"
+            // 'hero-lg': "url('../assets/img/login-bg.png')",
+            // 'logo':"url('../assets/img/logo.png')"
             
         },
     }
