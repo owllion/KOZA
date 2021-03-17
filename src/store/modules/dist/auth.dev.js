@@ -15,7 +15,7 @@ var state = {
   token: null,
   refreshToken: null,
   userData: '',
-  cartList: null,
+  cartList: [],
   cartLength: ''
 };
 var getters = {
@@ -30,6 +30,9 @@ var getters = {
   },
   userData: function userData(state) {
     return state.userData;
+  },
+  cartList: function cartList(state) {
+    return state.cartList;
   },
   cartLength: function cartLength(state) {
     return state.cartLength;
@@ -63,7 +66,11 @@ var actions = {
             commit('setToken', token);
             commit('setRefreshToken', refreshToken);
             commit('setUserData', user);
-            alert('註冊成功');
+            this.$swal({
+              icon: 'success',
+              title: 'Success',
+              text: 'You have successfully registered!'
+            });
             this.$router.push('/');
             _context.next = 20;
             break;

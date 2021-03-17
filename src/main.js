@@ -15,9 +15,12 @@ import vuetify from './plugins/vuetify';
 import '@/assets/font-icon/style.css';
 import '@/assets/css/global.css';
 import ScrollAnimation from '@/directive/scrollAnimation';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 import VueTilt from 'vue-tilt.js'
 Vue.use(VueTilt)
-
+Vue.use(VueSweetalert2);
 
 Vue.directive('scrollAnimation', ScrollAnimation);
 
@@ -40,6 +43,30 @@ Vue.config.productionTip = false;
 Vue.prototype.$lottie = lottie;
 Vue.prototype.$axios = axios;
 Vue.prototype.$cookie = Cookies;
+
+router.beforeEach((to,from,next) => {
+	const isLogin = store.getters['auth/token']
+	if(to.matched.some(res => res.meta.requireAuth)) {
+		if(isLogin) {
+			next()
+		}else {	
+			Vue.swal({
+				icon: 'warning',
+				title: 'Oops...',
+				text: 'You need to login',
+			})
+			next({
+				path:'/login',
+				query: {
+					redirect:to.fullPath
+				}
+			})
+			
+		}
+	}else {
+		next();
+	}
+})
 
 new Vue({
 	router,

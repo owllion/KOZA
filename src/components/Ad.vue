@@ -23,6 +23,7 @@
                 height='60'
                 width='250'            
                 to='/login'
+                class="btn"
                 > Buy Now
               </v-btn>    
          </div>   
@@ -85,7 +86,6 @@ export default {
 
     .content {
       padding: 0 6rem;
-
       h3 {
         @extend %font;
         color: rgb(126, 71, 71);
@@ -119,6 +119,16 @@ export default {
           padding: 2rem;
         }
    }
+ }
+ @media(max-width:321px) {
+       .wrapper {
+          .content {
+          padding: 0 1rem ;
+          .btn {
+            margin-bottom: 2rem;
+          }
+        }
+      } 
  }
 }
        

@@ -24,18 +24,18 @@
       <ul class="pa-flex pa-items-center xs:pa-ml-60 xxs:pa-ml-52 s:pa-ml-40">
       
           <li class="pa-p-2">
-          <router-link  :to="{name:'Login'}" class="pa-text-3xl ">
+          <router-link  :to="{name:'UserProfile'}" class="pa-text-3xl ">
             <span class="icon icon-face_retouching_natural "></span>
           </router-link>
         </li>
        <li class="pa-p-2 pa-relative">
-         <router-link  :to="{name:'Login'}" class="pa-text-3xl ">   
+         <router-link  :to="{name:'Cart'}" class="pa-text-3xl ">   
            <span class="icon icon-local_grocery_store">
            </span>
 
               <!-- cart length -->
              <span class='circle pa-absolute pa-bottom-7 pa-left-6 pa--translate-y-2/4 pa-translate-x-2/4' v-if='token'>
-                <span class='number pa-text-xs pa-py-1 pa-px-2 pa-bg-red-800'>{{count}}</span>
+                <span class='number pa-text-xs pa-py-1 pa-px-2 pa-bg-red-800'>{{cartLength}}</span>
              </span>
               <!-- cart length -->
 
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
   export default {
     name: 'Header',
     data() {
@@ -73,7 +73,8 @@ import {mapGetters} from 'vuex'
   },
   computed: {
       ...mapGetters('auth', ['cartLength','token'])
-  }
+  },
+ 
     
   }  
 </script>

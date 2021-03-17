@@ -4,8 +4,8 @@ const state = {
     token: null,
     refreshToken:null,
     userData:'',
-    cartList:null,
-    cartLength:'',
+    cartList:[],
+    cartLength:''
 }
 
 const getters = { 
@@ -13,6 +13,7 @@ const getters = {
    token: state => state.token,
    refreshToken: state => state.refreshToken,
    userData:state => state.userData,
+   cartList: state => state.cartList,
    cartLength: state => state.cartLength
 }
 
@@ -31,7 +32,11 @@ const actions = {
            commit('setRefreshToken', refreshToken)
            commit('setUserData', user)
   
-           alert('註冊成功')
+           this.$swal({
+              icon:'success',
+              title:'Success',
+              text:'You have successfully registered!'
+           })
            this.$router.push('/')
            
        }catch(e) {

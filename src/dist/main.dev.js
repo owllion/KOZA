@@ -32,6 +32,10 @@ require("@/assets/css/global.css");
 
 var _scrollAnimation = _interopRequireDefault(require("@/directive/scrollAnimation"));
 
+var _vueSweetalert = _interopRequireDefault(require("vue-sweetalert2"));
+
+require("sweetalert2/dist/sweetalert2.min.css");
+
 var _vueTilt = _interopRequireDefault(require("vue-tilt.js"));
 
 var _vuelidate = _interopRequireDefault(require("vuelidate"));
@@ -39,6 +43,8 @@ var _vuelidate = _interopRequireDefault(require("vuelidate"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 _vue["default"].use(_vueTilt["default"]);
+
+_vue["default"].use(_vueSweetalert["default"]);
 
 _vue["default"].directive('scrollAnimation', _scrollAnimation["default"]);
 
@@ -61,6 +67,34 @@ _vue["default"].config.productionTip = false;
 _vue["default"].prototype.$lottie = _lottieWeb["default"];
 _vue["default"].prototype.$axios = _axios["default"];
 _vue["default"].prototype.$cookie = _jsCookie["default"];
+
+_router["default"].beforeEach(function (to, from, next) {
+  var isLogin = _store["default"].getters['auth/token'];
+
+  if (to.matched.some(function (res) {
+    return res.meta.requireAuth;
+  })) {
+    if (isLogin) {
+      next();
+    } else {
+      _vue["default"].swal({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'You need to login'
+      });
+
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      });
+    }
+  } else {
+    next();
+  }
+});
+
 new _vue["default"]({
   router: _router["default"],
   store: _store["default"],

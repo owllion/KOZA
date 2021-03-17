@@ -15,10 +15,36 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/Register.vue')
+  },
+  {
     path: '/products/:category',
     name: 'Products',
     component: () => import('../views/Products.vue')
   },
+  {
+    path: '/userprofile',
+    name: 'UserProfile',
+    meta: {
+     requireAuth: true
+    },
+    component: () => import('../views/UserProfile.vue')
+   },
+   {
+    path: '/cart',
+    name: 'Cart',
+    meta: {
+     requireAuth: true
+    },
+    component: () => import('../views/Cart.vue')
+   },
+   {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue')
+   },
   {
     path:'/error',
     name:'error',
@@ -32,7 +58,10 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  linkActiveClass:'active'
+  linkActiveClass:'active',
+  scrollBehavior() {
+    document.getElementById('app').scrollIntoView();
+  }
 })
 
 export default router

@@ -36,11 +36,49 @@ var routes = [{
     });
   }
 }, {
+  path: '/register',
+  name: 'Register',
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Register.vue'));
+    });
+  }
+}, {
   path: '/products/:category',
   name: 'Products',
   component: function component() {
     return Promise.resolve().then(function () {
       return _interopRequireWildcard(require('../views/Products.vue'));
+    });
+  }
+}, {
+  path: '/userprofile',
+  name: 'UserProfile',
+  meta: {
+    requireAuth: true
+  },
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/UserProfile.vue'));
+    });
+  }
+}, {
+  path: '/cart',
+  name: 'Cart',
+  meta: {
+    requireAuth: true
+  },
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Cart.vue'));
+    });
+  }
+}, {
+  path: '/admin',
+  name: 'Admin',
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Admin.vue'));
     });
   }
 }, {
@@ -57,7 +95,10 @@ var routes = [{
 }];
 var router = new _vueRouter["default"]({
   routes: routes,
-  linkActiveClass: 'active'
+  linkActiveClass: 'active',
+  scrollBehavior: function scrollBehavior() {
+    document.getElementById('app').scrollIntoView();
+  }
 });
 var _default = router;
 exports["default"] = _default;

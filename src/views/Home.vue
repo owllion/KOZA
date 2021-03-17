@@ -117,7 +117,8 @@ $height:100%;
     .features-wrapper { 
         max-width:1600px;
         margin: 0 auto;       
-        @extend %grid;   
+        @extend %grid;  
+         justify-content: center; 
         grid-template-rows:min-content; 
 
       .features-container {
@@ -130,9 +131,10 @@ $height:100%;
        
           .feature {
             display: grid;
-            grid-template-columns:min-content 1fr ;
+            grid-template-columns:repeat(auto-fit,minmax(20rem,1fr)) ;
             grid-row-gap: 1.5rem;
             grid-column-gap:2.5rem ;
+            padding-left: 1rem;
              div {
                 grid-row: 1 /span 2 ;
                 transform: translateY(-1rem);

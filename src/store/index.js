@@ -18,6 +18,26 @@ const store = new Vuex.Store({
     modules: {
       auth
     },
+    state: {
+      snackbar:{
+        text:'',
+        show:false,
+        color:''
+      }
+    },
+    getters: {
+      snackbar: state => state.snackbar
+    },
+    actions: {
+      async SnackbarTrigger({commit}, value) {
+        commit('setSnackbar', value)
+      },
+    },
+    mutations: {
+      setSnackbar(state, value) {
+        state.snackbar = value;
+      }
+    },
     strict: true,
     plugins: [vuexLocalStorage.plugin]
  })
