@@ -264,6 +264,7 @@
 import MyInput from '@/components/Input.vue'
 import MyButton from '@/components/Button.vue'
 import Password from '@/components/Password.vue'
+import Cookies from 'js-cookie';
 
 import { loginCaptcha ,userLogin, userRegister} from '@/api/user'
 import { required, minLength, maxLength,email,sameAs } from 'vuelidate/lib/validators'
@@ -334,9 +335,9 @@ export default {
           const { data: { result } } = await userRegister(data)
           const { token, refreshToken , user } = result
           
-          this.$cookie.set('token', token, { expires: 7 })
-          this.$cookie.set('refreshToken', refreshToken, { expires: 30 })
-          
+          Cookies.set('token', token, { expires: 7 })
+          Cookies.set('refreshToken', refreshToken, { expires: 30 })
+          console.log(Cookies.get('token'))
           this.setToken(token)
           this.setRefreshToken(refreshToken)
           this.setUserData(user)
@@ -366,9 +367,10 @@ export default {
           const { data: { result } } = await userLogin(data)
           
           const { token, refreshToken , user } = result
-
-          this.$cookie.set('token', token, { expires: 7 })
-          this.$cookie.set('refreshToken', refreshToken, { expires: 30 })
+          console.log(token)
+          Cookies.set('token', token, { expires: 7 })
+          Cookies.set('refreshToken', refreshToken, { expires: 30 })
+          console.log(Cookies.get('token'))
           
           this.setToken(token)
           this.setRefreshToken(refreshToken)

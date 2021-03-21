@@ -10,7 +10,6 @@ import lottie from 'lottie-web';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import './assets/tailwind.css';
-import Cookies from 'js-cookie';
 import vuetify from './plugins/vuetify';
 import '@/assets/font-icon/style.css';
 import '@/assets/css/global.css';
@@ -42,7 +41,6 @@ Vue.component('Loading', Loading);
 Vue.config.productionTip = false;
 Vue.prototype.$lottie = lottie;
 Vue.prototype.$axios = axios;
-Vue.prototype.$cookie = Cookies;
 
 router.beforeEach((to,from,next) => {
 	const isLogin = store.getters['auth/token']

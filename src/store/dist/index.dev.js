@@ -29,41 +29,6 @@ var store = new _vuex["default"].Store({
   modules: {
     auth: _auth["default"]
   },
-  state: {
-    snackbar: {
-      text: '',
-      show: false,
-      color: ''
-    }
-  },
-  getters: {
-    snackbar: function snackbar(state) {
-      return state.snackbar;
-    }
-  },
-  actions: {
-    SnackbarTrigger: function SnackbarTrigger(_ref, value) {
-      var commit;
-      return regeneratorRuntime.async(function SnackbarTrigger$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              commit = _ref.commit;
-              commit('setSnackbar', value);
-
-            case 2:
-            case "end":
-              return _context.stop();
-          }
-        }
-      });
-    }
-  },
-  mutations: {
-    setSnackbar: function setSnackbar(state, value) {
-      state.snackbar = value;
-    }
-  },
   strict: true,
   plugins: [vuexLocalStorage.plugin]
 });

@@ -98,9 +98,13 @@
 import MyInput from '@/components/Input.vue'
 import MyButton from '@/components/Button.vue'
 import Password from '@/components/Password.vue'
-import { userRegister } from '@/api/user'
+//import { userRegister } from '@/api/user'
 import { required, minLength, maxLength,email,sameAs } from 'vuelidate/lib/validators'
 import { FingerprintSpinner } from 'epic-spinners'
+//import Cookies from 'js-cookie'
+//import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
+
 export default {
     components: {
         MyInput,MyButton,Password,FingerprintSpinner
@@ -142,45 +146,24 @@ export default {
         },
   },
   methods: {
-      async signUp(data) {
-          try {
-          this.isLoading =true
-          const { data: { result } } = await userRegister(data)
-          const { token, refreshToken , user } = result
-          
-          this.$cookie.set('token', token, { expires: 7 })
-          this.$cookie.set('refreshToken', refreshToken, { expires: 30 })
-          
-          this.setToken(token)
-          this.setRefreshToken(refreshToken)
-          this.setUserData(user)
-          this.setCartLength(user.cartList.length)
+     ...mapActions('auth',['signInOrUp']),
 
-          this.isLoading = false
-
-           this.$swal({
-              icon:'success',
-              title:'Success',
-              text:'You have successfully registered!'
-           })
-          this.$router.push('/')
-       
-          }catch(err) {
-              this.isLoading = false
-              console.log(err.response.data.msg)
-
-              const msg = err.response.data.msg
-              
-              if( msg.includes('duplicate')) {
-                  this.error = 'duplicate'
-              } 
-              
-          }    
-      },
-    checkRegForm(data) {
+    async checkRegForm(data) {
          this.$v.$touch()
          if (!this.$v.registerData.$invalid) {
-         this.signUp(data)
+           try {
+              this.isLoading = true
+              await this.signInOrUp(data)
+           }catch(err) {
+              this.isLoading = false
+              if(err) {
+                console.log(err)
+               const msg = err             
+               if( msg.includes('duplicate')) {
+                  this.error = 'duplicate'
+               } 
+              }             
+           }
        }
     },    
     updateRegPass(value) {
@@ -195,8 +178,7 @@ export default {
     updateConfirmPass(value) {
           this.registerData.password = value
       },
-  },
-  
+  },  
 }
 </script>
 

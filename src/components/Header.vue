@@ -73,7 +73,7 @@ import { mapGetters } from 'vuex'
   },
   computed: {
       ...mapGetters('auth', ['cartLength','token'])
-  },
+  }
  
     
   }  

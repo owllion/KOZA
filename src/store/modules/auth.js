@@ -1,11 +1,13 @@
-import { userRegister, userLogin ,getCart, userInfo } from '@/api/user'
+import { userRegister, userLogin } from '@/api/user'
+import router from '@/router'
 import Cookies from 'js-cookie'
 const state = {
     token: null,
     refreshToken:null,
     userData:'',
     cartList:[],
-    cartLength:''
+    cartLength:'',
+    login:'',
 }
 
 const getters = { 
@@ -18,54 +20,34 @@ const getters = {
 }
 
 const actions = { 
-    async register ({ commit } , data) {
-        try{       
-           
-           const res = await userRegister(data)
+    async signInOrUp ({ commit } , data) {
+        try{                  
+           const alertText = data.captchaText ? 'logged in!':'registered'
+
+           const res = data.captchaText ? await userLogin(data): await userRegister(data) 
             
            const { token, refreshToken , user } = res.data.result
           
-            Cookies.set('token', token, { expires: 7 })
-            Cookies.set('refreshToken', refreshToken, {expires: 30 })
+           Cookies.set('token', token, { expires: 7 })
+           Cookies.set('refreshToken', refreshToken, {expires: 30 })
   
            commit('setToken', token)
            commit('setRefreshToken', refreshToken)
            commit('setUserData', user)
-  
-           this.$swal({
+          
+           this._vm.$swal({
               icon:'success',
               title:'Success',
-              text:'You have successfully registered!'
+              text:`You have successfully ${alertText}`
            })
-           this.$router.push('/')
+           router.push('/')
            
-       }catch(e) {
-         const error = e.response.data.msg
-          console.log(error)   
-          throw error      
-       }
-     },
-     async login ({ commit } ,data ) {
-        try{ 
-            
-           const res = await userLogin(data)
-
-           const { token, refreshToken ,user } = res.data.result
-
-            Cookies.set('token', token, { expires: 7 })
-            Cookies.set('refreshToken', refreshToken, { expires: 30 })
-     
-           commit('setToken', token)
-           commit('setRefreshToken', refreshToken)
-           commit('setUserData', user)
-           alert('Login Successfully')
-           this.$router.push('/')     
-  
        }catch(err) {
-        const error = err.response.data.msg 
-        if(error) {
-         throw error
-        }
+           if(err.response) {
+            const error = err.response.data.msg        
+            throw error   
+            //throw "msg" directly ,not the whole 'res.data'. So 'login.vue' should just accept 'err' and use it. There is no need to be like 'const msg =err.response.data.msg', it'll get nothing.    
+          }
          
        }
      },
@@ -73,34 +55,13 @@ const actions = {
         commit("clearToken")
          Cookies.remove("token")
          Cookies.remove("refreshToken")
-     },
-     async getUserInfo({ commit }) {
-        try {
-           const { data } = await userInfo()
-           commit('setUserData', data )
-
-        }catch(err) {
-            console.log(err.response.data.msg)
-            const error = err.response.data.msg
-            throw error
-         }
-   },
-   async getCartList({ commit }) {
-      try {
-         const { data: { cartList, count } } = await getCart()
-  
-         commit('setCart', cartList)
-         commit('setCartLength', count)
-  
-      }catch(err) {
-         console.log(err.response.data.msg)
-         const error = err.response.data.msg
-         throw error
-      }
-    }
+     }
 }
 
 const mutations = {
+      loginOrReg(state,data) {
+         state.login = data
+      },
       setToken(state,token) { 
         state.token = token      
       },

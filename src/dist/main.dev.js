@@ -22,8 +22,6 @@ require("vue-loading-overlay/dist/vue-loading.css");
 
 require("./assets/tailwind.css");
 
-var _jsCookie = _interopRequireDefault(require("js-cookie"));
-
 var _vuetify = _interopRequireDefault(require("./plugins/vuetify"));
 
 require("@/assets/font-icon/style.css");
@@ -66,7 +64,6 @@ _vue["default"].component('Loading', _vueLoadingOverlay["default"]);
 _vue["default"].config.productionTip = false;
 _vue["default"].prototype.$lottie = _lottieWeb["default"];
 _vue["default"].prototype.$axios = _axios["default"];
-_vue["default"].prototype.$cookie = _jsCookie["default"];
 
 _router["default"].beforeEach(function (to, from, next) {
   var isLogin = _store["default"].getters['auth/token'];

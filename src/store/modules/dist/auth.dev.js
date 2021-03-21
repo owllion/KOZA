@@ -7,6 +7,8 @@ exports["default"] = void 0;
 
 var _user = require("@/api/user");
 
+var _router = _interopRequireDefault(require("@/router"));
+
 var _jsCookie = _interopRequireDefault(require("js-cookie"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -16,7 +18,8 @@ var state = {
   refreshToken: null,
   userData: '',
   cartList: [],
-  cartLength: ''
+  cartLength: '',
+  login: ''
 };
 var getters = {
   isAuthenticated: function isAuthenticated(state) {
@@ -39,20 +42,39 @@ var getters = {
   }
 };
 var actions = {
-  register: function register(_ref, data) {
-    var commit, res, _res$data$result, token, refreshToken, user, error;
+  signInOrUp: function signInOrUp(_ref, data) {
+    var commit, alertText, res, _res$data$result, token, refreshToken, user, error;
 
-    return regeneratorRuntime.async(function register$(_context) {
+    return regeneratorRuntime.async(function signInOrUp$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             commit = _ref.commit;
             _context.prev = 1;
-            _context.next = 4;
+            alertText = data.captchaText ? 'logged in!' : 'registered';
+
+            if (!data.captchaText) {
+              _context.next = 9;
+              break;
+            }
+
+            _context.next = 6;
+            return regeneratorRuntime.awrap((0, _user.userLogin)(data));
+
+          case 6:
+            _context.t0 = _context.sent;
+            _context.next = 12;
+            break;
+
+          case 9:
+            _context.next = 11;
             return regeneratorRuntime.awrap((0, _user.userRegister)(data));
 
-          case 4:
-            res = _context.sent;
+          case 11:
+            _context.t0 = _context.sent;
+
+          case 12:
+            res = _context.t0;
             _res$data$result = res.data.result, token = _res$data$result.token, refreshToken = _res$data$result.refreshToken, user = _res$data$result.user;
 
             _jsCookie["default"].set('token', token, {
@@ -66,87 +88,44 @@ var actions = {
             commit('setToken', token);
             commit('setRefreshToken', refreshToken);
             commit('setUserData', user);
-            this.$swal({
+
+            this._vm.$swal({
               icon: 'success',
               title: 'Success',
-              text: 'You have successfully registered!'
+              text: "You have successfully ".concat(alertText)
             });
-            this.$router.push('/');
-            _context.next = 20;
+
+            _router["default"].push('/');
+
+            _context.next = 28;
             break;
 
-          case 15:
-            _context.prev = 15;
-            _context.t0 = _context["catch"](1);
-            error = _context.t0.response.data.msg;
-            console.log(error);
+          case 23:
+            _context.prev = 23;
+            _context.t1 = _context["catch"](1);
+
+            if (!_context.t1.response) {
+              _context.next = 28;
+              break;
+            }
+
+            error = _context.t1.response.data.msg;
             throw error;
 
-          case 20:
+          case 28:
           case "end":
             return _context.stop();
         }
       }
-    }, null, this, [[1, 15]]);
+    }, null, this, [[1, 23]]);
   },
-  login: function login(_ref2, data) {
-    var commit, res, _res$data$result2, token, refreshToken, user, error;
-
-    return regeneratorRuntime.async(function login$(_context2) {
+  logout: function logout(_ref2) {
+    var commit;
+    return regeneratorRuntime.async(function logout$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             commit = _ref2.commit;
-            _context2.prev = 1;
-            _context2.next = 4;
-            return regeneratorRuntime.awrap((0, _user.userLogin)(data));
-
-          case 4:
-            res = _context2.sent;
-            _res$data$result2 = res.data.result, token = _res$data$result2.token, refreshToken = _res$data$result2.refreshToken, user = _res$data$result2.user;
-
-            _jsCookie["default"].set('token', token, {
-              expires: 7
-            });
-
-            _jsCookie["default"].set('refreshToken', refreshToken, {
-              expires: 30
-            });
-
-            commit('setToken', token);
-            commit('setRefreshToken', refreshToken);
-            commit('setUserData', user);
-            alert('Login Successfully');
-            this.$router.push('/');
-            _context2.next = 20;
-            break;
-
-          case 15:
-            _context2.prev = 15;
-            _context2.t0 = _context2["catch"](1);
-            error = _context2.t0.response.data.msg;
-
-            if (!error) {
-              _context2.next = 20;
-              break;
-            }
-
-            throw error;
-
-          case 20:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, null, this, [[1, 15]]);
-  },
-  logout: function logout(_ref3) {
-    var commit;
-    return regeneratorRuntime.async(function logout$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            commit = _ref3.commit;
             commit("clearToken");
 
             _jsCookie["default"].remove("token");
@@ -155,82 +134,16 @@ var actions = {
 
           case 4:
           case "end":
-            return _context3.stop();
+            return _context2.stop();
         }
       }
     });
-  },
-  getUserInfo: function getUserInfo(_ref4) {
-    var commit, _ref5, data, error;
-
-    return regeneratorRuntime.async(function getUserInfo$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            commit = _ref4.commit;
-            _context4.prev = 1;
-            _context4.next = 4;
-            return regeneratorRuntime.awrap((0, _user.userInfo)());
-
-          case 4:
-            _ref5 = _context4.sent;
-            data = _ref5.data;
-            commit('setUserData', data);
-            _context4.next = 14;
-            break;
-
-          case 9:
-            _context4.prev = 9;
-            _context4.t0 = _context4["catch"](1);
-            console.log(_context4.t0.response.data.msg);
-            error = _context4.t0.response.data.msg;
-            throw error;
-
-          case 14:
-          case "end":
-            return _context4.stop();
-        }
-      }
-    }, null, null, [[1, 9]]);
-  },
-  getCartList: function getCartList(_ref6) {
-    var commit, _ref7, _ref7$data, cartList, count, error;
-
-    return regeneratorRuntime.async(function getCartList$(_context5) {
-      while (1) {
-        switch (_context5.prev = _context5.next) {
-          case 0:
-            commit = _ref6.commit;
-            _context5.prev = 1;
-            _context5.next = 4;
-            return regeneratorRuntime.awrap((0, _user.getCart)());
-
-          case 4:
-            _ref7 = _context5.sent;
-            _ref7$data = _ref7.data;
-            cartList = _ref7$data.cartList;
-            count = _ref7$data.count;
-            commit('setCart', cartList);
-            commit('setCartLength', count);
-            _context5.next = 17;
-            break;
-
-          case 12:
-            _context5.prev = 12;
-            _context5.t0 = _context5["catch"](1);
-            console.log(_context5.t0.response.data.msg);
-            error = _context5.t0.response.data.msg;
-            throw error;
-
-          case 17:
-          case "end":
-            return _context5.stop();
-        }
-      }
-    }, null, null, [[1, 12]]);
   }
 };
 var mutations = {
+  loginOrReg: function loginOrReg(state, data) {
+    state.login = data;
+  },
   setToken: function setToken(state, token) {
     state.token = token;
   },

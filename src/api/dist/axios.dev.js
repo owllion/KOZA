@@ -13,10 +13,6 @@ var _this = void 0;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-// import store from '../store'
-// console.log( `store--> ${store}`)
-// const token = store.getters['auth/token']
-// const refreshToken =store.getters['auth/refreshToken']
 var token = _jsCookie["default"].get('token');
 
 var instance = _axios["default"].create({

@@ -3,6 +3,12 @@
  //get the newest products
   export const getNewestItem = () => instance.get('/product/newest')
 
+//get all products
+ export const getAllProducts = () => instance.get('/products/all')
+
+//get specific category of products
+ export const getCategoryItems = data => instance.get('/product/list/category', { params: { cat:data }})
+
  //get best seller from all category
  export const getBestSeller = () => instance.get('/product/feature/best_seller')
 

@@ -7,13 +7,13 @@
 
     <transition name="slide-side">
     <!-- side menu -->
-      <div v-if='show' class="aside pa-bg-red-800 pa-w-72 pa-h-full pa-fixed pa-top-0 pa-bottom-0 pa-flex-col pa-z-50">
+      <div v-if='show' class="aside pa-bg-black pa-w-72 pa-h-full pa-fixed pa-top-0 pa-bottom-0 pa-flex-col pa-z-50">
 
         <!-- close icon -->
             <i class="fas fa-times pa-cursor-pointer pa-text-4xl pa-inline-block pa-flex pa-justify-end pa-p-4" @click="$emit('close')"></i> 
         <!-- close icon -->
 
-             <ul class=" pa-text-2xl  pa-w-full"> 
+             <ul class=" pa-text-2xl  pa-w-full pa-font-semibold"> 
             <li v-for="(item,i) in navText" :key='i' class="pa-mb-5">
               <router-link  :to="{name:`${item.name}` }" class=" pa-p-3  pa-rounded-sm nav-text ">{{item.link}}</router-link></li>
        </ul>

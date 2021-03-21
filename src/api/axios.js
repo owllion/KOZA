@@ -1,20 +1,13 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-// import store from '../store'
-// console.log( `store--> ${store}`)
-// const token = store.getters['auth/token']
-// const refreshToken =store.getters['auth/refreshToken']
-
 const token = Cookies.get('token')
 
 const instance = axios.create({
     baseURL: process.env.VUE_APP_AXIOS_BASE_URL,
     headers: {
     'Authorization': token
-    }
-    
-    
+    }   
 })
 
 instance.interceptors.response.use( res => res ,
