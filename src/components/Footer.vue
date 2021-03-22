@@ -5,74 +5,45 @@
       <div class="inner-footer  pa-max-w-7xl pa-flex pa-flex-wrap pa-justify-center pa-m-auto pa-px-2.5 pa-py-7">
             
             <div class="footer-items" v-for='(item, i) in linkText' :key='i'>   
-             <h4>{{item.title}}</h4>
+             <h4 >{{item.title}}</h4>
              <ul>
                  <li v-for='(link,i) in item.content' :key='i'><a href="" class="help pa-inline-block pa-pb-1">{{link}}</a></li>       
              </ul>
            </div> 
            <div class="footer-items">   
              <h4>Follow us</h4>
-             <ul class="pa-flex pa-text-3xl">
-                   <li class="pa-mr-5">
-                       <a href="" class="pa-inline-block ">
-                       <i class="fab fa-facebook-f pa-transition pa-duration-300"></i></a>
-                    </li>
-                   <li class="pa-mr-5">
-                       <a href="" class=""><i class="fab fa-twitter  pa-transition pa-duration-300 "></i></a>
-                    </li>
-                   <li class="pa-mr-5">
-                       <a href=""><i class="fab fa-youtube pa-transition pa-duration-300"></i></a>
-                    </li>
-                    <li class="">
-                       <a href=""><i class="fab fa-instagram pa-transition pa-duration-300"></i></a>
-                    </li>
-               </ul>
-           </div> 
-
+             <ul class="pa-flex p">
+                <li class="pa-mr-6" v-for='(img,i) in footerIcons' :key="i">
+                  <a href="" class="pa-inline-block ">
+                    <img :src="require( `../assets/svg/${img.name}.svg`)" alt="icon"   class="pa-w-14 "></a>
+                 </li>
+             </ul>
+          </div> 
         <!-- copyright -->
           <div class="pa-text-black pa-h-12 pa-text-center pa-w-full pa-absolute pa-bottom-0 pa-left-0 pa--translate-x-1/2  pa--translate-y-1/2 pa-pt-2">
               &copy; KOZA 2021
           </div>
-
       </div>  <!--container -->
   </footer>
 </template>
 
 <script>
+import img from '@/assets/json/img-link.json'
 export default {
     data() {
         return {
-            linkText:[
-                {
-                 title:'Get Help',
-                 content:['FAQ','SHIPPING','RETURNS','ORDER STATUS']
-                },
-                {
-                 title:'About us',
-                 content:['ABOUT','SERVICES','PRIVICY POLICY']
-                },
-                {
-                 title:'Useful Link',
-                 content:['HOME','CART','ACCOUNT']
-                }
-            ]
+            linkText:img.linkText,
+            footerIcons:img.footerIcons
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-  @mixin scale($scale_num,$color) {
-      transform: scale($scale_num);
-      color: $color
-  }
-  @mixin animation ($opacity,$trans) {
+ @mixin animation ($opacity,$trans) {
   opacity: $opacity;
-  transform:$trans;
-   
+  transform:$trans;  
 }
-
-
   .footer-items {
       width: 20%;
       padding: 0.5rem;     
@@ -84,34 +55,26 @@ export default {
         letter-spacing: .5px;
       } 
        .help:hover,.about:hover,.link:hover {
-         color:rgb(202, 160, 21);
+         color:rgb(150, 50, 3);
          transform:translateX(10px)
        }
      
       li {
           margin: .5rem 0;
-          height: 1.3rem;
-           i {
-            margin-right: 2rem;           
-            color:rgb(0, 0, 0);   
-        }
-         .fa-facebook-f:hover{
-             @include scale (1.5,#4064AC)
-         }
-         .fa-twitter:hover{
-             @include scale (1.5,#00A7E6)
-         }
-         .fa-youtube:hover{
-             @include scale (1.5,#F60000)
-         }
-         .fa-instagram:hover{
-             @include scale (1.5,#bf2f22)
-         }
+          a{
+             &:hover {
+                transform:translateY(-10px);
+            }
+              img {
+               margin-right: 2rem;           
+               color:rgb(0, 0, 0);               
+          }        
+        }                
       }   
     } 
      h4 {
-        font-size:1.4rem;
-        font-weight: 500;
+        font-size:1.2rem;
+        font-weight: 400;
         color:rgb(22, 21, 21);
         margin-bottom: 1rem;
         padding-bottom: .4rem; 
@@ -121,9 +84,9 @@ export default {
         position: absolute;
         left:0;
         bottom:2px;
-        background-color: #181818;
-        height: 3px;
-        width: 45px;
+        background-color: #8f5805;
+        height: 2px;
+        width: 35px;
       }    
     }      
   }

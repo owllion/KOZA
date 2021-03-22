@@ -13,6 +13,8 @@ var _vuexPersist = _interopRequireDefault(require("vuex-persist"));
 
 var _auth = _interopRequireDefault(require("./modules/auth"));
 
+var _product = _interopRequireDefault(require("./modules/product"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 _vue["default"].use(_vuex["default"]); //Vue.use(VueAxios, axios)
@@ -27,7 +29,8 @@ var vuexLocalStorage = new _vuexPersist["default"]({
 });
 var store = new _vuex["default"].Store({
   modules: {
-    auth: _auth["default"]
+    auth: _auth["default"],
+    product: _product["default"]
   },
   strict: true,
   plugins: [vuexLocalStorage.plugin]

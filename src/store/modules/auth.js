@@ -7,7 +7,7 @@ const state = {
     userData:'',
     cartList:[],
     cartLength:'',
-    login:'',
+   
 }
 
 const getters = { 
@@ -34,6 +34,8 @@ const actions = {
            commit('setToken', token)
            commit('setRefreshToken', refreshToken)
            commit('setUserData', user)
+           commit('setCart', user.cartList)
+           commit('setCartLength',user.cartList.length)
           
            this._vm.$swal({
               icon:'success',
@@ -59,9 +61,6 @@ const actions = {
 }
 
 const mutations = {
-      loginOrReg(state,data) {
-         state.login = data
-      },
       setToken(state,token) { 
         state.token = token      
       },

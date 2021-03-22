@@ -10,17 +10,20 @@
 
 <script>
 import Layout from '@/components/Layout.vue'
-import { getCategoryItems, getAllProducts } from '@/api/product.js'
+//import { getCategoryItems, getAllProducts } from '@/api/product.js'
+
 export default {
   name: 'App',
   components: {
     Layout,
   },
+
   async created() {
-    const {data:{ productList }} = await getCategoryItems('MEAT');
-     console.log(productList)
-     const {data:{ allProduct }} = await getAllProducts();
-     console.log(allProduct)
+    this.$store.dispatch('product/getAllItems')
+
+    // const {data:{ productList }} = await getCategoryItems('MEAT');
+    //  console.log(productList)
+   
   }
 };
 </script>
@@ -29,15 +32,17 @@ export default {
 [v-cloak] {
 display: none;
 }
+
 #app {
   font-family: 'Quicksand', sans-serif;
   box-sizing: border-box;
-     
+    
 } 
+
 
 .fade-enter-active, .fade-leave-active {
   transition-property: opacity;
-  transition-duration: .25s;
+  transition-duration: 1s;
 }
 .fade-enter-active {
   transition-delay: .25s;

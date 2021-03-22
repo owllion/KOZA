@@ -44,14 +44,19 @@ var routes = [{
     });
   }
 }, {
-  path: '/products/:category',
+  path: '/products',
   name: 'Products',
   component: function component() {
     return Promise.resolve().then(function () {
       return _interopRequireWildcard(require('../views/Products.vue'));
     });
   }
-}, {
+}, // {
+//   path: '/products/:category',
+//   name: 'Products',
+//   component: () => import('../views/Products.vue')
+// },
+{
   path: '/userprofile',
   name: 'UserProfile',
   meta: {
@@ -60,6 +65,14 @@ var routes = [{
   component: function component() {
     return Promise.resolve().then(function () {
       return _interopRequireWildcard(require('../views/UserProfile.vue'));
+    });
+  }
+}, {
+  path: '/checkout',
+  name: 'Checkout',
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Checkout.vue'));
     });
   }
 }, {

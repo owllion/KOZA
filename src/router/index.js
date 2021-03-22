@@ -20,10 +20,15 @@ const routes = [
     component: () => import('../views/Register.vue')
   },
   {
-    path: '/products/:category',
+    path: '/products',
     name: 'Products',
     component: () => import('../views/Products.vue')
   },
+  // {
+  //   path: '/products/:category',
+  //   name: 'Products',
+  //   component: () => import('../views/Products.vue')
+  // },
   {
     path: '/userprofile',
     name: 'UserProfile',
@@ -32,6 +37,11 @@ const routes = [
     },
     component: () => import('../views/UserProfile.vue')
    },
+   {
+    path: '/checkout',
+    name: 'Checkout',
+    component: () => import('../views/Checkout.vue')
+  },
    {
     path: '/cart',
     name: 'Cart',

@@ -70,6 +70,31 @@
             "text":"We have lemon chicken breasts,chicken broth,beef,turkey,pork and so on.",
             "name":"meat"
         }
+    ],
+    "footerIcons":[
+        {
+            "name":"fb"
+        },
+        {
+            "name":"twitter"
+        },
+        {
+            "name":"ig"
+        }
+    ],
+    "linkText":[
+        {
+         "title":"Get Help",
+         "content":["FAQ","SHIPPING","RETURNS","ORDER STATUS"]
+        },
+        {
+         "title":"About us",
+         "content":["ABOUT","SERVICES","PRIVICY POLICY"]
+        },
+        {
+         "title":"Useful Link",
+         "content":["HOME","CART","ACCOUNT"]
+        }
     ]
    
 }

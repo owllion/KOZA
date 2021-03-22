@@ -370,7 +370,6 @@ export default {
           console.log(token)
           Cookies.set('token', token, { expires: 7 })
           Cookies.set('refreshToken', refreshToken, { expires: 30 })
-          console.log(Cookies.get('token'))
           
           this.setToken(token)
           this.setRefreshToken(refreshToken)

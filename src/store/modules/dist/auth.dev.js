@@ -18,8 +18,7 @@ var state = {
   refreshToken: null,
   userData: '',
   cartList: [],
-  cartLength: '',
-  login: ''
+  cartLength: ''
 };
 var getters = {
   isAuthenticated: function isAuthenticated(state) {
@@ -88,6 +87,8 @@ var actions = {
             commit('setToken', token);
             commit('setRefreshToken', refreshToken);
             commit('setUserData', user);
+            commit('setCart', user.cartList);
+            commit('setCartLength', user.cartList.length);
 
             this._vm.$swal({
               icon: 'success',
@@ -97,27 +98,27 @@ var actions = {
 
             _router["default"].push('/');
 
-            _context.next = 28;
+            _context.next = 30;
             break;
 
-          case 23:
-            _context.prev = 23;
+          case 25:
+            _context.prev = 25;
             _context.t1 = _context["catch"](1);
 
             if (!_context.t1.response) {
-              _context.next = 28;
+              _context.next = 30;
               break;
             }
 
             error = _context.t1.response.data.msg;
             throw error;
 
-          case 28:
+          case 30:
           case "end":
             return _context.stop();
         }
       }
-    }, null, this, [[1, 23]]);
+    }, null, this, [[1, 25]]);
   },
   logout: function logout(_ref2) {
     var commit;
@@ -141,9 +142,6 @@ var actions = {
   }
 };
 var mutations = {
-  loginOrReg: function loginOrReg(state, data) {
-    state.login = data;
-  },
   setToken: function setToken(state, token) {
     state.token = token;
   },

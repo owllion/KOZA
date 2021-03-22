@@ -3,7 +3,6 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
-
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import lottie from 'lottie-web';
@@ -16,6 +15,8 @@ import '@/assets/css/global.css';
 import ScrollAnimation from '@/directive/scrollAnimation';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import JwPagination from 'jw-vue-pagination';
+Vue.component('jw-pagination', JwPagination);
 
 import VueTilt from 'vue-tilt.js'
 Vue.use(VueTilt)

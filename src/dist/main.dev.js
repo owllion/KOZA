@@ -34,11 +34,15 @@ var _vueSweetalert = _interopRequireDefault(require("vue-sweetalert2"));
 
 require("sweetalert2/dist/sweetalert2.min.css");
 
+var _jwVuePagination = _interopRequireDefault(require("jw-vue-pagination"));
+
 var _vueTilt = _interopRequireDefault(require("vue-tilt.js"));
 
 var _vuelidate = _interopRequireDefault(require("vuelidate"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+_vue["default"].component('jw-pagination', _jwVuePagination["default"]);
 
 _vue["default"].use(_vueTilt["default"]);
 

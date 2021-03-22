@@ -1,113 +1,95 @@
 <template>
-  <section class=" pa-w-full pa-mt-20 pa-p-20">
-    <div class="container pa-m-auto pa-px-12">
-     <h2 class="pa-font-sm pa-text-5xl pa-mb-16 pa-text-center">All Products</h2>
-
-     <div class="filter">
-          <div class="pa-w-72 pa-bg-red-200" >500</div>
-      </div>  <!--filter -->
-
-     <div class="inner-container  pa-flex pa-my-0 pa-mx-auto pa-justify-between  pa-items-center pa-flex-wrap " v-scrollAnimation>
-
-      <div class="card pa-relative pa-rounded-xl card   pa-mr-10 pa-mb-36 pa-text-center "  v-tilt="{speed: 900, perspective: 3000,scale:1.1}">
-        <div class="img-container pa-bg-yellow-100 pa-relative">
-          <div class="pa-bg-yellow-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-2 pa-right-3">New</div>
-
-          <div class="HeartAnimation pa-absolute pa--top-5 pa--left-3 " @click='toggleHeart();testarr() ' :class="{'animate':heart}">
-          </div>
-
-            <router-link to='/' class="pa-block pa-w-full">
-                <img src="@/assets/img/veg.png" alt="" class=""></router-link>   
-        </div>
-        
-         <h4 class="pa-text-center pa-font-bold pa-text-xl pa-mb-2">Veggie</h4>
-        <p class="pa-text-center pa-font-semibold ">$50.00</p>
-         <button class="pa-absolute  pa-text-center pa-p-1 pa-transition pa-duration-300 pa-text-xl pa-font-semibold" >  <i class="fas fa-shopping-cart"></i>
-        </button>
-        <!-- <span class="span-one">Add To Cart</span>  <span class="span-two"> ➔</span>   -->
-
-      </div>
+  <section class=" pa-w-full pa-mt-20 pa-p-5">
     
-       <div class="card pa-relative pa-rounded-xl card   pa-mr-10 pa-mb-36 pa-text-center "  v-tilt="{speed: 900, perspective: 3000,scale:1.1}">
-        <div class="img-container pa-bg-yellow-100 pa-relative">
-          <div class="pa-bg-yellow-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-2 pa-right-3">New</div>
-            <router-link to='/' class="pa-block pa-w-full">
-                <img src="@/assets/img/veg.png" alt="" class=""></router-link>   
+    <div class="container pa-m-auto " v-scrollAnimation>
+
+     <h2 class="pa-font-sm pa-text-5xl pa-mb-16 pa-text-center">Our Products</h2>
+
+     <div class="filter pa-px-10 pa-mx-auto pa-mb-5 pa-flex pa-justify-between md:pa-block md:pa-mb-5">
+        <button class="pa-w-36 pa-p-3 pa-border-2 pa-border-solid pa-border-black md:pa-block md:pa-w-full pa-duration-700 pa-transition" ><span class="pa-mr-2">Filter</span><i class="fas fa-filter"></i></button>
+        <div class="search pa-pr-5 md:pa-block md:pa-w-full">
+        <input type=" md:pa-w-full" v-model='term'><i class="fas fa-search" ></i>
         </div>
-        
-         <h4 class="pa-text-center pa-font-bold pa-text-xl pa-mb-2">Veggie</h4>
-        <p class="pa-text-center pa-font-semibold ">$50.00</p>
-        <button class="pa-absolute  pa-text-center pa-p-1 pa-transition pa-duration-300 pa-text-xl pa-font-semibold" > <span class="span-one">Add To Cart</span>  <span class="span-two"> ➔</span> 
+      </div>  <!--filter -->
+     
+     <div class="inner-container  pa-flex pa-my-0 pa-mx-auto  pa-items-center pa-justify-center pa-flex-wrap pa-px-3" v-if='filterData.length'>
 
-        </button>
+      <div class="card pa-relative pa-rounded-xl pa-bg-yellow-100 pa-mr-12 pa-mb-36 pa-text-center "  v-tilt="{speed: 900, perspective: 3000,scale:1.1}"  v-for='(item,i) in pageOfItems' :key='i'>
 
-      </div>
-      <div class="card pa-relative pa-rounded-xl card   pa-mr-10 pa-mb-36 pa-text-center "  v-tilt="{speed: 900, perspective: 3000,scale:1.1}">
-        <div class="img-container pa-bg-yellow-100 pa-relative">
+        <div class="img-container  pa-relative  pa-rounded-xl pa-w-48 pa-h-72">
           <div class="pa-bg-yellow-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-2 pa-right-3">New</div>
-            <router-link to='/' class="pa-block pa-w-full">
-                <img src="@/assets/img/veg.png" alt="" class=""></router-link>   
-        </div>
-        
-         <h4 class="pa-text-center pa-font-bold pa-text-xl pa-mb-2">Veggie</h4>
-        <p class="pa-text-center pa-font-semibold ">$50.00</p>
-        <button class="pa-absolute  pa-text-center pa-p-1 pa-transition pa-duration-300 pa-text-xl pa-font-semibold" > <span class="span-one">Add To Cart</span>  <span class="span-two"> ➔</span> 
-
+          <div class="HeartAnimation pa-absolute pa--top-5 pa--left-3 " :class="{'animate':heart}">
+          </div>
+          <router-link to='/' class="pa-block pa-w-full">
+              <img :src=item.image[0] alt="product image" >
+              </router-link>   
+        </div>     
+         <h4 class="pa-text-center pa-font-bold pa-text-xl pa-mb-2">{{item.productName}}</h4>
+        <p class="pa-text-center pa-font-semibold pa-pb-3">${{item.price}}</p>
+         <button class="pa-absolute  pa-text-center pa-p-1 pa-transition pa-duration-300 pa-text-xl pa-font-semibold"  >  <i class="fas fa-shopping-cart"></i>
         </button>
+       </div>       
+      </div> <!--inner container -->
 
-      </div>
-      <div class="card pa-relative pa-rounded-xl card   pa-mr-10 pa-mb-36 pa-text-center "  v-tilt="{speed: 900, perspective: 3000,scale:1.1}">
-        <div class="img-container pa-bg-yellow-100 pa-relative">
-          <div class="pa-bg-yellow-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-2 pa-right-3">New</div>
-            <router-link to='/' class="pa-block pa-w-full">
-                <img src="@/assets/img/veg.png" alt="" class=""></router-link>   
-        </div>
+      <div class="pagination" v-if='filterData.length'>
         
-         <h4 class="pa-text-center pa-font-bold pa-text-xl pa-mb-2">Veggie</h4>
-        <p class="pa-text-center pa-font-semibold ">$50.00</p>
-        <button class="pa-absolute  pa-text-center pa-p-1 pa-transition pa-duration-300 pa-text-xl pa-font-semibold" > <span class="span-one">Add To Cart</span>  <span class="span-two"> ➔</span> 
-
-        </button>
-
-      </div>
-      <div class="card pa-relative pa-rounded-xl card   pa-mr-10 pa-mb-36 pa-text-center "  v-tilt="{speed: 900, perspective: 3000,scale:1.1}">
-        <div class="img-container pa-bg-yellow-100 pa-relative">
-          <div class="pa-bg-yellow-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-2 pa-right-3">New</div>
-            <router-link to='/' class="pa-block pa-w-full">
-                <img src="@/assets/img/veg.png" alt="" class=""></router-link>   
+          <jw-pagination :items="filterData" :pageSize=12 @changePage="onChangePage"  :styles="customStyles" :labels="customLabels" />
         </div>
-        
-         <h4 class="pa-text-center pa-font-bold pa-text-xl pa-mb-2">Veggie</h4>
-        <p class="pa-text-center pa-font-semibold ">$50.00</p>
-        <button class="pa-absolute  pa-text-center pa-p-1 pa-transition pa-duration-300 pa-text-xl pa-font-semibold" > <span class="span-one">Add To Cart</span>  <span class="span-two"> ➔</span> 
 
-        </button>
-
-      </div>
-
-    </div> <!--flex -->
-   </div>  <!-- m0-auto-->
+      <div class="notFound pa-w-full pa-py-10 pa-mx-auto pa-my-10 pa-text-center" v-if='filterData.length===0'>
+        <p class="pa-font-semibold pa-text-5xl sm:pa-text-3xl">Oops! We couldn't find results for your search:<span class="blue--text">{{term}}</span></p>
+        <img src="@/assets/svg/notFound.svg" alt="" class="pa-w-3/4 pa-mx-auto pa-block">       
+      </div>   
+     </div>  <!-- container-->
+     <ScrollToTop/>
   </section>
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex'
+import ScrollToTop from '@/components/ScrollToTop.vue'
 export default {
+  components:{
+    ScrollToTop
+  },
+  
   data() {
     return {
-      heart:false,
-      test:[1,2,3],
+        heart:false,
+        cat:'BREAD',
+        term:'',
+        pageOfItems: [],
+        customLabels : {
+            first: '<<',
+            last: '>>',
+            previous: '<',
+            next: '>'
+       },
+        customStyles: {
+          li: {
+              display: 'inline-block',
+              
+          },
+          a: {
+              color: 'black',
+              borderRadius: '50%',
+              
+           }
+        }
     }
   },
-  methods: {
-    testarr() {
-      (this.test.indexOf("1")===-1)? this.test.unshift(1) : this.test.shift()
-      
+   methods: {
+        onChangePage(pageOfItems) {
+            this.pageOfItems = pageOfItems;
+        }
     },
-    toggleHeart() {
-    this.heart  = (this.test.indexOf("1")===-1 )? !this.heart:this.heart     
+  computed: {
+    ...mapGetters('product',['allItems']),
+    filterData() {
+      const vm = this
+      return this.term.length? this.allItems.filter(item=> item.productName.toLowerCase().indexOf(vm.term.toLowerCase())> -1 ) : this.allItems
+      // return this.cat? this.allItems.filter(item=> item.category === vm.cat) : this.allItems
     },
-    
   }
 }
 </script>
@@ -143,20 +125,46 @@ export default {
 }
 
 section {
+   
     .container{
         max-width: 1600px;
+        .pagination {
+           display: flex;
+           justify-content: center;
+           flex-wrap: wrap;
+          
+        }
+        .filter {
+          button {
+            transition:all .2s ease-in-out;
+             &:hover {
+            background: #000;
+            color:white;           
+           }
+          }
+          input {
+            border: solid 2px gray;
+            border-radius: 10px;
+            padding: 6px;
+             &:focus {
+               outline: none;
+             }
+          }
+          
+        }
     }
     .card {
       overflow: hidden;
       flex-basis:21%;
-      min-width: 250px;
+      min-width: 200px;
       transform-style: preserve-3d ;
       transform: perspective(1000px);
       
       .img-container {
           width: 100%;
-          padding:2rem;
-          margin-bottom: 1rem;
+          height: 300px;
+          padding:2rem ;
+          margin-bottom: 4rem;
           .HeartAnimation {
             padding-top: 2em;
             background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/66955/web_heart_animation.png');
@@ -179,9 +187,18 @@ section {
             background-position: right
            }
         }
-        img {
-          width: 100%;
+        a{
+          padding: .5rem;
+          padding-left: 1.9rem;
+          padding-top: 2rem;
+          
+          img {
+            width: 100%;
+            height: 250px;
+                        object-fit: contain;
         }
+        }
+        
     }  
    h4{
       @extend %transform;
@@ -215,18 +232,19 @@ section {
 }
  @media (max-width:1200px) {
      body .card {
-       width: 33%;
+       flex-basis: 45%;
        margin-bottom: 5rem;
      }
  }
  @media (max-width:797px) {
       body .card {
-         width: 50%; 
+         flex-basis: 40%; 
       }
  }
   @media (max-width:639px) {
       body .card {
-         width:100%; 
+         flex-basis:100%;
+         margin-right: 0; 
       }
  }
 

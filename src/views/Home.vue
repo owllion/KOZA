@@ -61,22 +61,21 @@
       <!-- features products -->       
        </main>
    <!-- main-content -->
-
-   <!-- SCROLL TO TOP (component)--> 
-   <!-- SCROLL TO TOP -->
-
       </div> <!-- container -->
+      <ScrollToTop/>
    </div> <!-- wrapper -->
 </template>
 
 <script>
+import ScrollToTop from '@/components/ScrollToTop.vue'
 import img from '@/assets/json/img-link.json'
 import myAd from '@/components/Ad.vue'
 //import myCard from '@/components/Card.vue'
 export default {
   components: {
     //myCard,
-    myAd
+    myAd,
+    ScrollToTop
   },
   data() {
     return {
