@@ -17,13 +17,10 @@ export default {
   components: {
     Layout,
   },
-
   async created() {
     this.$store.dispatch('product/getAllItems')
-
-    // const {data:{ productList }} = await getCategoryItems('MEAT');
-    //  console.log(productList)
-   
+    this.$store.dispatch('address/getLocations')
+ 
   }
 };
 </script>
