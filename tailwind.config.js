@@ -24,6 +24,7 @@ module.exports = {
             's': {'max': '321px'}
           },
         spacing: {
+            '78':'19.5rem',
             '99': '40rem',
             '100':'50rem',
             '110':'70rem',

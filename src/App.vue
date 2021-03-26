@@ -20,7 +20,8 @@ export default {
   async created() {
     this.$store.dispatch('product/getAllItems')
     this.$store.dispatch('address/getLocations')
- 
+    this.$store.commit('product/clear')
+    this.$store.commit('product/closeFilter')
   }
 };
 </script>

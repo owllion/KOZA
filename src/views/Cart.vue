@@ -1,14 +1,15 @@
 <template>
   <section class="wrapper pa-w-full  pa-mt-16 pa-mb-10"> 
-    <!-- header -->
-    <div class="header pa-bg-hero-lg pa-bg-cover pa-py-24">
-         <div class="title pa-flex pa-justify-center pa-items-center" >
-           <h1 class="pa-text-7xl pa-py-5 pa-px-6 pa-font-bold lime accent-1--text s:pa-text-4xl">My Cart</h1>
-         </div>
-       </div>
-    <!-- header -->
-    
-     <div class="container pa-p-20 pa-mx-auto pa-my-5 pa-bg-white pa-shadow-md xs:pa-p-4"  v-scrollAnimation>   
+       <!-- banner -->
+     <Banner>My Cart</Banner>
+      <!--banner-->
+      <div>
+      <p v-show="!cartLength">
+      Your cart is empty!
+      <router-link to="/" class="pa-block pa-text-5xl pa-p-6">Go shopping</router-link>
+    </p>
+     </div>
+     <div class="container pa-p-20 pa-mx-auto pa-my-5 pa-bg-white pa-shadow-md xs:pa-p-4"  v-scrollAnimation v-show='cartLength'>   
 
       <div class="select-all pa-text-left pa-w-48 xs:pa-w-full  xs:pa-text-center pa-mb-5  pa-border-2 pa-border-gray-100 pa-border-solid pa-py-3">
       <div class="pa-flex  pa-w-full pa-pl-7 xs:pa-justify-center xs:pa-pl-0">
@@ -29,35 +30,33 @@
     </tr>
   </thead>
   <tbody>
-    <tr >
+    <tr v-for='(item,i) in cartList' :key='i'>
        <td class="pa-pl-5">
         <input type="checkbox" class="checkbox">
             </td>
       <td class="image">
         <div class="pa-flex pa-justify-center">
          <div class="pa-w-24 pa-h-24 pa-mr-5">
-          <img src="@/assets/img/bread.png" alt="" class="pa-w-full pa-object-cover">
+          <img :src="item.image[0]" alt="icon" >
          </div>
-         <p class="pa-pt-10">MEAT</p>
+         <p class="pa-pt-10 pa-font-semibold ">{{item.productName}}</p>
          </div>
       </td>
-      <td>$100.00</td>
+      <td class="pa-font-semibold">{{item.price}}</td>
       <td>
         <div class="quantity ">
-          <button class="pa-p-5  pa-text-2xl plus-btn focus:pa-outline-none " type="button" name="button"  >
-            <!-- :disabled='item.stock=== 0 ' -->
-
+          <button class="pa-p-5  pa-text-2xl plus-btn focus:pa-outline-none " type="button" name="button"  :disabled=' itemQty > item.stock' >
             <img src="@/assets/svg/plus.svg" alt="" > 
           </button>
-          <input type="text" value="1" class="pa-w-10  pa-text-center pa-border-2 pa-border-gray-100 pa-border-solid  focus:pa-outline-none " maxlength="2">
+          <input type="text" :value="item.qty" class="pa-w-10  pa-text-center pa-border-2 pa-border-gray-100 pa-border-solid  focus:pa-outline-none " maxlength="2"  readonly>
 
-          <button class="pa-p-5  minus-btn focus:pa-outline-none " type="button" name="button"  >
-            <!-- :disabled='qty===1' -->
+          <button class="pa-p-5  minus-btn focus:pa-outline-none " type="button" name="button"  :disabled='item.qty === 1'>
+            <!--  -->
               <img src="@/assets/svg/minus.svg" alt="" class="" > 
           </button>
         </div>
       </td>
-      <td>$500.00</td>
+      <td class="pa-font-semibold">{{ item.price *item.qty}}</td>
       <td class='pa-pl-4'>
          <div class=" cancel pa-text-center">
            <button class="cancel-btn xs:pa-ml-0" type="button" name="button" >
@@ -74,15 +73,15 @@
         <table class="pa-w-full  ">
           <tr>
             <td class="pa-font-semibold">SUBTOTAL</td>
-            <td>$200.00</td>
+            <td>${{subTotal}}</td>
           </tr>
           <tr>
             <td class="pa-font-semibold">TAX</td>
-            <td>$8.00</td>
+            <td>${{tax}}</td>
           </tr>
           <tr>
             <td class="pa-font-semibold">TOTAL</td>
-            <td>$300.00</td>
+            <td>${{subTotal+tax}}</td>
           </tr>
         </table>
         </div>
@@ -107,12 +106,29 @@
 </template>
 
 <script>
-
+import Banner from '@/components/Header-banner'
+import { mapGetters,} from 'vuex'
 export default {
+  components:{
+    Banner   
+  }, 
   data() {
     return {
-     
+      itemQty:1,
+      tax:1.00
     }
+  },
+  computed: {
+    ...mapGetters('auth',['cartList','cartLength']),
+    subTotal() {
+      return this.cartList.reduce((total, p) => {
+        return Math.round(total + p.price * p.qty)
+      },0)
+    }
+    
+  },
+  created() {
+    console.log(this.cartList)
   }
 }
 </script>
@@ -123,7 +139,7 @@ export default {
   transform: $trans;
 }
 .before-enter {
-  @include animation(0, translateX(-500px));
+  @include animation(0, translateX(500px));
   transition: all .3s ease-in-out;
 }
 
@@ -163,12 +179,10 @@ export default {
           }
        }       
     }   
-    button {
-      
+    button {     
       img {
         width: 25px;
-        height: 15px;
-       
+        height: 15px;     
       }
     }
     .checkbox {
@@ -185,11 +199,23 @@ export default {
       }
       &:checked::after {
       font-weight: 900;
-      content: '\f058'; 
+      content: '\f058';
+      animation: pop .4s 1; 
     }
-    &:active {
-      transform: scale(.6);
-    }
+    @keyframes pop {
+       0% {
+         transform: scale(1);
+       }
+       33% {
+         transform: scale(0.9);
+       }
+       66% {
+         transform: scale(1.5);
+       }
+       100% {
+         transform:scale(1)
+       }
+    };
     &:hover {
       transform: scale(1.2);
     }

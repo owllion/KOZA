@@ -2,7 +2,7 @@
   <div>
       <Header @sideNavToggle ='displayNav = !displayNav' />
       <SideNav :show='displayNav' @close='displayNav = false'/>
-
+      <SideFilter/>
       <slot/>
 
       <Footer></Footer>  
@@ -22,7 +22,8 @@ export default {
   components: {
       Header,
       Footer,
-      SideNav: () => import('@/components/SideNav.vue')
+      SideNav: () => import('@/components/SideNav.vue'),
+      SideFilter: () => import('@/components/filter.vue')
   }
 }
 </script>

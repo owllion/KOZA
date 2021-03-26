@@ -1,0 +1,25 @@
+{
+    "sortType": [
+        { "name":"A-Z","type": "a_z" },
+        { "name":"Z-A","type": "z_a" },
+        { "name":"HIGH TO LOW","type": "high_low" },
+        { "name":"LOW TO HIGH","type": "low_high" },
+        { "name":"NEW TO OLD","type": "new_old" },
+        { "name":"OLD TO NEW","type": "old_new" }
+            
+    ],
+    "price":[
+        {"range":"Under$100", "value":"<100"},
+        {"range":"$100-$300", "value":"100_300"},
+        {"range":"Above $300", "value":">300"}
+    ],
+    "origin":[
+        {"name":"USA"},
+        {"name":"Chile"},
+        {"name":"Norway"},
+        {"name":"Mexico"},
+        {"name":"Canada"},
+        {"name":"Netherlands"},
+        {"name":"Colombia"}
+    ]
+}

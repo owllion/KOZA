@@ -8,7 +8,13 @@ exports["default"] = void 0;
 var _product = require("@/api/product");
 
 var state = {
-  products: ''
+  products: '',
+  keyword: '',
+  category: '',
+  price: [],
+  sort: '',
+  showFilter: false,
+  origin: ''
 };
 var actions = {
   getAllItems: function getAllItems(_ref) {
@@ -53,11 +59,50 @@ var actions = {
 var getters = {
   allItems: function allItems(state) {
     return state.products;
+  },
+  keyword: function keyword(state) {
+    return state.keyword;
+  },
+  category: function category(state) {
+    return state.category;
+  },
+  price: function price(state) {
+    return state.price;
+  },
+  sort: function sort(state) {
+    return state.sort;
+  },
+  origin: function origin(state) {
+    return state.origin;
   }
 };
 var mutations = {
+  clear: function clear(state) {
+    state.price = [], state.category = '', state.origin = '';
+  },
+  closeFilter: function closeFilter(state) {
+    state.showFilter = false;
+  },
   setAllProducts: function setAllProducts(state, data) {
     state.products = data;
+  },
+  setKeyword: function setKeyword(state, data) {
+    state.keyword = data;
+  },
+  setCategory: function setCategory(state, data) {
+    state.category = data;
+  },
+  setPrice: function setPrice(state, data) {
+    state.price = data;
+  },
+  setSortType: function setSortType(state, data) {
+    state.sort = data;
+  },
+  setOrigin: function setOrigin(state, data) {
+    state.origin = data;
+  },
+  setShowFilter: function setShowFilter(state, data) {
+    state.showFilter = data;
   }
 };
 var _default = {

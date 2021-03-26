@@ -1,23 +1,53 @@
 <template>
-  <section class=" pa-w-full pa-mt-20 pa-p-5">
-    
-    <div class="container pa-m-auto " v-scrollAnimation>
+  <section class=" pa-w-full pa-mt-10 ">
+    <!-- banner -->
+    <Banner>Our Products</Banner>
+    <!--banner-->
+    <div class="container pa-mx-auto pa-mt-24" v-scrollAnimation>
 
-     <h2 class="pa-font-sm pa-text-5xl pa-mb-16 pa-text-center">Our Products</h2>
+      <!-- category-icon -->
+       <div class="category pa-flex pa-justify-center pa-mb-20 xs:pa-hidden ">
+         <ul class="pa-flex pa-flex-wrap pa-justify-center">
+           <li  v-for ='(icon,i) in categoryIcon' :key="i" class="pa-mb-5" >
+             <button @click='changeCat(icon.category)' class="focus:pa-outline-none">
+             <img :src="require( `../assets/img/${icon.name}.png`)" alt="icon" >
+            </button>
+            </li>
+           </ul>
+       </div>
+       
+     <!-- filter -->
+     <div class="filter  pa-px-10 pa-border-b-2 pa-border-solid pa-border-gray-100 pa-mx-auto pa-mb-5 pa-flex pa-justify-between md:pa-block md:pa-mb-5">
+       <!-- left -->
+       <div class="filter-left pa-flex ">
+        <button class=" pa-w-36 pa-p-3 pa-border-2 pa-border-solid pa-border-black md:pa-block md:pa-w-full pa-duration-700 pa-transition" @click='openSideFilter'>
+          <span class="pa-mr-2 pa-font-semibold" >Filter</span>
+          <i class="fas fa-filter"></i>
+        </button>     
+       </div>
+      <!-- left -->
 
-     <div class="filter pa-px-10 pa-mx-auto pa-mb-5 pa-flex pa-justify-between md:pa-block md:pa-mb-5">
-        <button class="pa-w-36 pa-p-3 pa-border-2 pa-border-solid pa-border-black md:pa-block md:pa-w-full pa-duration-700 pa-transition" ><span class="pa-mr-2">Filter</span><i class="fas fa-filter"></i></button>
-        <div class="search pa-pr-5 md:pa-block md:pa-w-full">
-        <input type=" md:pa-w-full" v-model='term'><i class="fas fa-search" ></i>
+      <!-- center -->
+       <div class="pa-ml-10 pa-px-5 pa-py-2">
+          <p class="pa-font-semibold">item <span class="pa-text-3xl pa-font-normal green--text">{{filteredByAll.length}} </span> of 
+          <span class="pa-text-3xl pa-font-normal">{{allItems.length}}</span> total</p>
         </div>
+      <!-- center -->
+
+      <!-- right -->
+        <div class="search-box md:pa-w-full md:pa-mt-6 pa-mr-16">
+        <input type="text" class="md:pa-w-full pa-block pa-w-full" v-model='keywords' placeholder="Search"><i class="fas fa-search" ></i>
+        </div>
+      <!-- right -->
       </div>  <!--filter -->
      
-     <div class="inner-container  pa-flex pa-my-0 pa-mx-auto  pa-items-center pa-justify-center pa-flex-wrap pa-px-3" v-if='filterData.length'>
+     <div class="inner-container  pa-flex pa-my-0 pa-mx-auto  pa-items-center pa-justify-center pa-flex-wrap pa-px-3" v-if='filteredByAll.length'>
 
       <div class="card pa-relative pa-rounded-xl pa-bg-yellow-100 pa-mr-12 pa-mb-36 pa-text-center "  v-tilt="{speed: 900, perspective: 3000,scale:1.1}"  v-for='(item,i) in pageOfItems' :key='i'>
 
         <div class="img-container  pa-relative  pa-rounded-xl pa-w-48 pa-h-72">
-          <div class="pa-bg-yellow-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-2 pa-right-3">New</div>
+          <div class="pa-bg-yellow-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-4 pa-right-3" v-if="tagShow">New</div>
+          <div class="pa-bg-yellow-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-4 pa-right-3">New</div>
           <div class="HeartAnimation pa-absolute pa--top-5 pa--left-3 " :class="{'animate':heart}">
           </div>
           <router-link to='/' class="pa-block pa-w-full">
@@ -31,13 +61,13 @@
        </div>       
       </div> <!--inner container -->
 
-      <div class="pagination" v-if='filterData.length'>
+      <div class="pagination" v-if='filteredByAll.length'>
         
-          <jw-pagination :items="filterData" :pageSize=12 @changePage="onChangePage"  :styles="customStyles" :labels="customLabels" />
+          <jw-pagination :items="filteredByAll" :pageSize=12 @changePage="onChangePage"  :styles="customStyles" :labels="customLabels" />
         </div>
 
-      <div class="notFound pa-w-full pa-py-10 pa-mx-auto pa-my-10 pa-text-center" v-if='filterData.length===0'>
-        <p class="pa-font-semibold pa-text-5xl sm:pa-text-3xl">Oops! We couldn't find results for your search:<span class="blue--text">{{term}}</span></p>
+      <div class="notFound pa-w-full pa-py-10 pa-mx-auto pa-my-10 pa-text-center" v-if='filteredByAll.length===0'>
+        <p class="pa-font-semibold pa-text-5xl sm:pa-text-3xl">Oops! We couldn't find results for your search:<span class="blue--text">{{keyword}}</span></p>
         <img src="@/assets/svg/notFound.svg" alt="" class="pa-w-3/4 pa-mx-auto pa-block">       
       </div>   
      </div>  <!-- container-->
@@ -46,18 +76,23 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import ScrollToTop from '@/components/ScrollToTop.vue'
+import { mapGetters, mapMutations} from 'vuex'
+import ScrollToTop from '@/components/ScrollToTop'
+import img from '@/assets/json/img-link'
+import sortText from '@/assets/json/filter'
+import {filterByPrice, getByCategory,getByKeyword,sort, getByOrigin  } from '@/filter/filter'
+import Banner from '@/components/Header-banner'
 export default {
   components:{
-    ScrollToTop
-  },
-  
+    ScrollToTop,
+    Banner
+    
+  }, 
   data() {
     return {
+        categoryIcon:img.categoryIcon,
+        sortType:sortText.sortType,
         heart:false,
-        cat:'BREAD',
-        term:'',
         pageOfItems: [],
         customLabels : {
             first: '<<',
@@ -67,34 +102,60 @@ export default {
        },
         customStyles: {
           li: {
-              display: 'inline-block',
-              
+              display: 'inline-block',             
           },
           a: {
-              color: 'black',
-              borderRadius: '50%',
-              
+              color: 'black',           
            }
         }
     }
   },
+  computed: {
+    ...mapGetters('product',['allItems','price','keyword','category','sort','origin']),
+    keywords: {
+      get() {
+        return this.keyword
+      },
+      set(value) {
+        this.setKeyword(value)
+      }
+    },
+    tagShow(){
+        const now = Date.now()
+        const minusFiveDays = new Date().setDate(new Date().getDate()-5)
+        const fiveDaysAgo = new Date(minusFiveDays).getTime()
+
+        return this.allItems.filter(item=> new Date(item.createdAt).getTime() - now < fiveDaysAgo ? true : false )
+    },
+    filteredByAll() {
+      return sort( 
+       getByCategory ( getByKeyword( getByOrigin( filterByPrice( 
+         this.allItems, this.price),this.origin), this.keyword), this.category ),   
+         this.sort );      
+    }
+  },
    methods: {
+      ...mapMutations('product',['setCategory','setShowFilter','setKeyword']),
         onChangePage(pageOfItems) {
             this.pageOfItems = pageOfItems;
+        },
+        changeCat(value) {
+          this.setCategory(value)
+        },
+        openSideFilter() {
+          this.setShowFilter(true)
         }
+        
     },
-  computed: {
-    ...mapGetters('product',['allItems']),
-    filterData() {
-      const vm = this
-      return this.term.length? this.allItems.filter(item=> item.productName.toLowerCase().indexOf(vm.term.toLowerCase())> -1 ) : this.allItems
-      // return this.cat? this.allItems.filter(item=> item.category === vm.cat) : this.allItems
-    },
-  }
+    created() {
+      this.keywords = ''
+      this.setShowFilter(false)
+    }
 }
 </script>
 
 <style lang="scss" scoped>
+
 %transform {
    transform: translateZ(80px);
 }
@@ -105,27 +166,23 @@ export default {
   transition:all .3s;
   display: inline-block;
 }
-
-@mixin animation ($opacity, $trans) {
-  opacity: $opacity;
-  transform: $trans;
-
-}
 @mixin translateX ($percent) {
     transform: translateX($percent);
 }
 
+@mixin animation ($opacity, $trans) {
+  opacity: $opacity;
+  transform: $trans;
+}
 .before-enter {
-  @include animation(0, translateY(-500px));
-  transition: all 2s ease-in-out;
+  @include animation(0, translateX(-500px));
+  transition: all .3s ease-in-out;
 }
 
 .enter {
-  @include animation(1, translateY(0px));
+  @include animation(1, translateX(0px));
 }
-
 section {
-   
     .container{
         max-width: 1600px;
         .pagination {
@@ -133,6 +190,23 @@ section {
            justify-content: center;
            flex-wrap: wrap;
           
+        }
+        .category {
+           button {
+             display: inline-block;
+             transition:all .2s ease-in;
+             margin-right: 2.5rem;
+             border:2px dotted rgb(9, 155, 26);    
+             border-radius: 10px 120px /10px;
+             padding: 2.5rem;
+              &:hover {
+                transform: scale(1.1);
+               
+              }
+              img {
+                width: 65px;
+              }
+           }
         }
         .filter {
           button {
@@ -142,13 +216,23 @@ section {
             color:white;           
            }
           }
-          input {
-            border: solid 2px gray;
-            border-radius: 10px;
-            padding: 6px;
-             &:focus {
+          .search-box {
+            position: relative;
+            background: #edede8;
+            height: 40px;
+            border-radius: 40px;
+            padding: 10px;
+            
+            input {
+               padding-left: 25px;
                outline: none;
-             }
+            }
+             .fa-search {
+                 position: absolute;
+                 color: rgb(196, 213, 44);
+                 top: 12px;
+                 left: 13px;
+               }
           }
           
         }
@@ -195,7 +279,7 @@ section {
           img {
             width: 100%;
             height: 250px;
-                        object-fit: contain;
+            object-fit: contain;
         }
         }
         

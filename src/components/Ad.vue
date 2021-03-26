@@ -1,12 +1,9 @@
 <template>    
     <section class="wrapper" >
            <div class="picture-container" v-scrollAnimation>   
-
-              <img src="@/assets/img/shop.png" alt="shop" class="img-one">
-           
-       
+              <img src="@/assets/img/shop.png" alt="shop" class="img-one">    
        </div>
-
+       
         <div class="content-container" v-scrollAnimation> 
          <div class="content" >
             <h3 class="pa-mb-5 pa-font-bold">Only The Fresh</h3>

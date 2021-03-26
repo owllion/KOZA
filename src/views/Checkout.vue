@@ -2,6 +2,7 @@
  <div class="row pa-my-48">
    <div class="col-75">
      <div class="container">
+       <sideFilter/>
        <form>
        
        <div class="row ">
@@ -27,7 +28,6 @@
 </template>
 
 <script>
-
 //import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
 export default {
