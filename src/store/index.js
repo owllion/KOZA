@@ -5,6 +5,7 @@ import VuexPersist from 'vuex-persist'
 import auth from './modules/auth'
 import product from './modules/product'
 import address from './modules/address'
+import order from './modules/order'
 
 Vue.use(Vuex)
 //Vue.use(VueAxios, axios)
@@ -20,9 +21,9 @@ const store = new Vuex.Store({
     modules: {
       auth,
       product,
-      address
+      address,
+      order
     },
-    strict: true,
     plugins: [vuexLocalStorage.plugin]
  })
  export default store

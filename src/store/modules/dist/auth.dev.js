@@ -18,7 +18,8 @@ var state = {
   refreshToken: null,
   userData: '',
   cartList: [],
-  cartLength: ''
+  cartLength: '',
+  favList: []
 };
 var getters = {
   isAuthenticated: function isAuthenticated(state) {
@@ -38,6 +39,9 @@ var getters = {
   },
   cartLength: function cartLength(state) {
     return state.cartLength;
+  },
+  favList: function favList(state) {
+    return state.favList;
   }
 };
 var actions = {
@@ -89,6 +93,7 @@ var actions = {
             commit('setUserData', user);
             commit('setCart', user.cartList);
             commit('setCartLength', user.cartList.length);
+            commit('setFavList', user.favList);
 
             this._vm.$swal({
               icon: 'success',
@@ -98,27 +103,27 @@ var actions = {
 
             _router["default"].push('/');
 
-            _context.next = 30;
+            _context.next = 31;
             break;
 
-          case 25:
-            _context.prev = 25;
+          case 26:
+            _context.prev = 26;
             _context.t1 = _context["catch"](1);
 
             if (!_context.t1.response) {
-              _context.next = 30;
+              _context.next = 31;
               break;
             }
 
             error = _context.t1.response.data.msg;
             throw error;
 
-          case 30:
+          case 31:
           case "end":
             return _context.stop();
         }
       }
-    }, null, this, [[1, 25]]);
+    }, null, this, [[1, 26]]);
   },
   logout: function logout(_ref2) {
     var commit;
@@ -159,6 +164,9 @@ var mutations = {
   },
   setCartLength: function setCartLength(state, length) {
     state.cartLength = length;
+  },
+  setFavList: function setFavList(state, data) {
+    state.favList = data;
   }
 };
 var _default = {

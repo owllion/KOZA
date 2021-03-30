@@ -28,14 +28,14 @@
       <!-- left -->
 
       <!-- center -->
-       <div class="pa-ml-10 pa-px-5 pa-py-2">
-          <p class="pa-font-semibold">item <span class="pa-text-3xl pa-font-normal green--text">{{filteredByAll.length}} </span> of 
+       <div class="pa-ml-10 pa-px-5 pa-py-2 pa-text-center md:pa-mt-5 md:pa-ml-0">
+          <p class="pa-font-semibold">item <span class="pa-text-3xl pa-font-normal green--text" :class="{ 'filterNum': filteredByAll.length===0 }">{{filteredByAll.length}} </span> of 
           <span class="pa-text-3xl pa-font-normal">{{allItems.length}}</span> total</p>
         </div>
       <!-- center -->
 
       <!-- right -->
-        <div class="search-box md:pa-w-full md:pa-mt-6 pa-mr-16">
+        <div class="search-box md:pa-w-full md:pa-mb-6 pa-mr-16">
         <input type="text" class="md:pa-w-full pa-block pa-w-full" v-model='keywords' placeholder="Search"><i class="fas fa-search" ></i>
         </div>
       <!-- right -->
@@ -46,17 +46,17 @@
       <div class="card pa-relative pa-rounded-xl pa-bg-yellow-100 pa-mr-12 pa-mb-36 pa-text-center "  v-tilt="{speed: 900, perspective: 3000,scale:1.1}"  v-for='(item,i) in pageOfItems' :key='i'>
 
         <div class="img-container  pa-relative  pa-rounded-xl pa-w-48 pa-h-72">
-          <div class="pa-bg-yellow-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-4 pa-right-3" v-if="tagShow">New</div>
-          <div class="pa-bg-yellow-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-4 pa-right-3">New</div>
-          <div class="HeartAnimation pa-absolute pa--top-5 pa--left-3 " :class="{'animate':heart}">
-          </div>
+          <div class="pa-rounded-full pa-bg-red-600 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-10 pa-right-3" v-if="item.sales>750">Hot</div>
+          <div class="pa-rounded-full pa-bg-green-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-4 pa-right-3">New</div>
+           <Heart :id=item.productId />
           <router-link to='/' class="pa-block pa-w-full">
               <img :src=item.image[0] alt="product image" >
               </router-link>   
         </div>     
          <h4 class="pa-text-center pa-font-bold pa-text-xl pa-mb-2">{{item.productName}}</h4>
         <p class="pa-text-center pa-font-semibold pa-pb-3">${{item.price}}</p>
-         <button class="pa-absolute  pa-text-center pa-p-1 pa-transition pa-duration-300 pa-text-xl pa-font-semibold"  >  <i class="fas fa-shopping-cart"></i>
+         <button @click="add(item.productId,'1')" class="pa-absolute  pa-text-center pa-p-1 pa-transition pa-duration-300 pa-text-xl pa-font-semibold focus:pa-outline-none"  > 
+          <i class="fas fa-shopping-cart"></i>
         </button>
        </div>       
       </div> <!--inner container -->
@@ -66,27 +66,36 @@
           <jw-pagination :items="filteredByAll" :pageSize=12 @changePage="onChangePage"  :styles="customStyles" :labels="customLabels" />
         </div>
 
-      <div class="notFound pa-w-full pa-py-10 pa-mx-auto pa-my-10 pa-text-center" v-if='filteredByAll.length===0'>
-        <p class="pa-font-semibold pa-text-5xl sm:pa-text-3xl">Oops! We couldn't find results for your search:<span class="blue--text">{{keyword}}</span></p>
-        <img src="@/assets/svg/notFound.svg" alt="" class="pa-w-3/4 pa-mx-auto pa-block">       
-      </div>   
+      <div class="notFound pa-w-full pa-flex pa-justify-center pa-items-center pa-flex-col pa-my-10 pa-text-center" v-if='filteredByAll.length===0'>
+
+        <div class="pa-w-3/4 pa-px-15">
+        <p class="pa-font-semibold pa-text-3xl xs:pa-text-xl">Oops! We couldn't find results for your search:&nbsp;<span class="blue--text">{{keyword}}</span></p>
+        </div>  
+
+        <div class="pa-w-99 xs:pa-w-full">
+        <img src="@/assets/svg/notFound.svg" alt="" class="pa-w-full pa-h-full pa-block">   
+        </div>
+
+      </div> 
+
      </div>  <!-- container-->
      <ScrollToTop/>
   </section>
 </template>
 
 <script>
-import { mapGetters, mapMutations} from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import ScrollToTop from '@/components/ScrollToTop'
 import img from '@/assets/json/img-link'
 import sortText from '@/assets/json/filter'
 import {filterByPrice, getByCategory,getByKeyword,sort, getByOrigin  } from '@/filter/filter'
 import Banner from '@/components/Header-banner'
+import Heart from '@/components/Heart'
 export default {
   components:{
     ScrollToTop,
-    Banner
-    
+    Banner,
+    Heart  
   }, 
   data() {
     return {
@@ -135,7 +144,12 @@ export default {
     }
   },
    methods: {
+      ...mapActions('product',['addActions']),
       ...mapMutations('product',['setCategory','setShowFilter','setKeyword']),
+        add(id,qty){
+          const params = { productId:id , qty}
+            this.addActions(params)
+        },
         onChangePage(pageOfItems) {
             this.pageOfItems = pageOfItems;
         },
@@ -155,7 +169,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.filterNum {
+  color:rgb(221, 55, 55)  !important;
+}
 %transform {
    transform: translateZ(80px);
 }
@@ -221,8 +237,7 @@ section {
             background: #edede8;
             height: 40px;
             border-radius: 40px;
-            padding: 10px;
-            
+            padding: 10px;            
             input {
                padding-left: 25px;
                outline: none;
@@ -233,8 +248,7 @@ section {
                  top: 12px;
                  left: 13px;
                }
-          }
-          
+          }         
         }
     }
     .card {
@@ -242,35 +256,12 @@ section {
       flex-basis:21%;
       min-width: 200px;
       transform-style: preserve-3d ;
-      transform: perspective(1000px);
-      
+      transform: perspective(1000px);  
       .img-container {
           width: 100%;
           height: 300px;
           padding:2rem ;
           margin-bottom: 4rem;
-          .HeartAnimation {
-            padding-top: 2em;
-            background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/66955/web_heart_animation.png');
-            background-repeat: no-repeat;
-            background-size: 2900%;
-            background-position: left;
-            height: 100px;
-            width: 100px;
-            margin: 0 auto;
-            cursor: pointer;
-        }
-          .animate {
-            animation: heart-burst .8s steps(28) forwards;
-         }
-          @keyframes heart-burst {
-            0% {
-            background-position: left
-            }
-            100% {
-            background-position: right
-           }
-        }
         a{
           padding: .5rem;
           padding-left: 1.9rem;
@@ -281,8 +272,7 @@ section {
             height: 250px;
             object-fit: contain;
         }
-        }
-        
+        }       
     }  
    h4{
       @extend %transform;
@@ -298,7 +288,7 @@ section {
          @include translateX(150%);
          i {
            font-size: 1.5rem;
-           background: rgb(237, 164, 29);
+           background: rgb(211, 67, 67);
            border-radius: 50%;
            padding: 1.4rem;
            &:hover {

@@ -3,17 +3,24 @@
        <!-- banner -->
      <Banner>My Cart</Banner>
       <!--banner-->
-      <div>
-      <p v-show="!cartLength">
-      Your cart is empty!
-      <router-link to="/" class="pa-block pa-text-5xl pa-p-6">Go shopping</router-link>
-    </p>
-     </div>
-     <div class="container pa-p-20 pa-mx-auto pa-my-5 pa-bg-white pa-shadow-md xs:pa-p-4"  v-scrollAnimation v-show='cartLength'>   
+      <div class="pa-flex pa-justify-center pa-items-center " v-show="!cartList.length">
+        <div class="content pa-flex pa-flex-wrap pa-w-99  pa-items-center">
+          <div class="left img-container pa-w-1/2 pa-pr-5 md:pa-w-full md:pa-px-36 xs:pa-px-16">
+          <img src="@/assets/svg/cart-empty.svg" alt="" class="pa-w-full pa-h-full pa-object-cover">
+          </div>
 
-      <div class="select-all pa-text-left pa-w-48 xs:pa-w-full  xs:pa-text-center pa-mb-5  pa-border-2 pa-border-gray-100 pa-border-solid pa-py-3">
+          <div class="right pa-w-1/2 md:pa-w-full md:pa-px-24 xs:pa-px-20">
+           <p class="pa-text-3xl  pa-block pa-text-center pa-font-semibold pa-tracking-wider md:pa-text-sm"> Your cart is empty! </p>        
+          <router-link to="/products" class="shop-btn pa-block  pa-text-2xl pa-p-3 pa-text-center pa-bg-yellow-500 white--text  pa-tracking-wider pa-transition pa-duration-500 md:pa-text-sm">Go shopping</router-link>
+         </div>
+    </div>
+     </div>
+
+     <div class="container pa-p-20 pa-mx-auto pa-my-5 pa-bg-white pa-shadow-md xs:pa-p-4"  v-scrollAnimation v-show='cartList.length'>   
+
+      <div class="select-all pa-text-left pa-w-48 xs:pa-w-full  xs:pa-text-center pa-mb-5  pa-border-2 pa-border-gray-100 pa-border-solid pa-py-3 pa-hidden" >
       <div class="pa-flex  pa-w-full pa-pl-7 xs:pa-justify-center xs:pa-pl-0">
-          <input type="checkbox" class="checkbox">
+          <input type="checkbox" class="checkbox" v-model="allSelected" @click="selectAll">
         <span class="pa-pl-5 pa-pt-1.5  pa-text-xl pa-font-semibold ">SELECT All</span>
     </div>
   </div> 
@@ -21,8 +28,12 @@
     <table class="table-auto">
   <thead>  
     <tr class=" pa-text-center  table-title pa-bg-black white--text">
-      <th></th>
-      <th >PRODUCT</th>
+      <th>
+       
+        <span class="pa-pr-3 pa-text-center pa-inline-block">SELECT All</span>
+         <input type="checkbox" class="checkbox pa-inline-block pa-h-10" v-model="allSelected" @click="selectAll">
+        </th>
+      <th>PRODUCT</th>
       <th>PRICE</th>
       <th>QUANTITY</th>
       <th>SUBTOTAL</th>
@@ -32,7 +43,7 @@
   <tbody>
     <tr v-for='(item,i) in cartList' :key='i'>
        <td class="pa-pl-5">
-        <input type="checkbox" class="checkbox">
+        <input type="checkbox" class="checkbox" :value="item" @click='select' v-model='ischeckedList'>
             </td>
       <td class="image">
         <div class="pa-flex pa-justify-center">
@@ -42,24 +53,27 @@
          <p class="pa-pt-10 pa-font-semibold ">{{item.productName}}</p>
          </div>
       </td>
-      <td class="pa-font-semibold">{{item.price}}</td>
+      <td class="pa-font-semibold">${{item.price}}</td>
       <td>
         <div class="quantity ">
-          <button class="pa-p-5  pa-text-2xl plus-btn focus:pa-outline-none " type="button" name="button"  :disabled=' itemQty > item.stock' >
+            <button class="pa-p-5  pa-text-2xl plus-btn focus:pa-outline-none " type="button" name="button"  @click="plus(i)" :disabled=' item.qty === item.stock' >
             <img src="@/assets/svg/plus.svg" alt="" > 
           </button>
-          <input type="text" :value="item.qty" class="pa-w-10  pa-text-center pa-border-2 pa-border-gray-100 pa-border-solid  focus:pa-outline-none " maxlength="2"  readonly>
+          <input type="text" class="pa-w-10   pa-text-center pa-border-2 pa-border-gray-100 pa-border-solid  focus:pa-outline-none " maxlength="2" v-model='item.qty' >
 
-          <button class="pa-p-5  minus-btn focus:pa-outline-none " type="button" name="button"  :disabled='item.qty === 1'>
+          <button class="pa-p-5  minus-btn focus:pa-outline-none " type="button" name="button"  :disabled='item.qty === 1' @click="minus(i)">
             <!--  -->
               <img src="@/assets/svg/minus.svg" alt="" class="" > 
           </button>
         </div>
+        <div>
+          <span class="pa-pr-1">stock:</span><span class="red--text pa-font-semibold pa-tracking-widest">{{item.stock}}</span>
+        </div>
       </td>
-      <td class="pa-font-semibold">{{ item.price *item.qty}}</td>
+      <td class="pa-font-semibold">${{ Math.floor(item.price *item.qty)}}</td>
       <td class='pa-pl-4'>
          <div class=" cancel pa-text-center">
-           <button class="cancel-btn xs:pa-ml-0" type="button" name="button" >
+           <button class="cancel-btn xs:pa-ml-0 focus:pa-outline-none" type="button" name="button" @click='deleteItem(item.productId)' >
              <img src="@/assets/svg/cancel.svg" alt="" class="" >
           </button>
          </div>
@@ -76,12 +90,8 @@
             <td>${{subTotal}}</td>
           </tr>
           <tr>
-            <td class="pa-font-semibold">TAX</td>
-            <td>${{tax}}</td>
-          </tr>
-          <tr>
             <td class="pa-font-semibold">TOTAL</td>
-            <td>${{subTotal+tax}}</td>
+            <td>${{subTotal}}</td>
           </tr>
         </table>
         </div>
@@ -89,16 +99,16 @@
     <!-- continue link -->
     <div class="continue pa-mt-10 pa-flex pa-justify-between md:pa-block">
       <div class="clearAndShopBtn">
-          <router-link to='/checkout' class="pa-inline-block pa-bg-black white--text pa-px-6 pa-py-3  pa-mr-9 pa-duration-500 pa-transition md:pa-w-full md:pa-text-center">CONTINUE SHIPPING
+          <router-link to='/products' class="pa-inline-block pa-bg-black white--text pa-px-6 pa-py-3  pa-mr-9 pa-duration-500 pa-transition md:pa-w-full md:pa-text-center">CONTINUE SHOPPING
       </router-link>
-          <router-link to='/checkout' class="pa-inline-block pa-bg-black white--text pa-px-6 pa-py-3   pa-duration-500 pa-transition md:pa-w-full md:pa-mt-5 md:pa-text-center">
+          <button  @click="clear" class="clear-btn pa-inline-block pa-bg-black white--text pa-px-6 pa-py-3   pa-duration-500 pa-transition md:pa-w-full md:pa-mt-5 md:pa-text-center">
           CLEAR ALL
-      </router-link>
+      </button>
       </div>
 
-      <router-link to='/checkout' class="pa-inline-block pa-bg-black white--text pa-px-6 pa-py-3   pa-duration-500 pa-transition  md:pa-w-full md:pa-text-center md:pa-mt-5">
+      <button class="checkout-btn pa-inline-block pa-bg-red-600 white--text pa-px-6 pa-py-3   pa-duration-500 pa-transition  md:pa-w-full md:pa-text-center md:pa-mt-5" @click="checkCart">
       CHECK OUT
-      </router-link>
+      </button>
      </div>
         <!-- continue link -->
 </div>
@@ -107,28 +117,108 @@
 
 <script>
 import Banner from '@/components/Header-banner'
-import { mapGetters,} from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+
 export default {
   components:{
     Banner   
   }, 
   data() {
     return {
-      itemQty:1,
-      tax:1.00
+      itemQty:null,
+      ischeckedList:[],
+      allSelected: false,     
     }
-  },
+  }, 
   computed: {
     ...mapGetters('auth',['cartList','cartLength']),
+    ...mapGetters('order',['order_item']),
     subTotal() {
-      return this.cartList.reduce((total, p) => {
-        return Math.round(total + p.price * p.qty)
+      return this.ischeckedList.reduce((total, p) => {
+        return Math.floor(total + p.price * p.qty)
       },0)
-    }
+    },
     
   },
+  methods: {
+    clear(){
+      this.$swal({
+        icon:'warning',
+        title: `Dear ${this.$store.state.auth.userData.name},are you sure??`,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonColor: "#147335",
+        confirmButtonText: `Don't you ask me again`,
+        denyButtonText: `PLS DON'T`,
+      }).then(result => { 
+        if (result.isConfirmed) {
+          this.clearActions()
+          this.$swal('All clear!', '', 'success')       
+        } else if (result.isDenied) {
+          this.$swal('Are you kidding me?', '', 'info')
+        }
+      })
+      
+    },
+    plus(i) {
+      this.cartList[i].qty++  
+      //this.setQty( this.cartList[i].productId,this.cartList[i].qty)
+    },
+     minus(i) {
+      this.cartList[i].qty--   
+      //this.setQty( this.cartList[i].productId, this.cartList[i].qty)
+    },
+    ...mapMutations('order',['setCheckedItem']),
+    ...mapActions('product',['adjustQty','deleteItemActions','clearActions']),
+     deleteItem(productId) {
+       this.$swal({
+        icon:'warning',
+        title: 'Are you sure?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonColor: "#147335",
+        confirmButtonText: `Yes!`,
+        denyButtonText: `Let me think about it`,
+      }).then(result => { 
+        if (result.isConfirmed) {
+          this.deleteItemActions(productId)   
+          this.$swal('Delete!', '', 'success')       
+        } else if (result.isDenied) {
+          this.$swal('Alright!', '', 'info')
+        }
+      })
+    },
+     setQty(productId,qty) {     
+         const payload = { productId, qty }
+         this.adjustQty(payload)     
+     },
+     checkCart() {
+       if(this.subTotal===0) {       
+         this.$swal({
+           icon:'warning',
+           title:'Hey!',
+           text:'You have not chosen anything!'
+         })
+       }else {
+          this.setCheckedItem(this.ischeckedList)
+          this.$router.push('/checkout')
+       }     
+     },
+      selectAll() {
+          this.ischeckedList = []
+          this.allSelected =!this.allSelected
+          if( this.allSelected ) {
+              return this.cartList.forEach(item=> this.ischeckedList.push(item)      
+            )
+          }
+      },
+      select() {
+        this.allSelected = false
+      }
+  },
   created() {
-    console.log(this.cartList)
+     this.allSelected = true 
+     this.cartList.forEach(i=> this.ischeckedList.push(i))
   }
 }
 </script>
@@ -153,6 +243,13 @@ export default {
       font-family: 'Quicksand', sans-serif !important;
    }
 }
+  .shop-btn {
+     box-shadow: 3px 3px #948320;
+    &:hover {
+      transform:translateY(6px);
+      box-shadow: none;
+    }
+  }
   .container {
     max-width: 1300px;
     table {
@@ -246,18 +343,35 @@ export default {
         }
       }
     }
+    .clear-btn {
+      &:hover {
+          border:solid #000000 1px;
+          background: white;
+          color:#000000  !important;
+       }
+    }
+    .checkout-btn {      
+       &:hover {
+          border:solid #DC2626 1px;
+          background: white;
+          color:#DC2626  !important;
+       }
+    }
   }
 }
 
 @media(max-width:800px) {
   .container{
+    .select-all {
+      display: block;
+    }
     table {
       thead {
         display: none;
       }
       tbody td{
         display: block!important;       
-       padding: 0;
+        padding: 0;
         
       }
     }

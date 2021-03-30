@@ -7,6 +7,7 @@ const state = {
     userData:'',
     cartList:[],
     cartLength:'',
+    favList:[]
    
 }
 
@@ -16,7 +17,8 @@ const getters = {
    refreshToken: state => state.refreshToken,
    userData:state => state.userData,
    cartList: state => state.cartList,
-   cartLength: state => state.cartLength
+   cartLength: state => state.cartLength,
+   favList: state => state.favList
 }
 
 const actions = { 
@@ -27,7 +29,6 @@ const actions = {
            const res = data.captchaText ? await userLogin(data): await userRegister(data) 
             
            const { token, refreshToken , user } = res.data.result
-          
            Cookies.set('token', token, { expires: 7 })
            Cookies.set('refreshToken', refreshToken, {expires: 30 })
   
@@ -36,6 +37,7 @@ const actions = {
            commit('setUserData', user)
            commit('setCart', user.cartList)
            commit('setCartLength',user.cartList.length)
+           commit('setFavList',user.favList)
           
            this._vm.$swal({
               icon:'success',
@@ -78,6 +80,9 @@ const mutations = {
       },
       setCartLength(state, length) {
          state.cartLength = length
+      },
+      setFavList(state, data) {
+         state.favList = data
       }
 }
 

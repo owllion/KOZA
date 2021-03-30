@@ -36,6 +36,10 @@ require("sweetalert2/dist/sweetalert2.min.css");
 
 var _jwVuePagination = _interopRequireDefault(require("jw-vue-pagination"));
 
+var _vueToastNotification = _interopRequireDefault(require("vue-toast-notification"));
+
+require("vue-toast-notification/dist/theme-sugar.css");
+
 var _vueTilt = _interopRequireDefault(require("vue-tilt.js"));
 
 var _vuelidate = _interopRequireDefault(require("vuelidate"));
@@ -43,6 +47,10 @@ var _vuelidate = _interopRequireDefault(require("vuelidate"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 _vue["default"].component('jw-pagination', _jwVuePagination["default"]);
+
+_vue["default"].use(_vueToastNotification["default"], {
+  position: 'top'
+});
 
 _vue["default"].use(_vueTilt["default"]);
 

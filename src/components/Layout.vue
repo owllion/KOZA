@@ -3,6 +3,8 @@
       <Header @sideNavToggle ='displayNav = !displayNav' />
       <SideNav :show='displayNav' @close='displayNav = false'/>
       <SideFilter/>
+     
+      
       <slot/>
 
       <Footer></Footer>  

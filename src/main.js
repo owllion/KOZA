@@ -17,6 +17,11 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import JwPagination from 'jw-vue-pagination';
 Vue.component('jw-pagination', JwPagination);
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+Vue.use(VueToast, {
+	position: 'top'
+  })
 
 import VueTilt from 'vue-tilt.js'
 Vue.use(VueTilt)

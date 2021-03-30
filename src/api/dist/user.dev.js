@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteMultiItem = exports.deleteItemInCart = exports.clearCart = exports.addToCart = exports.getCart = exports.removeFromFav = exports.addOrRemoveFromFav = exports.userPasswordModify = exports.userInfoModify = exports.userLogoutAll = exports.userInfo = exports.forgotPassword = exports.deleteAvatar = exports.upload = exports.userLogout = exports.getNewToken = exports.userRegister = exports.loginCaptcha = exports.userLogin = void 0;
+exports.deleteMultiItem = exports.deleteItemInCart = exports.clearCart = exports.updateQty = exports.addToCart = exports.getCart = exports.removeFromFav = exports.addToFav = exports.userPasswordModify = exports.userInfoModify = exports.userLogoutAll = exports.userInfo = exports.forgotPassword = exports.deleteAvatar = exports.upload = exports.userLogout = exports.getNewToken = exports.userRegister = exports.loginCaptcha = exports.userLogin = void 0;
 
 var _axios = _interopRequireDefault(require("./axios"));
 
@@ -89,27 +89,27 @@ exports.userInfoModify = userInfoModify;
 
 var userPasswordModify = function userPasswordModify(data) {
   return _axios["default"].patch('/user/password-modify', data);
-}; // add & remove the product to the favorite list if users click the button when they're in the product list
+}; // add the product to the favorite list 
 
 
 exports.userPasswordModify = userPasswordModify;
 
-var addOrRemoveFromFav = function addOrRemoveFromFav(data) {
-  return _axios["default"].post('/user/favlist/add_remove', data);
-}; //remove the product if users click the button when they're in their own profile's favorite list
+var addToFav = function addToFav(data) {
+  return _axios["default"].post('/user/add/favlist', data);
+}; //remove the product 
 
 
-exports.addOrRemoveFromFav = addOrRemoveFromFav;
+exports.addToFav = addToFav;
 
 var removeFromFav = function removeFromFav(data) {
-  return _axios["default"].post('/user/favlist/delete', data);
+  return _axios["default"].post('/user/delete/favlist', data);
 }; //get the cartList
 
 
 exports.removeFromFav = removeFromFav;
 
-var getCart = function getCart(data) {
-  return _axios["default"].get('/cartList', data);
+var getCart = function getCart() {
+  return _axios["default"].get('/cartList');
 }; //add product(s) to cart
 
 
@@ -117,10 +117,17 @@ exports.getCart = getCart;
 
 var addToCart = function addToCart(data) {
   return _axios["default"].post('/addToCart', data);
-}; //clear cart
+}; //Update item quantity
 
 
 exports.addToCart = addToCart;
+
+var updateQty = function updateQty(data) {
+  return _axios["default"].post('/cart/product/updateQty', data);
+}; //clear cart
+
+
+exports.updateQty = updateQty;
 
 var clearCart = function clearCart() {
   return _axios["default"]["delete"]('/clearCart');

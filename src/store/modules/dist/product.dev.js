@@ -7,6 +7,10 @@ exports["default"] = void 0;
 
 var _product = require("@/api/product");
 
+var _user = require("@/api/user");
+
+var _user2 = require("../../api/user");
+
 var state = {
   products: '',
   keyword: '',
@@ -15,6 +19,26 @@ var state = {
   sort: '',
   showFilter: false,
   origin: ''
+};
+var getters = {
+  allItems: function allItems(state) {
+    return state.products;
+  },
+  keyword: function keyword(state) {
+    return state.keyword;
+  },
+  category: function category(state) {
+    return state.category;
+  },
+  price: function price(state) {
+    return state.price;
+  },
+  sort: function sort(state) {
+    return state.sort;
+  },
+  origin: function origin(state) {
+    return state.origin;
+  }
 };
 var actions = {
   getAllItems: function getAllItems(_ref) {
@@ -54,31 +78,294 @@ var actions = {
         }
       }
     }, null, this, [[1, 9]]);
-  }
-};
-var getters = {
-  allItems: function allItems(state) {
-    return state.products;
   },
-  keyword: function keyword(state) {
-    return state.keyword;
+  addActions: function addActions(_ref3, value) {
+    var commit, _ref4, cartList, error;
+
+    return regeneratorRuntime.async(function addActions$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            commit = _ref3.commit;
+            _context2.prev = 1;
+            //const params = {productId:value.productId,qty:}
+            console.log(value);
+            _context2.next = 5;
+            return regeneratorRuntime.awrap((0, _user.addToCart)(value));
+
+          case 5:
+            _ref4 = _context2.sent;
+            cartList = _ref4.data.cartList;
+            commit('auth/setCart', cartList, {
+              root: true
+            });
+            commit('auth/setCartLength', cartList.length, {
+              root: true
+            });
+            _context2.next = 14;
+            break;
+
+          case 11:
+            _context2.prev = 11;
+            _context2.t0 = _context2["catch"](1);
+
+            if (_context2.t0.response) {
+              error = _context2.t0.response.data.msg;
+
+              this._vm.$swal({
+                icon: 'warning',
+                title: "Item exists!",
+                text: error
+              });
+            }
+
+          case 14:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, null, this, [[1, 11]]);
   },
-  category: function category(state) {
-    return state.category;
+  addToFavActions: function addToFavActions(_ref5, value) {
+    var commit, _ref6, favList, error;
+
+    return regeneratorRuntime.async(function addToFavActions$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            commit = _ref5.commit;
+            _context3.prev = 1;
+            _context3.next = 4;
+            return regeneratorRuntime.awrap((0, _user.addToFav)(value));
+
+          case 4:
+            _ref6 = _context3.sent;
+            favList = _ref6.data.favList;
+            commit('auth/setFavList', favList, {
+              root: true
+            });
+            _context3.next = 12;
+            break;
+
+          case 9:
+            _context3.prev = 9;
+            _context3.t0 = _context3["catch"](1);
+
+            if (_context3.t0.response) {
+              error = _context3.t0.response.data.message;
+
+              this._vm.$swal({
+                icon: 'error',
+                title: "Something wrong!",
+                text: error
+              });
+            }
+
+          case 12:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, null, this, [[1, 9]]);
   },
-  price: function price(state) {
-    return state.price;
+  removeFromFav: function removeFromFav(_ref7, value) {
+    var commit, _ref8, favList, error;
+
+    return regeneratorRuntime.async(function removeFromFav$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            commit = _ref7.commit;
+            _context4.prev = 1;
+            _context4.next = 4;
+            return regeneratorRuntime.awrap((0, _user2.removeFromFav)(value));
+
+          case 4:
+            _ref8 = _context4.sent;
+            favList = _ref8.data.favList;
+            commit('auth/setFavList', favList, {
+              root: true
+            });
+            _context4.next = 12;
+            break;
+
+          case 9:
+            _context4.prev = 9;
+            _context4.t0 = _context4["catch"](1);
+
+            if (_context4.t0.response) {
+              error = _context4.t0.response.data.message;
+
+              this._vm.$swal({
+                icon: 'error',
+                title: "Something wrong!",
+                text: error
+              });
+            }
+
+          case 12:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, null, this, [[1, 9]]);
   },
-  sort: function sort(state) {
-    return state.sort;
+  clearActions: function clearActions(_ref9) {
+    var commit, error;
+    return regeneratorRuntime.async(function clearActions$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            commit = _ref9.commit;
+            _context5.prev = 1;
+            _context5.next = 4;
+            return regeneratorRuntime.awrap((0, _user.clearCart)());
+
+          case 4:
+            commit('auth/setCart', [], {
+              root: true
+            });
+            commit('auth/setCartLength', 0, {
+              root: true
+            });
+            _context5.next = 11;
+            break;
+
+          case 8:
+            _context5.prev = 8;
+            _context5.t0 = _context5["catch"](1);
+
+            if (_context5.t0.response) {
+              error = _context5.t0.response.data.message;
+
+              this._vm.$swal({
+                icon: 'error',
+                title: "Something wrong!",
+                text: error
+              });
+            }
+
+          case 11:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, null, this, [[1, 8]]);
   },
-  origin: function origin(state) {
-    return state.origin;
-  }
+  adjustQty: function adjustQty(_ref10, value) {
+    var commit, productId, qty, _ref11, cartList, error;
+
+    return regeneratorRuntime.async(function adjustQty$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            commit = _ref10.commit;
+            _context6.prev = 1;
+            productId = value.productId, qty = value.qty;
+            _context6.next = 5;
+            return regeneratorRuntime.awrap((0, _user.updateQty)({
+              productId: productId,
+              qty: qty
+            }));
+
+          case 5:
+            _ref11 = _context6.sent;
+            cartList = _ref11.data.cartList;
+            console.log("\u9019\u662F\u62FF\u56DE\u4F86\u7684cartlist-->".concat(JSON.stringify(cartList)));
+            commit('auth/setCart', cartList, {
+              root: true
+            });
+            _context6.next = 14;
+            break;
+
+          case 11:
+            _context6.prev = 11;
+            _context6.t0 = _context6["catch"](1);
+
+            if (_context6.t0.response) {
+              error = _context6.t0.response.data.message;
+
+              this._vm.$swal({
+                icon: 'error',
+                title: "Something wrong!",
+                text: error
+              });
+            }
+
+          case 14:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, null, this, [[1, 11]]);
+  },
+  deleteItemActions: function deleteItemActions(_ref12, value) {
+    var commit, params, _ref13, cartList, error;
+
+    return regeneratorRuntime.async(function deleteItemActions$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            commit = _ref12.commit;
+            _context7.prev = 1;
+            params = {
+              productId: value
+            };
+            _context7.next = 5;
+            return regeneratorRuntime.awrap((0, _user.deleteItemInCart)(params));
+
+          case 5:
+            _ref13 = _context7.sent;
+            cartList = _ref13.data.cartList;
+            commit('auth/setCart', cartList, {
+              root: true
+            });
+            commit('auth/setCartLength', cartList.length, {
+              root: true
+            });
+            _context7.next = 14;
+            break;
+
+          case 11:
+            _context7.prev = 11;
+            _context7.t0 = _context7["catch"](1);
+
+            if (_context7.t0.response) {
+              error = _context7.t0.response.data.message;
+
+              this._vm.$swal({
+                icon: 'error',
+                title: "Something wrong!",
+                text: error
+              });
+            }
+
+          case 14:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, null, this, [[1, 11]]);
+  } // async getCartList({commit}) {
+  //     try {
+  //         const { data: { cartList } } = await getCart()
+  //         console.log( cart) 
+  //     }catch(err) {
+  //         if(err.response) {
+  //             const error = err.response.data.message               
+  //              this._vm.$swal({
+  //              icon:'error',
+  //              title:"Something wrong!",
+  //              text:error
+  //               })
+  //         }
+  //     }         
+  // }
+
 };
 var mutations = {
   clear: function clear(state) {
-    state.price = [], state.category = '', state.origin = '';
+    state.price = [], state.category = '', state.origin = '', state.keyword = '';
   },
   closeFilter: function closeFilter(state) {
     state.showFilter = false;

@@ -36,17 +36,20 @@ import instance from './axios'
     //modify user password 
     export const userPasswordModify = data => instance.patch('/user/password-modify', data)
    
-    // add & remove the product to the favorite list if users click the button when they're in the product list
-    export const addOrRemoveFromFav = data => instance.post('/user/favlist/add_remove', data)
+    // add the product to the favorite list 
+    export const addToFav = data => instance.post('/user/add/favlist', data)
    
-    //remove the product if users click the button when they're in their own profile's favorite list
-    export const removeFromFav = data => instance.post('/user/favlist/delete', data)
+    //remove the product 
+    export const removeFromFav = data => instance.post('/user/delete/favlist', data)
    
     //get the cartList
-    export const getCart = data => instance.get('/cartList', data)
+    export const getCart = () => instance.get('/cartList')
    
     //add product(s) to cart
     export const addToCart = data => instance.post('/addToCart', data)
+
+    //Update item quantity
+    export const updateQty = data => instance.post('/cart/product/updateQty', data)
     
     //clear cart
     export const clearCart = () => instance.delete('/clearCart')
