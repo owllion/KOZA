@@ -20,7 +20,7 @@
 
       <div class="select-all pa-text-left pa-w-48 xs:pa-w-full  xs:pa-text-center pa-mb-5  pa-border-2 pa-border-gray-100 pa-border-solid pa-py-3 pa-hidden" >
       <div class="pa-flex  pa-w-full pa-pl-7 xs:pa-justify-center xs:pa-pl-0">
-          <input type="checkbox" class="checkbox" v-model="allSelected" @click="selectAll">
+          <input type="checkbox" class="checkbox" v-model="allcheck" @click="checkall" :checked='allcheck' @change='checkall'>
         <span class="pa-pl-5 pa-pt-1.5  pa-text-xl pa-font-semibold ">SELECT All</span>
     </div>
   </div> 
@@ -31,7 +31,7 @@
       <th>
        
         <span class="pa-pr-3 pa-text-center pa-inline-block">SELECT All</span>
-         <input type="checkbox" class="checkbox pa-inline-block pa-h-10" v-model="allSelected" @click="selectAll">
+         <input type="checkbox" class="checkbox pa-inline-block pa-h-10" v-model="allcheck" @click="checkall">
         </th>
       <th>PRODUCT</th>
       <th>PRICE</th>
@@ -43,7 +43,7 @@
   <tbody>
     <tr v-for='(item,i) in cartList' :key='i'>
        <td class="pa-pl-5">
-        <input type="checkbox" class="checkbox" :value="item" @click='select' v-model='ischeckedList'>
+        <input type="checkbox" class="checkbox" :value="item" :checked='item.isChecked' @click='selectItem(item)'>
             </td>
       <td class="image">
         <div class="pa-flex pa-justify-center">
@@ -59,7 +59,7 @@
             <button class="pa-p-5  pa-text-2xl plus-btn focus:pa-outline-none " type="button" name="button"  @click="plus(i)" :disabled=' item.qty === item.stock' >
             <img src="@/assets/svg/plus.svg" alt="" > 
           </button>
-          <input type="text" class="pa-w-10   pa-text-center pa-border-2 pa-border-gray-100 pa-border-solid  focus:pa-outline-none " maxlength="2" v-model='item.qty' >
+          <input type="text" class="pa-w-10   pa-text-center pa-border-2 pa-border-gray-100 pa-border-solid  focus:pa-outline-none " maxlength="2" v-model='item.qty' readonly>
 
           <button class="pa-p-5  minus-btn focus:pa-outline-none " type="button" name="button"  :disabled='item.qty === 1' @click="minus(i)">
             <!--  -->
@@ -73,7 +73,7 @@
       <td class="pa-font-semibold">${{ Math.floor(item.price *item.qty)}}</td>
       <td class='pa-pl-4'>
          <div class=" cancel pa-text-center">
-           <button class="cancel-btn xs:pa-ml-0 focus:pa-outline-none" type="button" name="button" @click='deleteItem(item.productId)' >
+           <button class="cancel-btn xs:pa-ml-0 focus:pa-outline-none" type="button" name="button" @click='deleteItem(item.productId,cartList)' >
              <img src="@/assets/svg/cancel.svg" alt="" class="" >
           </button>
          </div>
@@ -127,20 +127,38 @@ export default {
     return {
       itemQty:null,
       ischeckedList:[],
-      allSelected: false,     
+      allcheck: false,     
     }
   }, 
   computed: {
     ...mapGetters('auth',['cartList','cartLength']),
     ...mapGetters('order',['order_item']),
     subTotal() {
-      return this.ischeckedList.reduce((total, p) => {
-        return Math.floor(total + p.price * p.qty)
-      },0)
-    },
-    
+       let total = 0 
+       this.cartList.forEach(item => {
+         if(item.isChecked) {
+           return total +=  Math.floor(item.price*item.qty)
+         }
+       })
+      return total
+    },  
   },
   methods: {
+    selectItem(item) {
+       item.isChecked = !item.isChecked
+       let checklist = []
+       this.cartList.forEach(item=> {
+         if(item.isChecked === true) {
+           checklist.push(item)
+         }
+         if( checklist.length === this.cartList.length) {
+           this.allcheck = true
+        }else {
+          this.allcheck = false
+        } 
+       })
+       
+    },
     clear(){
       this.$swal({
         icon:'warning',
@@ -162,18 +180,24 @@ export default {
     },
     plus(i) {
       this.cartList[i].qty++  
-      //this.setQty( this.cartList[i].productId,this.cartList[i].qty)
+      this.setQty( this.cartList[i].productId,this.cartList[i].qty,this.cartList)
     },
      minus(i) {
       this.cartList[i].qty--   
-      //this.setQty( this.cartList[i].productId, this.cartList[i].qty)
+      this.setQty( this.cartList[i].productId, this.cartList[i].qty,this.cartList)
     },
     ...mapMutations('order',['setCheckedItem']),
     ...mapActions('product',['adjustQty','deleteItemActions','clearActions']),
-     deleteItem(productId) {
+     deleteItem(productId,cartList) {
        this.$swal({
         icon:'warning',
         title: 'Are you sure?',
+        showClass: {
+          popup: 'animate__animated animate__flipInX'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__flipOutY'
+        },
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonColor: "#147335",
@@ -181,15 +205,16 @@ export default {
         denyButtonText: `Let me think about it`,
       }).then(result => { 
         if (result.isConfirmed) {
-          this.deleteItemActions(productId)   
-          this.$swal('Delete!', '', 'success')       
-        } else if (result.isDenied) {
+          const payload = { productId, cartList }
+          this.deleteItemActions(payload)          
+          this.$swal('Delete!', '', 'success')
+         } else if (result.isDenied) {
           this.$swal('Alright!', '', 'info')
         }
       })
     },
-     setQty(productId,qty) {     
-         const payload = { productId, qty }
+     setQty(productId, qty, cartList) {     
+         const payload = { productId, qty , cartList } 
          this.adjustQty(payload)     
      },
      checkCart() {
@@ -204,21 +229,15 @@ export default {
           this.$router.push('/checkout')
        }     
      },
-      selectAll() {
-          this.ischeckedList = []
-          this.allSelected =!this.allSelected
-          if( this.allSelected ) {
-              return this.cartList.forEach(item=> this.ischeckedList.push(item)      
-            )
-          }
-      },
-      select() {
-        this.allSelected = false
-      }
+     checkall() {
+      this.allcheck = !this.allcheck
+      this.cartList.forEach(i=> i.isChecked = this.allcheck)
+     }
+     
   },
   created() {
-     this.allSelected = true 
-     this.cartList.forEach(i=> this.ischeckedList.push(i))
+    this.checkall(true)
+     
   }
 }
 </script>
@@ -335,7 +354,6 @@ export default {
     }
     .continue {
        a {
-         font-size: 1.2rem;
         &:hover {
           border:solid black 1px;
           background: white;

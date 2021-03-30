@@ -42,16 +42,10 @@ export default {
 @mixin animation ($opacity, $trans) {
   opacity: $opacity;
   transform: $trans;
-
 }
-
-%basis {
-  flex-basis: 50%;
-}
-
 .before-enter {
   @include animation(0, translateY(-500px));
-  transition: all 2s ease-in-out;
+  transition: all 2s ease-in-out .9s;
 }
 
 .enter {

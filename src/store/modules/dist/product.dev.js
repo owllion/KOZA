@@ -253,7 +253,7 @@ var actions = {
     }, null, this, [[1, 8]]);
   },
   adjustQty: function adjustQty(_ref10, value) {
-    var commit, productId, qty, _ref11, cartList, error;
+    var commit, _ref11, cartList, error;
 
     return regeneratorRuntime.async(function adjustQty$(_context6) {
       while (1) {
@@ -261,25 +261,20 @@ var actions = {
           case 0:
             commit = _ref10.commit;
             _context6.prev = 1;
-            productId = value.productId, qty = value.qty;
-            _context6.next = 5;
-            return regeneratorRuntime.awrap((0, _user.updateQty)({
-              productId: productId,
-              qty: qty
-            }));
+            _context6.next = 4;
+            return regeneratorRuntime.awrap((0, _user.updateQty)(value));
 
-          case 5:
+          case 4:
             _ref11 = _context6.sent;
             cartList = _ref11.data.cartList;
-            console.log("\u9019\u662F\u62FF\u56DE\u4F86\u7684cartlist-->".concat(JSON.stringify(cartList)));
             commit('auth/setCart', cartList, {
               root: true
             });
-            _context6.next = 14;
+            _context6.next = 12;
             break;
 
-          case 11:
-            _context6.prev = 11;
+          case 9:
+            _context6.prev = 9;
             _context6.t0 = _context6["catch"](1);
 
             if (_context6.t0.response) {
@@ -292,15 +287,15 @@ var actions = {
               });
             }
 
-          case 14:
+          case 12:
           case "end":
             return _context6.stop();
         }
       }
-    }, null, this, [[1, 11]]);
+    }, null, this, [[1, 9]]);
   },
   deleteItemActions: function deleteItemActions(_ref12, value) {
-    var commit, params, _ref13, cartList, error;
+    var commit, _ref13, cartList, error;
 
     return regeneratorRuntime.async(function deleteItemActions$(_context7) {
       while (1) {
@@ -308,13 +303,10 @@ var actions = {
           case 0:
             commit = _ref12.commit;
             _context7.prev = 1;
-            params = {
-              productId: value
-            };
-            _context7.next = 5;
-            return regeneratorRuntime.awrap((0, _user.deleteItemInCart)(params));
+            _context7.next = 4;
+            return regeneratorRuntime.awrap((0, _user.deleteItemInCart)(value));
 
-          case 5:
+          case 4:
             _ref13 = _context7.sent;
             cartList = _ref13.data.cartList;
             commit('auth/setCart', cartList, {
@@ -323,11 +315,11 @@ var actions = {
             commit('auth/setCartLength', cartList.length, {
               root: true
             });
-            _context7.next = 14;
+            _context7.next = 13;
             break;
 
-          case 11:
-            _context7.prev = 11;
+          case 10:
+            _context7.prev = 10;
             _context7.t0 = _context7["catch"](1);
 
             if (_context7.t0.response) {
@@ -340,28 +332,13 @@ var actions = {
               });
             }
 
-          case 14:
+          case 13:
           case "end":
             return _context7.stop();
         }
       }
-    }, null, this, [[1, 11]]);
-  } // async getCartList({commit}) {
-  //     try {
-  //         const { data: { cartList } } = await getCart()
-  //         console.log( cart) 
-  //     }catch(err) {
-  //         if(err.response) {
-  //             const error = err.response.data.message               
-  //              this._vm.$swal({
-  //              icon:'error',
-  //              title:"Something wrong!",
-  //              text:error
-  //               })
-  //         }
-  //     }         
-  // }
-
+    }, null, this, [[1, 10]]);
+  }
 };
 var mutations = {
   clear: function clear(state) {

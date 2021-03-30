@@ -102,10 +102,8 @@ const actions = {
         }
     },
     async adjustQty({ commit }, value) {
-        try {
-            const { productId, qty } = value
-            const {data: { cartList } } = await updateQty({ productId, qty })
-            console.log(`這是拿回來的cartlist-->${JSON.stringify(cartList) }`)
+        try {           
+            const {data: { cartList } } = await updateQty(value)
             commit('auth/setCart', cartList, { root: true })
 
            } catch(err) {
@@ -121,8 +119,7 @@ const actions = {
 },
     async deleteItemActions({ commit },value) {
         try {
-            const params = { productId :value }
-            const { data: { cartList } } = await deleteItemInCart(params)
+            const { data: { cartList } } = await deleteItemInCart(value)
             commit('auth/setCart', cartList, { root: true })
             commit('auth/setCartLength', cartList.length, { root: true })
              
@@ -137,22 +134,6 @@ const actions = {
             }
         }
     },
-    // async getCartList({commit}) {
-    //     try {
-    //         const { data: { cartList } } = await getCart()
-    //         console.log( cart) 
-            
-    //     }catch(err) {
-    //         if(err.response) {
-    //             const error = err.response.data.message               
-    //              this._vm.$swal({
-    //              icon:'error',
-    //              title:"Something wrong!",
-    //              text:error
-    //               })
-    //         }
-    //     }         
-    // }
 }
 
 const mutations = {
