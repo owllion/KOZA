@@ -1,37 +1,29 @@
 <template>
- <div class="wrapper">
+ <div class="wrapper pa-w-full ">
     <Banner>Profile</Banner>
-   <section class="container pa-p-16 pa-w-full">
-     <div class="side pa-flex pa-flex-wrap pa-w-full">
-       <!-- left -->
+   <section class="container pa-p-16 pa-w-full pa-flex pa-flex-wrap pa-justify-center pa-items-center">
+     <div class="content pa-flex pa-flex-col pa-flex-wrap pa-w-full pa-justify-center pa-items-center">
+       <!-- nav -->
        <div>
-       <ul>     
+       <ul class="pa-flex pa-justify-around pa-items-center">     
          <li><router-link to='/'>Profile</router-link></li>
          <li><router-link to='/'>Order</router-link></li>
-         <li>Coupon</li>       
-         <li>Password</li>
+         <li><router-link to='/'>Coupon</router-link></li> 
+         <li><router-link to='/userprofile/favlist'>Favlist</router-link></li>   
+         <li><router-link to='/'>Password</router-link></li>
        </ul>
        </div> 
-       <!-- left -->
-        <div class="pa-w-3/4">
-          <div class="pa-w-36 ">
-            <img :src=avatar alt=""  class="pa-w-full pa-h-full pa-object-cover pa-rounded-full pa-block ">
-          </div>
-           <p>FAV</p> 
-          <div v-for='(item,i) in favList' :key='i'>
-            <h2 class="brown--text pa-text-7xl">{{item.productName}}</h2>
-            <img :src=item.image[0] alt="">
-            </div> 
-       </div> 
+       <!-- nav -->
 
-     </div>
-     <div class="avatar pa-w-16 pa-rounded-full pa-bg-red-500 ">
-     
-   </div>
-   </section>
-   
-     
-   </div>
+       <!--content-->
+       <div class="pa-w-full pa-p-36">
+        <router-view></router-view>
+       </div>
+       <!--content-->
+
+       </div>    <!--content-->
+    </section>   <!--container-->
+ </div>          <!--wrapper-->
 </template>
 
 <script>

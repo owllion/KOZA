@@ -19,7 +19,8 @@ var state = {
   userData: '',
   cartList: [],
   cartLength: '',
-  favList: []
+  favList: [],
+  showEmailBox: false
 };
 var getters = {
   isAuthenticated: function isAuthenticated(state) {
@@ -42,6 +43,9 @@ var getters = {
   },
   favList: function favList(state) {
     return state.favList;
+  },
+  showEmailBox: function showEmailBox(state) {
+    return state.showEmailBox;
   }
 };
 var actions = {
@@ -147,6 +151,9 @@ var actions = {
   }
 };
 var mutations = {
+  toggleEmailBox: function toggleEmailBox(state, data) {
+    state.showEmailBox = data;
+  },
   setToken: function setToken(state, token) {
     state.token = token;
   },

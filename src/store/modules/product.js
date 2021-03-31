@@ -29,27 +29,26 @@ const actions = {
             commit('setAllProducts', allProduct )
         }catch(err) {
             if(err.response) {
+                const error = err.response.data.message
                 this._vm.$swal({
-                   icon:'error',
-                   title:'Oops',
-                   text:'Something wrong!'
-                })
-            }
+                  icon:'error',
+                  title:"Something wrong!",
+                  text:error
+             })
         }
-    },
+    }
+  },
     async addActions({commit}, value) {
         try {
-            //const params = {productId:value.productId,qty:}
-            console.log(value)
-            const {data: {cartList}} = await addToCart(value)
+            const {data: { cartList }} = await addToCart(value)
             commit('auth/setCart', cartList, { root: true })
             commit('auth/setCartLength', cartList.length, { root: true })
         }catch(err) {
             if(err.response) {
-                const error = err.response.data.msg
+              const error = err.response.data.msg
               this._vm.$swal({
                 icon:'warning',
-                title:"Item exists!",
+                title:"Oops",
                 text:error
               })
        }
@@ -61,7 +60,7 @@ const actions = {
             commit('auth/setFavList', favList , { root:true })
         }catch(err) {
             if(err.response) {
-                const error = err.response.data.message
+              const error = err.response.data.message
               this._vm.$swal({
                 icon:'error',
                 title:"Something wrong!",

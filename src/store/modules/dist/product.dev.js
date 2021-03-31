@@ -42,7 +42,7 @@ var getters = {
 };
 var actions = {
   getAllItems: function getAllItems(_ref) {
-    var commit, _ref2, allProduct;
+    var commit, _ref2, allProduct, error;
 
     return regeneratorRuntime.async(function getAllItems$(_context) {
       while (1) {
@@ -65,10 +65,12 @@ var actions = {
             _context.t0 = _context["catch"](1);
 
             if (_context.t0.response) {
+              error = _context.t0.response.data.message;
+
               this._vm.$swal({
                 icon: 'error',
-                title: 'Oops',
-                text: 'Something wrong!'
+                title: "Something wrong!",
+                text: error
               });
             }
 
@@ -88,12 +90,10 @@ var actions = {
           case 0:
             commit = _ref3.commit;
             _context2.prev = 1;
-            //const params = {productId:value.productId,qty:}
-            console.log(value);
-            _context2.next = 5;
+            _context2.next = 4;
             return regeneratorRuntime.awrap((0, _user.addToCart)(value));
 
-          case 5:
+          case 4:
             _ref4 = _context2.sent;
             cartList = _ref4.data.cartList;
             commit('auth/setCart', cartList, {
@@ -102,11 +102,11 @@ var actions = {
             commit('auth/setCartLength', cartList.length, {
               root: true
             });
-            _context2.next = 14;
+            _context2.next = 13;
             break;
 
-          case 11:
-            _context2.prev = 11;
+          case 10:
+            _context2.prev = 10;
             _context2.t0 = _context2["catch"](1);
 
             if (_context2.t0.response) {
@@ -114,17 +114,17 @@ var actions = {
 
               this._vm.$swal({
                 icon: 'warning',
-                title: "Item exists!",
+                title: "Oops",
                 text: error
               });
             }
 
-          case 14:
+          case 13:
           case "end":
             return _context2.stop();
         }
       }
-    }, null, this, [[1, 11]]);
+    }, null, this, [[1, 10]]);
   },
   addToFavActions: function addToFavActions(_ref5, value) {
     var commit, _ref6, favList, error;

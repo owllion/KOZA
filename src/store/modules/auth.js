@@ -7,7 +7,8 @@ const state = {
     userData:'',
     cartList:[],
     cartLength:'',
-    favList:[]
+    favList:[],
+    showEmailBox:false
    
 }
 
@@ -18,7 +19,8 @@ const getters = {
    userData:state => state.userData,
    cartList: state => state.cartList,
    cartLength: state => state.cartLength,
-   favList: state => state.favList
+   favList: state => state.favList,
+   showEmailBox: state => state.showEmailBox
 }
 
 const actions = { 
@@ -63,6 +65,9 @@ const actions = {
 }
 
 const mutations = {
+      toggleEmailBox(state, data) {
+         state.showEmailBox = data
+      },
       setToken(state,token) { 
         state.token = token      
       },

@@ -7,40 +7,67 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/Home.vue')
+    component: () => import('../views/Home')
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue')
+    component: () => import('../views/Login')
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('../views/Register.vue')
+    component: () => import('../views/Register')
   },
   {
-    path: '/products',
+    path: '/allproducts',
     name: 'Products',
-    component: () => import('../views/Products.vue')
+    component: () => import('../views/Products')
   },
-  // {
-  //   path: '/products/:category',
-  //   name: 'Products',
-  //   component: () => import('../views/Products.vue')
-  // },
+   {
+     path: '/products/:category',
+     name: 'Category',
+     component: () => import('../views/Category')
+   },
+   {
+    path: '/reset-pass/:token',
+    name: 'Reset',
+    component: () => import('../views/Reset-pass')
+  },
   {
     path: '/userprofile',
+    redirect:'/userprofile/profile',
     name: 'UserProfile',
     meta: {
      requireAuth: true
     },
-    component: () => import('../views/UserProfile.vue')
+    component: () => import('../views/UserProfile'),
+    children: [{
+      path:'profile',
+      component: () => import('../views/Profile')
+    }, {
+      path:'order',
+      component: () => import('../views/Order')
+    },
+       {
+      path:'coupon',
+      component: () => import('../views/Coupon')
+    },
+       {
+      path:'password',
+      component: () => import('../views/Modi_pass')
+    },
+       {
+      path:'favlist',
+      component: () => import('../views/Favlist')
+
+    }
+  ]
    },
    {
     path: '/checkout',
     name: 'Checkout',
-    component: () => import('../views/Checkout.vue')
+    component: () => import('../views/Checkout')
   },
    {
     path: '/cart',
@@ -48,17 +75,17 @@ const routes = [
     meta: {
      requireAuth: true
     },
-    component: () => import('../views/Cart.vue')
+    component: () => import('../views/Cart')
    },
    {
     path: '/admin',
     name: 'Admin',
-    component: () => import('../views/Admin.vue')
+    component: () => import('../views/Admin')
    },
   {
     path:'/error',
     name:'error',
-    component:() => import('../views/Error.vue')
+    component:() => import('../views/Error')
   },
   {
     path:'*',

@@ -19,7 +19,7 @@ import instance from './axios'
    export const upload = data => instance.post('/user/upload',data)
    
    //deleteAvatar
-   export const deleteAvatar = data => instance.post('/user/upload',data)
+    export const deleteAvatar = data => instance.post('/user/upload',data)
    
     //forgotPassword
     export const forgotPassword = data => instance.post('/forgot-password',data)

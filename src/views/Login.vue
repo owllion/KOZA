@@ -3,7 +3,8 @@
     <Loading :active.sync="isLoading">
     <fingerprint-spinner :animation-duration="2000" :size="100" color="#22c1c3" />
     </Loading>
-
+    
+    <EmailPop/>
   <!-- container -->
   <div class="pa-shadow-lg pa-relative pa-w-120 pa-h-100 pa-bg-green-100 pa-overflow-hidden pa-rounded-3xl lg:pa-max-w-md sm:pa-min-w-full">
          <!-- use flex to seperate img and form -->
@@ -61,12 +62,12 @@
 
                        <!-- errorMessage -->
                       <div class="pa-max-w-sm pa-w-full s:pa-mb-3 xs:pa-block">
-                       <span class="pa-text-red-500 pa-font-black xs:pa-block " v-if="$v.$dirty && !$v.loginData.password.required" >Please enter your password </span>
-                       <span class="pa-text-red-500 pa-font-black xs:pa-block" v-if='error==="incorrect"'>Wrong password</span>
+                       <span class="pa-text-red-500 pa-font-black pa-block " v-if="$v.$dirty && !$v.loginData.password.required" >Please enter your password </span>
+                       <span class="pa-text-red-500 pa-font-black pa-block" v-if='error==="incorrect"'>Wrong password</span>
                        </div>
                         <!-- errorMessage -->
 
-                      <router-link to='/reset' class="pa-font-black pa-text-blue-500 pa-mb-3 pa-transition pa-duration-900 hover:pa-text-red-500 pa-ml-52 pa-tracking-wider xs:pa-ml-36 xxs:pa-ml-20 s:pa--ml-6 " >Forgot password?</router-link>
+                      <a href="#" @click.prevent='toggleEmailBox(true)' class="pa-font-black pa-text-blue-500 pa-mb-3 pa-transition pa-duration-900 hover:pa-text-red-500 pa-ml-52 pa-tracking-wider xs:pa-ml-36 xxs:pa-ml-20 s:pa--ml-6 " >Forgot password?</a>
 
                      <!--captcha -->
                      <div class="pa-flex s:pa-block pa-justify-around  pa-max-w-sm pa-w-full pa-h-14 pa-my-0 s:pa-mb-10 xs:pa-mt-5">         
@@ -118,11 +119,13 @@ import Password from '@/components/Password.vue'
 import { loginCaptcha  } from '@/api/user'
 import { required } from 'vuelidate/lib/validators'
 import { FingerprintSpinner } from 'epic-spinners'
-
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
+import EmailPop from '@/components/Email-pop'
 export default {
     components: {
-        MyInput,MyButton,Password,FingerprintSpinner
+        MyInput,MyButton,Password,
+        FingerprintSpinner,
+        EmailPop
     },
      data() {
       return {
@@ -146,7 +149,7 @@ export default {
   },
     methods: { 
      ...mapActions('auth',['signInOrUp']),
-
+     ...mapMutations('auth',['toggleEmailBox']),
      async checkLoginForm(data) {
           this.$v.$touch()
           if (!this.$v.loginData.$invalid) {

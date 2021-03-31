@@ -154,7 +154,7 @@ export default {
          if( checklist.length === this.cartList.length) {
            this.allcheck = true
         }else {
-          this.allcheck = false
+           this.allcheck = false
         } 
        })
        

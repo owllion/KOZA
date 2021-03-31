@@ -98,11 +98,8 @@
 import MyInput from '@/components/Input.vue'
 import MyButton from '@/components/Button.vue'
 import Password from '@/components/Password.vue'
-//import { userRegister } from '@/api/user'
 import { required, minLength, maxLength,email,sameAs } from 'vuelidate/lib/validators'
 import { FingerprintSpinner } from 'epic-spinners'
-//import Cookies from 'js-cookie'
-//import { mapMutations } from 'vuex'
 import { mapActions } from 'vuex'
 
 export default {

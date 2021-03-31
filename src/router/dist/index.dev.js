@@ -24,7 +24,7 @@ var routes = [{
   name: 'Home',
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Home.vue'));
+      return _interopRequireWildcard(require('../views/Home'));
     });
   }
 }, {
@@ -32,7 +32,7 @@ var routes = [{
   name: 'Login',
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Login.vue'));
+      return _interopRequireWildcard(require('../views/Login'));
     });
   }
 }, {
@@ -40,39 +40,87 @@ var routes = [{
   name: 'Register',
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Register.vue'));
+      return _interopRequireWildcard(require('../views/Register'));
     });
   }
 }, {
-  path: '/products',
+  path: '/allproducts',
   name: 'Products',
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Products.vue'));
+      return _interopRequireWildcard(require('../views/Products'));
     });
   }
-}, // {
-//   path: '/products/:category',
-//   name: 'Products',
-//   component: () => import('../views/Products.vue')
-// },
-{
+}, {
+  path: '/products/:category',
+  name: 'Category',
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Category'));
+    });
+  }
+}, {
+  path: '/reset-pass/:token',
+  name: 'Reset',
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Reset-pass'));
+    });
+  }
+}, {
   path: '/userprofile',
+  redirect: '/userprofile/profile',
   name: 'UserProfile',
   meta: {
     requireAuth: true
   },
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/UserProfile.vue'));
+      return _interopRequireWildcard(require('../views/UserProfile'));
     });
-  }
+  },
+  children: [{
+    path: 'profile',
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('../views/Profile'));
+      });
+    }
+  }, {
+    path: 'order',
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('../views/Order'));
+      });
+    }
+  }, {
+    path: 'coupon',
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('../views/Coupon'));
+      });
+    }
+  }, {
+    path: 'password',
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('../views/Modi_pass'));
+      });
+    }
+  }, {
+    path: 'favlist',
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('../views/Favlist'));
+      });
+    }
+  }]
 }, {
   path: '/checkout',
   name: 'Checkout',
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Checkout.vue'));
+      return _interopRequireWildcard(require('../views/Checkout'));
     });
   }
 }, {
@@ -83,7 +131,7 @@ var routes = [{
   },
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Cart.vue'));
+      return _interopRequireWildcard(require('../views/Cart'));
     });
   }
 }, {
@@ -91,7 +139,7 @@ var routes = [{
   name: 'Admin',
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Admin.vue'));
+      return _interopRequireWildcard(require('../views/Admin'));
     });
   }
 }, {
@@ -99,7 +147,7 @@ var routes = [{
   name: 'error',
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Error.vue'));
+      return _interopRequireWildcard(require('../views/Error'));
     });
   }
 }, {

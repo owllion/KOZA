@@ -1,13 +1,13 @@
 <template>
 <div >
   <div
-    v-if="show"
+    v-show="show"
     class="sidenav-backdrop pa-w-full pa-h-full pa-fixed pa-top-0 pa-left-0"
     @click="$emit('close')"></div>
 
     <transition name="slide-side">
     <!-- side menu -->
-      <div v-if='show' class="aside pa-bg-black pa-w-72 pa-h-full pa-fixed pa-top-0 pa-bottom-0 pa-flex-col pa-z-50">
+      <div v-show='show' class="aside pa-bg-black pa-w-72 pa-h-full pa-fixed pa-top-0 pa-bottom-0 pa-flex-col pa-z-50">
 
         <!-- close icon -->
             <i class="fas fa-times pa-cursor-pointer pa-text-4xl pa-inline-block pa-flex pa-justify-end pa-p-4" @click="$emit('close')"></i> 

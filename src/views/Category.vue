@@ -15,7 +15,6 @@
             </li>
            </ul>
        </div>
-       
      <!-- filter -->
      <div class="filter  pa-px-10 pa-border-b-2 pa-border-solid pa-border-gray-100 pa-mx-auto pa-mb-5 pa-flex pa-justify-between pa-flex pa-items-center md:pa-block md:pa-mb-5">
        <!-- left -->
@@ -83,6 +82,7 @@ export default {
   }, 
   data() {
     return {
+        params:'',
         categoryIcon:img.categoryIcon,
         sortType:sortText.sortType,
         pageOfItems: [],
@@ -142,7 +142,8 @@ export default {
     created() {
       this.keywords = ''
       this.setShowFilter(false)
-      this.setCategory('')
+      this.params = this.$route.params.category
+      this.setCategory(this.params)
     }
 }
 </script>

@@ -19,7 +19,7 @@
                 rounded
                 height='60'
                 width='250'            
-                to='/login'
+                to='/allproducts'
                 class="btn"
                 > Buy Now
               </v-btn>    

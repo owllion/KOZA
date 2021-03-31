@@ -39,7 +39,7 @@ instance.interceptors.response.use(function (res) {
         _this.$router.push('/');
       }
 
-      var res = instance.post('/getNewToken', refreshToken);
+      var res = instance.post('/getNewToken', refresh);
       var _token = res.data.result.token;
       var refreshToken = res.data.result.refreshToken;
 

@@ -44,7 +44,7 @@
              <div v-for='(img,i) in galleryImages' :key='i' class="gallery-img-container pa-relative" v-scrollAnimation >
                 <img :src=img.src  alt="galleryImage">
                  <div class="gallery-link pa-absolute pa-top-1/2 pa-left-1/2 pa-max-w-sm  pa--translate-x-1/2 pa--translate-y-1/2  pa-text-3xl pa-bg-white">
-                <router-link :to='{name:"Products"}' >
+                <router-link :to="`/products/${img.link}`" >
                   <p class="pa-pt-6 pa-text-center">{{img.link}}</p>
                 </router-link>       
                 </div>  
