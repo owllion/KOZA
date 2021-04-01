@@ -23,7 +23,7 @@ instance.interceptors.response.use( res => res ,
                 alert('Please login again!')
                 this.$router.push('/')
             }
-            const res = instance.post('/getNewToken', refresh)
+            const res = instance.post('/getNewToken', { refresh })
             
             const token = res.data.result.token
             const refreshToken = res.data.result.refreshToken

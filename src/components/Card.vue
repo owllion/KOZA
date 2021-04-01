@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     add(id,qty) {
-      if(!this.$store.state.auth.token) {
+      if(!this.$store.getters['auth/token']) {
         this.$swal({
           icon:'warning',
           title:'Oops!',

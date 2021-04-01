@@ -20,6 +20,13 @@ export default {
     props:['id'],
     methods: { 
        addToFav(id){
+        if(!this.$store.getters['auth/token']) {
+          this.$swal({
+            icon:'warning',
+            title:'Oops!',
+            text:'You need to login!'
+        })
+      }else {
           const payload = { productId : id }    
           const index = this.favList.findIndex(i=> i.productId === id)
           if(index === -1){         
@@ -39,6 +46,7 @@ export default {
               duration:2000               
               });
         }
+      }
    }
   } 
 }
