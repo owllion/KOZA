@@ -136,18 +136,26 @@ var actions = {
         switch (_context2.prev = _context2.next) {
           case 0:
             commit = _ref2.commit;
-            commit("clearToken");
+            commit("clearAll");
 
             _jsCookie["default"].remove("token");
 
             _jsCookie["default"].remove("refreshToken");
 
-          case 4:
+            this._vm.$swal({
+              icon: 'success',
+              title: 'SUCCESS!',
+              text: 'You have been successfully logged out! '
+            });
+
+            _router["default"].push('/');
+
+          case 6:
           case "end":
             return _context2.stop();
         }
       }
-    });
+    }, null, this);
   }
 };
 var mutations = {
@@ -163,8 +171,13 @@ var mutations = {
   setUserData: function setUserData(state, userData) {
     state.userData = userData;
   },
-  clearToken: function clearToken(state) {
+  clearAll: function clearAll(state) {
     state.token = null;
+    state.cartList = [];
+    state.cartLength = '';
+    state.favList = [];
+    state.refreshToken = null;
+    state.userData = null;
   },
   setCart: function setCart(state, cart) {
     state.cartList = cart;

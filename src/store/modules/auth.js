@@ -58,9 +58,15 @@ const actions = {
        }
      },
      async logout( { commit } ) {
-        commit("clearToken")
+         commit("clearAll")
          Cookies.remove("token")
          Cookies.remove("refreshToken")
+         this._vm.$swal({
+            icon:'success',
+            title:'SUCCESS!',
+            text:'You have been successfully logged out! '
+         })
+         router.push('/')
      }
 }
 
@@ -77,8 +83,13 @@ const mutations = {
       setUserData(state, userData) {
         state.userData = userData
       },
-      clearToken(state) {
-        state.token = null;
+      clearAll(state) {
+        state.token = null
+        state.cartList = []
+        state.cartLength = '' 
+        state.favList = []
+        state.refreshToken = null
+        state.userData = null 
       },
       setCart(state,cart) {
          state.cartList = cart 

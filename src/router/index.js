@@ -36,7 +36,6 @@ const routes = [
   },
   {
     path: '/userprofile',
-    redirect:'/userprofile/profile',
     name: 'UserProfile',
     meta: {
      requireAuth: true
