@@ -52,6 +52,14 @@ var routes = [{
     });
   }
 }, {
+  path: '/item/:id',
+  name: 'SingleItem',
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Detail'));
+    });
+  }
+}, {
   path: '/products/:category',
   name: 'Category',
   component: function component() {

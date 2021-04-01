@@ -13,6 +13,8 @@ module.exports = {
       
             'lg': {'max': '1023px'},
             // => @media (max-width: 1023px) { ... }
+
+            'lg-m': {'max': '915px'},
             
             'md': {'max': '769px'},
             // => @media (max-width: 767px) { ... }

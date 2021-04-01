@@ -42,7 +42,7 @@
                 </router-link>
                 </li>             
               <li>
-                <a href="#" @click='logout' class="pa-p-5 black--text pa-font-semibold pa-block pa-text-center">LOG OUT
+                <a href="#" @click='logout' class="logout pa-p-5 black--text pa-font-lg pa-block pa-text-center">LOG OUT
                 </a>
               </li>
             </ul>
@@ -131,6 +131,7 @@ $white:whitesmoke;
     .drop-down {
       padding-left: 0;
       top:3.9rem;
+      box-shadow: 2px 1px 10px rgba(0, 0, 0,0.5);
       a {
         transition:all .3s ease-in-out;
         font-size: 1.3rem;
@@ -138,6 +139,9 @@ $white:whitesmoke;
           background: #000;
           color: white !important;;
         }
+      }
+      .logout {
+        border-top:1px solid gray ;
       }
     }
     .logo--link {  
