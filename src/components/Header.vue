@@ -21,28 +21,28 @@
       </ul>
 
       <!-- icon -->
-      <ul class="pa-flex pa-w-full pa-items-center xs:pa-ml-60 xxs:pa-ml-52 s:pa-ml-40">
+      <ul class="pa-flex pa-w-full pa-items-center xs:pa-ml-48 xxs:pa-ml-52 s:pa-ml-20">
       
           <li class="pa-p-2">
-            <router-link  v-if="!$store.getters['auth/token']" to="/login" class="login pa-font-semibold pa-p-3 pa-inline-block">
-            <!-- <span class="icon icon-face_retouching_natural "></span> -->LOG IN
+            <router-link  v-if="!$store.getters['auth/token']" to="/login" class="login pa-font-semibold pa-p-3 pa-inline-block xs:pa-text-xs xs:pa-p-0">
+             LOG IN
           </router-link>
           <a  href='#' v-if="$store.getters['auth/token']"  class="pa-text-3xl " @click.prevent='dropShow = !dropShow'>
             <!-- <span class="icon icon-face_retouching_natural "></span> -->
-             <v-avatar size="43" class="avatar pa-pb-2">
+             <v-avatar size="43" class="avatar pa-pb-2 pa-relative">
                <img
                 :src=$store.state.auth.userData.avatarDefault
                 alt="avatar"
               > 
             </v-avatar>
-            <ul class="drop-down pa-absolute  pa-w-44 pa-z-50 pa-bg-white " v-show='dropShow'>
+            <ul class="drop-down pa-absolute  pa-w-44 pa-z-50 pa-bg-white md:pa-right-3 xs:pa-right-20 s:pa-right-20 xxs:pa-right-20" v-show='dropShow'>
               <li v-for='(item,i) in profileText' :key='i'>
-                <router-link :to="`/userprofile/${item.path}`" class="pa-block pa-p-5 black--text pa-font-lg pa-text-center">
+                <router-link :to="`/userprofile/${item.path}`" class="pa-block pa-p-5 black--text pa-font-lg pa-text-left">
                 {{item.name}}
                 </router-link>
                 </li>             
               <li>
-                <a href="#" @click='logout' class="logout pa-p-5 black--text pa-font-lg pa-block pa-text-center">LOG OUT
+                <a href="#" @click='logout' class="logout pa-p-5 black--text pa-font-lg pa-block pa-text-left">LOG OUT
                 </a>
               </li>
             </ul>
@@ -122,6 +122,9 @@ $white:whitesmoke;
  nav {
   max-width: 1300px;
   margin: 0 auto;
+     ul {
+       padding-left: 0;
+     }
     .avatar {
       transition: all .3s ease-in;
       &:hover {

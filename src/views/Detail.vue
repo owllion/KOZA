@@ -32,7 +32,7 @@
             <button class="pa-w-14 pa-h-5 minus-btn focus:pa-outline-none pa-inline-block pa-font-bold" type="button" name="button"> —  </button>        
           </div>
 
-            <a href="#" class="add pa-p-3 pa-w-48  pa-inline-block pa-text-xl  pa-text-center md:pa-p-4 md:pa-h-16">ADD TO CART</a>
+            <button class="add pa-p-3 pa-w-48  pa-inline-block pa-text-xl  pa-text-center md:pa-p-4 md:pa-h-16">ADD TO CART</button>
           </div>
 
               <div class="description  pa-w-full pa-pl-10 pa-py-6 md:pa-px-10">
@@ -66,14 +66,27 @@ export default {
     font-family: 'Caesar Dressing', cursive;
    }
    .add {
+       position: relative;
+       z-index: 1;
        min-width: 210px;
        transition: all .3s ease-in;
-       border:solid 1px black;
        color:white !important;
-       background: #000;
-       &:hover {
-         color: black !important;
-         background: transparent;
+       background:black;
+       overflow: hidden;
+       &::before {
+          content: '';
+          height:0%;
+          width:100%;
+          background: rgb(79, 208, 158);
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          z-index: -1;
+          transition: .5s;
+          border-radius: 50% 50% 0 0;
+       }
+       &:hover::before {
+         height: 180%;
        }
    }
    .quantity {
