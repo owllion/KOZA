@@ -6,14 +6,14 @@
       <div class="container pa-flex pa-justify-center pa-items-center pa-w-full pa-p-10 lg-m:pa-block md:pa-p-5">
           <div class="left">
               <div class="md:pa-w-full md:pa-p-0 md:pa-h-full pa-w-99 pa-h-99 pa-p-14">
-         <v-carousel 
-          :show-arrows="false"
+         <v-carousel        
            hide-delimiter-background
-           delimiter-icon="mdi-minus">
-            <v-carousel-item      
-              :src="itemDetail.image"
-              reverse-transition="fade-transition"
-              transition="fade-transition"
+           hide-delimiters>
+            <v-carousel-item
+            v-for="(img,i) in itemDetail.image"    :key='i'      
+            :src="img"
+            reverse-transition="fade-transition"
+            transition="fade-transition"
             ></v-carousel-item>
            </v-carousel>
          </div>
@@ -22,19 +22,19 @@
            <div class="right pa-w-1/2 md:pa-w-full">
            <div class=" pa-flex pa-flex-col pa-justify-center pa-h-99 pa-w-full">
               <h1 class="item-name pa-text-7xl pa-font-bold pa-text-center xl:pa-text-3xl ">{{itemDetail.productName}}</h1>
-              <h4 class="pa-my-10 pa-text-xl pa-font-semibold pa-text-center xl:pa-my-5">${itemDetail.pricee}}</h4>
+              <h4 class="pa-my-10 pa-text-xl pa-font-semibold pa-text-center xl:pa-my-5">${{itemDetail.price}}</h4>
               
            <div class="number pa-flex pa-justify-evenly pa-mb-6 pa-flex-wrap">
 
              <div class="quantity  xl:pa-mb-8 pa-text-center ">
-              <button class=" pa-inline-block pa-w-14  pa-h-5 pa-text-2xl plus-btn focus:pa-outline-none " type="button" name="button" > +
+              <button class=" pa-inline-block pa-w-14  pa-h-5 pa-text-2xl plus-btn focus:pa-outline-none " type="button" name="button" @click='qty++' :disabled="qty===itemDetail.stock"> +
              </button>
-             <input type="text" class="   pa-text-center pa-border-2 pa-border-black pa-border-solid  focus:pa-outline-none " maxlength="2" value='1' >
+             <input type="text" class="   pa-text-center pa-border-2 pa-border-black pa-border-solid  focus:pa-outline-none " maxlength="2" v-model='qty'>
 
-            <button class="pa-w-14 pa-h-5 minus-btn focus:pa-outline-none pa-inline-block pa-font-bold" type="button" name="button"> —  </button>        
+            <button class="pa-w-14 pa-h-5 minus-btn focus:pa-outline-none pa-inline-block pa-font-bold" type="button" name="button" @click='qty--' :disabled='qty===1'> —  </button>        
           </div>
 
-            <button class="add pa-p-3 pa-w-48  pa-inline-block pa-text-xl  pa-text-center md:pa-p-4 md:pa-h-16">ADD TO CART</button>
+            <button class="add pa-p-3 pa-w-48  pa-inline-block pa-text-xl  pa-text-center md:pa-p-4 md:pa-h-16" @click="add(itemDetail.productId,qty)" >ADD TO CART</button>
           </div>
 
               <div class="description  pa-w-full pa-pl-10 pa-py-6 md:pa-px-10">
@@ -51,7 +51,7 @@
 
 <script>
 import { FingerprintSpinner } from 'epic-spinners'
-//import { getProduct } from '@/api/product'
+import { getProduct } from '@/api/product'
 export default {
   components: {
     FingerprintSpinner
@@ -60,29 +60,44 @@ export default {
       return {
         isLoading:false,
         itemId:'',
-        itemDetail:''
+        itemDetail:'',
+        qty:1
       }
     },
+    methods: {
+      add(id,qty) {
+      if(!this.$store.getters['auth/token']) {
+        this.$swal({
+          icon:'warning',
+          title:'Oops!',
+          text:'You need to login!'
+        })
+      }else {
+        const params = { productId:id , qty }
+        this.$store.dispatch('product/addActions',params)
+        
+      }
+     }
+  },
     async created() {
       this.itemId = this.$route.params.id
-      console.log(this.itemId)
-      // try {
-      //   this.isLoading = true
-      //   const payload = { productId : this.itemId }
-      //   const { data:{ productDetail } } = await getProduct(payload) 
-      //   this.itemDetail = productDetail
-      //   this.isLoading = false
-      // }catch(err) {
-      //   this.isLoading = false
-      //   if(err.response) {
-      //     const error = err.response.data.msg
-      //     this.$swal({
-      //       icon:'error',
-      //       title:'Oops!',
-      //       text:error
-      //     })
-      //   }
-      // }
+      try {
+        this.isLoading = true
+        const payload = { productId : this.itemId }
+        const { data:{ productDetail } } = await getProduct(payload) 
+        this.itemDetail = productDetail
+        this.isLoading = false
+      }catch(err) {
+        this.isLoading = false
+        if(err.response) {
+          const error = err.response.data.msg
+          this.$swal({
+            icon:'error',
+            title:'Oops!',
+            text:error
+          })
+        }
+      }
       
     }
 }

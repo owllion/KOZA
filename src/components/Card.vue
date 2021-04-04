@@ -6,7 +6,7 @@
           <div class="pa-rounded-full pa-bg-red-600 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-10 pa-right-3" v-if="item.sales>750">Hot</div>
           <div class="pa-rounded-full pa-bg-green-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-4 pa-right-3">New</div>
            <Heart :id=item.productId />
-          <router-link :to="`/item/${item.id}`" class="pa-block pa-w-full">
+          <router-link :to="`/item/${item.productId}`" class="pa-block pa-w-full">
               <img :src=item.image[0] alt="product image" >
           </router-link>   
         </div>     
