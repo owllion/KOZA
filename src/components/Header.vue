@@ -35,21 +35,21 @@
                 alt="avatar"
               > 
             </v-avatar>
-            <ul class="drop-down pa-absolute  pa-w-44 pa-z-50 pa-bg-white md:pa-right-3 xs:pa-right-20 s:pa-right-20 xxs:pa-right-20" v-show='dropShow'>
+            <ul class="drop-down pa-rounded-lg pa-overflow-hidden pa-absolute  pa-w-44 pa-z-50 pa-bg-white md:pa-right-3 xs:pa-right-20 s:pa-right-20 xxs:pa-right-20" v-show='dropShow'>
               <li v-for='(item,i) in profileText' :key='i'>
-                <router-link :to="`/userprofile/${item.path}`" class="pa-block pa-p-5 black--text pa-font-lg pa-text-left">
+                <router-link :to="`/userprofile/${item.path}`" class="pa-block  pa-p-5 black--text pa-font-semibold pa-text-left">
                 {{item.name}}
                 </router-link>
                 </li>             
               <li>
-                <a href="#" @click='logout' class="logout pa-p-5 black--text pa-font-lg pa-block pa-text-left">LOG OUT
+                <a href="#" @click='logout' class="logout pa-p-5 black--text pa-font-semibold pa-block pa-text-left"><i class="red--text fas fa-power-off pa-pr-3"></i>LOG OUT
                 </a>
               </li>
             </ul>
           </a>
         </li>
        <li class="pa-p-2 pa-relative">
-         <router-link  :to="{name:'Cart'}" class="pa-text-3xl ">   
+         <router-link  :to="{name:'Checkout'}" class="pa-text-3xl ">   
            <span class="icon icon-local_grocery_store">
            </span>
 
@@ -77,10 +77,10 @@ import { mapGetters,mapActions } from 'vuex'
       return {
         dropShow:false,
         profileText:[
-           {name:'PROFILE', path:'profile'},
-           {name:'FAVLIST', path:'favlist'},
-           {name:'COUPON', path:'coupon'},
-           {name:'ORDER', path:'order'},
+           {name:'PROFILE', path:'profile',icon:'<i class="fas fa-address-card"></i>'},
+           {name:'FAVLIST', path:'favlist',icon:'<i class="fab fa-gratipay"></i>'},
+           {name:'COUPON', path:'coupon',icon:'<i class="fas fa-tags"></i>'},
+           {name:'ORDER', path:'order',icon:'<i class="fas fa-file-invoice-dollar"></i>'},
         ],
         navText:[
            {

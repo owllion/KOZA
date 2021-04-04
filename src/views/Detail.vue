@@ -1,28 +1,30 @@
 <template>
   <div class="wrapper pa-pt-20 pa-w-full">
+    <Loading :active.sync="isLoading">
+    <fingerprint-spinner :animation-duration="2000" :size="100" color="#22c1c3" />
+    </Loading>
       <div class="container pa-flex pa-justify-center pa-items-center pa-w-full pa-p-10 lg-m:pa-block md:pa-p-5">
           <div class="left">
               <div class="md:pa-w-full md:pa-p-0 md:pa-h-full pa-w-99 pa-h-99 pa-p-14">
-              <!-- <img src="https://www.yourtrainingedge.com/wp-content/uploads/2019/05/background-calm-clouds-747964.jpg" alt="" class="pa-w-full pa-h-full pa-object-cover"> -->
          <v-carousel 
           :show-arrows="false"
            hide-delimiter-background
            delimiter-icon="mdi-minus">
-      <v-carousel-item      
-        src="https://www.yourtrainingedge.com/wp-content/uploads/2019/05/background-calm-clouds-747964.jpg"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      ></v-carousel-item>
-    </v-carousel>
-              </div>
-          </div>
+            <v-carousel-item      
+              :src="itemDetail.image"
+              reverse-transition="fade-transition"
+              transition="fade-transition"
+            ></v-carousel-item>
+           </v-carousel>
+         </div>
+        </div>
 
            <div class="right pa-w-1/2 md:pa-w-full">
            <div class=" pa-flex pa-flex-col pa-justify-center pa-h-99 pa-w-full">
-              <h1 class="item-name pa-text-7xl pa-font-bold pa-text-center xl:pa-text-3xl ">Red cheese</h1>
-              <h4 class="pa-my-10 pa-text-xl pa-font-semibold pa-text-center xl:pa-my-5">$50.00</h4>
+              <h1 class="item-name pa-text-7xl pa-font-bold pa-text-center xl:pa-text-3xl ">{{itemDetail.productName}}</h1>
+              <h4 class="pa-my-10 pa-text-xl pa-font-semibold pa-text-center xl:pa-my-5">${itemDetail.pricee}}</h4>
               
-           <div class="number  pa-flex pa-justify-evenly pa-mb-6 pa-flex-wrap">
+           <div class="number pa-flex pa-justify-evenly pa-mb-6 pa-flex-wrap">
 
              <div class="quantity  xl:pa-mb-8 pa-text-center ">
               <button class=" pa-inline-block pa-w-14  pa-h-5 pa-text-2xl plus-btn focus:pa-outline-none " type="button" name="button" > +
@@ -48,8 +50,41 @@
 </template>
 
 <script>
+import { FingerprintSpinner } from 'epic-spinners'
+//import { getProduct } from '@/api/product'
 export default {
-
+  components: {
+    FingerprintSpinner
+  },
+    data() {
+      return {
+        isLoading:false,
+        itemId:'',
+        itemDetail:''
+      }
+    },
+    async created() {
+      this.itemId = this.$route.params.id
+      console.log(this.itemId)
+      // try {
+      //   this.isLoading = true
+      //   const payload = { productId : this.itemId }
+      //   const { data:{ productDetail } } = await getProduct(payload) 
+      //   this.itemDetail = productDetail
+      //   this.isLoading = false
+      // }catch(err) {
+      //   this.isLoading = false
+      //   if(err.response) {
+      //     const error = err.response.data.msg
+      //     this.$swal({
+      //       icon:'error',
+      //       title:'Oops!',
+      //       text:error
+      //     })
+      //   }
+      // }
+      
+    }
 }
 </script>
 

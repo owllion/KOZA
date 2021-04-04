@@ -1,8 +1,5 @@
 <template>
   <section class="wrapper pa-w-full  pa-mt-16 pa-mb-10"> 
-       <!-- banner -->
-     <Banner>My Cart</Banner>
-      <!--banner-->
       <div class="pa-flex pa-justify-center pa-items-center " v-show="!cartList.length">
         <div class="content pa-flex pa-flex-wrap pa-w-99  pa-items-center">
           <div class="left img-container pa-w-1/2 pa-pr-5 md:pa-w-full md:pa-px-36 xs:pa-px-16">
@@ -11,7 +8,7 @@
 
           <div class="right pa-w-1/2 md:pa-w-full md:pa-px-24 xs:pa-px-20">
            <p class="pa-text-3xl  pa-block pa-text-center pa-font-semibold pa-tracking-wider md:pa-text-sm"> Your cart is empty! </p>        
-          <router-link to="/products" class="shop-btn pa-block  pa-text-2xl pa-p-3 pa-text-center pa-bg-yellow-500 white--text  pa-tracking-wider pa-transition pa-duration-500 md:pa-text-sm">Go shopping</router-link>
+          <router-link to="/allproducts" class="shop-btn pa-block  pa-text-2xl pa-p-3 pa-text-center pa-bg-yellow-500 white--text  pa-tracking-wider pa-transition pa-duration-500 md:pa-text-sm">Go shopping</router-link>
          </div>
     </div>
      </div>
@@ -106,9 +103,9 @@
       </button>
       </div>
 
-      <button class="checkout-btn pa-inline-block pa-bg-red-600 white--text pa-px-6 pa-py-3   pa-duration-500 pa-transition  md:pa-w-full md:pa-text-center md:pa-mt-5" @click="checkCart">
+      <a href="#" class="checkout-btn focus:pa-outline-none pa-inline-block pa-bg-red-600 white--text pa-px-6 pa-py-3   pa-duration-500 pa-transition  md:pa-w-full md:pa-text-center md:pa-mt-5" @click="checkCart">
       CHECK OUT
-      </button>
+      </a>
      </div>
         <!-- continue link -->
 </div>
@@ -116,17 +113,10 @@
 </template>
 
 <script>
-import Banner from '@/components/Header-banner'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-
 export default {
-  components:{
-    Banner   
-  }, 
   data() {
     return {
-      itemQty:null,
-      ischeckedList:[],
       allcheck: false,     
     }
   }, 
@@ -162,18 +152,26 @@ export default {
     clear(){
       this.$swal({
         icon:'warning',
-        title: `Dear ${this.$store.state.auth.userData.name},are you sure??`,
+        title: 'Are you sure?',
+        showClass: {
+          popup: 'animate__animated animate__flipInX'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__flipOutY'
+        },
         showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonColor: "#147335",
-        confirmButtonText: `Don't you ask me again`,
-        denyButtonText: `PLS DON'T`,
+        showCancelButton: true,      
+        confirmButtonText: `YES!`,
+        denyButtonText: `Wait a minute!`,
+        confirmButtonColor: "#1D7874",
+        denyButtonColor:'#E66262',
+        cancelButtonColor:'#C7A27C'
       }).then(result => { 
         if (result.isConfirmed) {
           this.clearActions()
           this.$swal('All clear!', '', 'success')       
         } else if (result.isDenied) {
-          this.$swal('Are you kidding me?', '', 'info')
+          this.$swal('That\'s right.', '', 'info')
         }
       })
       
@@ -186,12 +184,12 @@ export default {
       this.cartList[i].qty--   
       this.setQty( this.cartList[i].productId, this.cartList[i].qty,this.cartList)
     },
-    ...mapMutations('order',['setCheckedItem']),
+    ...mapMutations('order',['setCheckedItem','setEl','setSubTotal']),
     ...mapActions('product',['adjustQty','deleteItemActions','clearActions']),
      deleteItem(productId,cartList) {
        this.$swal({
         icon:'warning',
-        title: 'Are you sure?',
+        title: 'Are you sure ? Really?',
         showClass: {
           popup: 'animate__animated animate__flipInX'
         },
@@ -199,17 +197,19 @@ export default {
           popup: 'animate__animated animate__flipOutY'
         },
         showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonColor: "#147335",
-        confirmButtonText: `Yes!`,
-        denyButtonText: `Let me think about it`,
+        showCancelButton: true,      
+        confirmButtonText: `YES!`,
+        denyButtonText: `Wait a minute!`,
+        confirmButtonColor: "#1D7874",
+        denyButtonColor:'#E66262',
+        cancelButtonColor:'#C7A27C'
       }).then(result => { 
         if (result.isConfirmed) {
           const payload = { productId, cartList }
           this.deleteItemActions(payload)          
           this.$swal('Delete!', '', 'success')
          } else if (result.isDenied) {
-          this.$swal('Alright!', '', 'info')
+          this.$swal('Good decision.', '', 'info')
         }
       })
     },
@@ -225,8 +225,11 @@ export default {
            text:'You have not chosen anything!'
          })
        }else {
-          this.setCheckedItem(this.ischeckedList)
-          this.$router.push('/checkout')
+         const checkedList = this.cartList.filter(item=> item.isChecked === true)
+          this.setCheckedItem(checkedList)
+          this.setSubTotal(this.subTotal)
+          console.log(this.$store.state.order.subTotal)
+          this.setEl(2)
        }     
      },
      checkall() {
@@ -234,6 +237,12 @@ export default {
       this.cartList.forEach(i=> i.isChecked = this.allcheck)
      }
      
+  },
+  watch: {
+    subTotal(newVal) {
+        this.setSubTotal(newVal)
+        console.log(this.subTotal)
+    }
   },
   created() {
     this.checkall(true)

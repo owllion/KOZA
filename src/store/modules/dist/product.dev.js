@@ -102,11 +102,19 @@ var actions = {
             commit('auth/setCartLength', cartList.length, {
               root: true
             });
-            _context2.next = 13;
+
+            this._vm.$toast.open({
+              message: 'ADD TO CART!',
+              type: 'success',
+              pauseOnHover: true,
+              duration: 2000
+            });
+
+            _context2.next = 14;
             break;
 
-          case 10:
-            _context2.prev = 10;
+          case 11:
+            _context2.prev = 11;
             _context2.t0 = _context2["catch"](1);
 
             if (_context2.t0.response) {
@@ -119,12 +127,12 @@ var actions = {
               });
             }
 
-          case 13:
+          case 14:
           case "end":
             return _context2.stop();
         }
       }
-    }, null, this, [[1, 10]]);
+    }, null, this, [[1, 11]]);
   },
   addToFavActions: function addToFavActions(_ref5, value) {
     var commit, _ref6, favList, error;

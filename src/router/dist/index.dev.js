@@ -125,22 +125,35 @@ var routes = [{
 }, {
   path: '/checkout',
   name: 'Checkout',
-  component: function component() {
-    return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Checkout'));
-    });
-  }
-}, {
-  path: '/cart',
-  name: 'Cart',
   meta: {
     requireAuth: true
   },
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Cart'));
+      return _interopRequireWildcard(require('../views/Checkout'));
     });
-  }
+  },
+  redirect: '/checkout/check',
+  children: [{
+    path: 'check',
+    components: {
+      Cart: function Cart() {
+        return Promise.resolve().then(function () {
+          return _interopRequireWildcard(require('../views/Cart'));
+        });
+      },
+      Info: function Info() {
+        return Promise.resolve().then(function () {
+          return _interopRequireWildcard(require('../views/Information'));
+        });
+      },
+      Fin: function Fin() {
+        return Promise.resolve().then(function () {
+          return _interopRequireWildcard(require('../views/Finish'));
+        });
+      }
+    }
+  }]
 }, {
   path: '/admin',
   name: 'Admin',

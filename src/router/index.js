@@ -71,16 +71,22 @@ const routes = [
    {
     path: '/checkout',
     name: 'Checkout',
-    component: () => import('../views/Checkout')
-  },
-   {
-    path: '/cart',
-    name: 'Cart',
     meta: {
      requireAuth: true
     },
-    component: () => import('../views/Cart')
-   },
+    component:() => import('../views/Checkout'),
+    redirect:'/checkout/check',
+    children: [
+      {
+        path:'check',
+        components: {
+          Cart: () => import('../views/Cart'),     
+          Info: () => import('../views/Information'),
+          Fin: () => import('../views/Finish')
+        }
+      }
+    ]  
+   },  
    {
     path: '/admin',
     name: 'Admin',

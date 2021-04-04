@@ -40,9 +40,16 @@ const actions = {
   },
     async addActions({commit}, value) {
         try {
-            const {data: { cartList }} = await addToCart(value)
+            const { data: { cartList } } = await addToCart(value)
             commit('auth/setCart', cartList, { root: true })
             commit('auth/setCartLength', cartList.length, { root: true })
+            
+            this._vm.$toast.open({
+                message: 'ADD TO CART!',
+                type:'success',
+                pauseOnHover:true,
+                duration:2000             
+                }); 
         }catch(err) {
             if(err.response) {
               const error = err.response.data.msg

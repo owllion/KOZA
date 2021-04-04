@@ -10,8 +10,6 @@
 
 <script>
 import Layout from '@/components/Layout.vue'
-//import { getCategoryItems, getAllProducts } from '@/api/product.js'
-
 export default {
   name: 'App',
   components: {
@@ -22,6 +20,7 @@ export default {
     this.$store.dispatch('address/getLocations')
     this.$store.commit('product/clear')
     this.$store.commit('product/closeFilter')
+
   }
 };
 </script>

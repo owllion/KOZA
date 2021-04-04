@@ -6,9 +6,9 @@
           <div class="pa-rounded-full pa-bg-red-600 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-10 pa-right-3" v-if="item.sales>750">Hot</div>
           <div class="pa-rounded-full pa-bg-green-500 white--text pa-w-10  pa-text-sm pa-text-semibold pa-absolute pa-top-4 pa-right-3">New</div>
            <Heart :id=item.productId />
-          <router-link to='/' class="pa-block pa-w-full">
+          <router-link :to="`/item/${item.id}`" class="pa-block pa-w-full">
               <img :src=item.image[0] alt="product image" >
-              </router-link>   
+          </router-link>   
         </div>     
          <h4 class="pa-text-center pa-font-bold pa-text-xl pa-mb-2">{{item.productName}}</h4>
         <p class="pa-text-center pa-font-semibold pa-pb-3">${{item.price}}</p>
@@ -36,7 +36,8 @@ export default {
         })
       }else {
         const params = { productId:id , qty }
-        this.$store.dispatch('product/addActions',params) 
+        this.$store.dispatch('product/addActions',params)
+        
       }
      
     }
