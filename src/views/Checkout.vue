@@ -41,19 +41,9 @@
         <v-stepper-content step="2">
          <router-view name="Info"></router-view>
         <div class="pa-flex pa-justify-end">
-          <!-- <v-btn
-             tile
-             color="pink darken-3"
-             class="white--text"
-             height="50"
-            @click="setEl(3)"
-          >
-            Continue
-          </v-btn> -->
-  
-          <v-btn text  @click="setEl(1)" tile class="black--text pa-bg-gray-100 pa-ml-3" height="50">
-            Cancel
-          </v-btn>
+          <a  href="#" @click="setEl(1)"  class="pa-block pa-text-center pa-font-semibold pa-w-20 black--text pa-bg-gray-100  pa-p-3 hover:pa-bg-gray-300 pa-transition pa-duration-500" >
+            BACK
+          </a>
          </div>
         </v-stepper-content>
   

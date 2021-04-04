@@ -45,7 +45,9 @@
       <td class="image">
         <div class="pa-flex pa-justify-center">
          <div class="pa-w-24 pa-h-24 pa-mr-5">
-          <img :src="item.image[0]" alt="icon" >
+           <router-link :to="`/item/${item.productId}`" class="pa-block pa-h-full pa-w-full">
+          <img :src="item.image[0]" alt="icon" class="pa-w-full pa-h-full pa-object-contain">
+          </router-link>
          </div>
          <p class="pa-pt-10 pa-font-semibold ">{{item.productName}}</p>
          </div>

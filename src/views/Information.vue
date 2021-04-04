@@ -92,8 +92,8 @@
            <!-- cart item -->
            <div class="cart-item pa-flex pa-justify-between pa-border-b-2 pa-border-gray-100 pa-border-solid" v-for="(item,i) in order_item" :key='i'>
              <div class="left pa-flex ">
-             <div class="pa-w-24 pa-h-24 pa-p-2">
-             <router-link :to="`/item/${item.productId}`" class="pa-block pa-w-full">
+             <div class="pa-w-20 pa-h-24 pa-p-2">
+             <router-link :to="`/item/${item.productId}`" class="pa-w-full pa-h-full">
              <img :src="item.image[0]" alt="" class="pa-w-full pa-h-full pa-object-contain">
              </router-link>
              </div>
@@ -106,7 +106,7 @@
             </div>
             <!-- left -->
              <div class="sub pa-flex pa-items-center">
-               <span class="pa-pr-6 pa-font-semibold">${{item.price*item.qty}}</span>
+               <span class="pa-pr-6 pa-font-semibold">${{Math.floor(item.price*item.qty)}}</span>
              </div>
            </div>
            <!-- cart item -->
