@@ -27,7 +27,7 @@ export default {
             text:'You need to login!'
         })
       }else {
-          const payload = { productId : id }    
+          const payload = { productId : id , favlist : this.favList }    
           const index = this.favList.findIndex(i=> i.productId === id)
           if(index === -1){         
             this.$store.dispatch('product/addToFavActions',payload)   
