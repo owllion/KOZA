@@ -31,18 +31,19 @@
             <!-- <span class="icon icon-face_retouching_natural "></span> -->
              <v-avatar size="43" class="avatar pa-pb-2 pa-relative">
                <img
-                :src=$store.state.auth.userData.avatarDefault
+                :src=switchAvatar
                 alt="avatar"
               > 
             </v-avatar>
-            <ul class="drop-down pa-rounded-lg pa-overflow-hidden pa-absolute  pa-w-44 pa-z-50 pa-bg-white md:pa-right-3 xs:pa-right-20 s:pa-right-20 xxs:pa-right-20" v-show='dropShow'>
+            <ul class="drop-down pa-rounded-lg pa-overflow-hidden pa-absolute  pa-w-44 pa-z-50 pa-bg-white md:pa-right-3 xs:pa-right-20 " v-show='dropShow'>
               <li v-for='(item,i) in profileText' :key='i'>
                 <router-link :to="`/userprofile/${item.path}`" class="pa-block  pa-p-5 black--text pa-font-semibold pa-text-left">
                 {{item.name}}
                 </router-link>
                 </li>             
               <li>
-                <a href="#" @click='logout' class="logout pa-p-5 black--text pa-font-semibold pa-block pa-text-left"><i class="red--text fas fa-power-off pa-pr-3"></i>LOG OUT
+                <a href="#" @click='logout' class="logout pa-p-5 black--text pa-font-semibold pa-block pa-text-left">
+                  <i class="fas fa-sign-out-alt pa-pr-3"></i>Sign Out
                 </a>
               </li>
             </ul>
@@ -77,10 +78,10 @@ import { mapGetters,mapActions } from 'vuex'
       return {
         dropShow:false,
         profileText:[
-           {name:'PROFILE', path:'profile',icon:'<i class="fas fa-address-card"></i>'},
-           {name:'FAVLIST', path:'favlist',icon:'<i class="fab fa-gratipay"></i>'},
-           {name:'COUPON', path:'coupon',icon:'<i class="fas fa-tags"></i>'},
-           {name:'ORDER', path:'order',icon:'<i class="fas fa-file-invoice-dollar"></i>'},
+           {name:'PROFILE', path:'profile'},
+           {name:'FAVLIST', path:'favlist'},
+           {name:'COUPON', path:'coupon'},
+           {name:'ORDER', path:'order'},
         ],
         navText:[
            {
@@ -102,7 +103,13 @@ import { mapGetters,mapActions } from 'vuex'
     ...mapActions('auth',['logout'])
   },
   computed: {
-      ...mapGetters('auth', ['cartLength','token'])
+      ...mapGetters('auth', ['cartLength','token','userData','avatar64']),
+      switchAvatar() {
+        if(this.avatar64) { 
+          return `data:image/jpg;base64,${this.avatar64}`
+        }
+        return this.userData.avatarDefault
+      }
   }
  
     

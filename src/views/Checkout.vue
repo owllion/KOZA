@@ -41,8 +41,8 @@
         <v-stepper-content step="2">
          <router-view name="Info"></router-view>
         <div class="pa-flex pa-justify-end">
-          <a  href="#" @click="setEl(1)"  class="pa-block pa-text-center pa-font-semibold pa-w-20 black--text pa-bg-gray-100  pa-p-3 hover:pa-bg-gray-300 pa-transition pa-duration-500" >
-            BACK
+          <a  href="#" @click="setEl(1)"  class="pa-block pa-text-center pa-font-semibold pa-w-36 black--text pa-bg-gray-100  pa-p-3 hover:pa-bg-gray-300 pa-transition pa-duration-500" >
+           <i class="fas fa-chevron-left pa-pr-3"></i> <span>BACK</span>
           </a>
          </div>
         </v-stepper-content>

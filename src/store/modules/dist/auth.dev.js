@@ -20,7 +20,8 @@ var state = {
   cartList: [],
   cartLength: '',
   favList: [],
-  showEmailBox: false
+  showEmailBox: false,
+  avatar64: ''
 };
 var getters = {
   isAuthenticated: function isAuthenticated(state) {
@@ -46,6 +47,9 @@ var getters = {
   },
   showEmailBox: function showEmailBox(state) {
     return state.showEmailBox;
+  },
+  avatar64: function avatar64(state) {
+    return state.avatar64;
   }
 };
 var actions = {
@@ -85,11 +89,11 @@ var actions = {
             _res$data$result = res.data.result, token = _res$data$result.token, refreshToken = _res$data$result.refreshToken, user = _res$data$result.user;
 
             _jsCookie["default"].set('token', token, {
-              expires: 7
+              expires: 6
             });
 
             _jsCookie["default"].set('refreshToken', refreshToken, {
-              expires: 30
+              expires: 29
             });
 
             commit('setToken', token);
@@ -159,6 +163,9 @@ var actions = {
   }
 };
 var mutations = {
+  setAvatar: function setAvatar(state, data) {
+    state.avatar64 = data;
+  },
   toggleEmailBox: function toggleEmailBox(state, data) {
     state.showEmailBox = data;
   },

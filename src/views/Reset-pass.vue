@@ -1,9 +1,10 @@
 <template>
-<div class="pa-my-64 pa-flex pa-justify-center pa-items-center">
+<div class="pa-my-64 pa-flex pa-flex-col pa-justify-center pa-items-center xs:pa-px-3">
     <Loading :active.sync="isLoading">
     <fingerprint-spinner :animation-duration="2000" :size="100" color="#22c1c3" />
     </Loading>
-    <div class="pa-w-96 pa-border-2 pa-border-solid pa-p-6 pa-border-black">
+    <h3 class="animate__animated animate__heartBeat pa-font-normal pa-p-4 pa-rounded-md black--text pa-text-6xl pa-my-6 pa-text-center ">Reset Password</h3>
+    <div class="pa-w-96 pa-border-2 pa-border-solid pa-p-6 pa-border-black xs:pa-w-full">
     <label for="" class="pa-block pa-mb-3 pa-font-semibold pa-text-3xl"> New Password</label>
     <input type="text" placeholder="Password" class="pa-block pa-w-full pa-p-3 pa-border-2 pa-border-black pa-border-solid pa-mb-5" v-model='password'>
 
@@ -101,6 +102,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+h3 {
+  font-family: 'Caesar Dressing', cursive;
+}
 
 </style>

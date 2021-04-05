@@ -8,7 +8,8 @@ const state = {
     cartList:[],
     cartLength:'',
     favList:[],
-    showEmailBox:false
+    showEmailBox:false,
+    avatar64:''
    
 }
 
@@ -20,7 +21,8 @@ const getters = {
    cartList: state => state.cartList,
    cartLength: state => state.cartLength,
    favList: state => state.favList,
-   showEmailBox: state => state.showEmailBox
+   showEmailBox: state => state.showEmailBox,
+   avatar64: state => state.avatar64
 }
 
 const actions = { 
@@ -31,8 +33,8 @@ const actions = {
            const res = data.captchaText ? await userLogin(data): await userRegister(data) 
             
            const { token, refreshToken , user } = res.data.result
-           Cookies.set('token', token, { expires: 7 })
-           Cookies.set('refreshToken', refreshToken, {expires: 30 })
+           Cookies.set('token', token, { expires: 6 })
+           Cookies.set('refreshToken', refreshToken, {expires: 29 })
   
            commit('setToken', token)
            commit('setRefreshToken', refreshToken)
@@ -71,6 +73,9 @@ const actions = {
 }
 
 const mutations = {
+      setAvatar(state, data) {
+         state.avatar64 = data
+      },
       toggleEmailBox(state, data) {
          state.showEmailBox = data
       },

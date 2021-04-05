@@ -9,11 +9,13 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _jsCookie = _interopRequireDefault(require("js-cookie"));
 
-var _this = void 0;
+var _router = _interopRequireDefault(require("@/router"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var token = _jsCookie["default"].get('token');
+
+console.log(token);
 
 var instance = _axios["default"].create({
   baseURL: process.env.VUE_APP_AXIOS_BASE_URL,
@@ -26,33 +28,30 @@ instance.interceptors.response.use(function (res) {
   return res;
 }, function (err) {
   if (err && err.response) {
-    var status = err.response.status;
-    var originalReq = err.config;
+    var status = err.response.status; //const originalReq = err.config
 
     if (status === 401) {
-      //get new tokens
-      var refresh = _jsCookie["default"].get(refreshToken);
+      //get new tokens    
+      var refresh = _jsCookie["default"].get('refreshToken');
 
       if (!refresh) {
         alert('Please login again!');
 
-        _this.$router.push('/');
+        _router["default"].push('/');
       }
 
-      var res = instance.post('/getNewToken', {
+      return instance.post('/getNewToken', {
         refresh: refresh
+      }).then(function (res) {
+        console.log(res); //  Cookies.set('token', token)
+        //  Cookies.set('refreshToken',refreshToken)
+        //  originalReq.headers['Authorization'] = `Bearer ${token}`;
+        // //original request already have one, no need to add it again
+        //  originalReq.baseURL = '';
+        //  return instance(originalReq)
+      })["catch"](function (err) {
+        return console.log("Refresh error:".concat(err));
       });
-      var _token = res.data.result.token;
-      var refreshToken = res.data.result.refreshToken;
-
-      _jsCookie["default"].set('token', _token);
-
-      _jsCookie["default"].set('refreshToken', refreshToken);
-
-      originalReq.headers['Authorization'] = "Bearer ".concat(_token); //original request already have one, no need to add it again
-
-      originalReq.baseURL = '';
-      return instance(originalReq);
     }
   }
 

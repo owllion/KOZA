@@ -33,6 +33,9 @@ display: none;
 #app {
   font-family: 'Quicksand', sans-serif;
   box-sizing: border-box;
+  .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  font-size: 50px !important;
+}
     
 } 
 
