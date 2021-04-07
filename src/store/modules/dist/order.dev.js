@@ -7,6 +7,8 @@ exports["default"] = void 0;
 
 var _coupon = require("@/api/coupon");
 
+var _order = require("@/api/order");
+
 var state = {
   el: 1,
   order_item: [],
@@ -17,7 +19,8 @@ var state = {
   discount_code: '',
   total_price: null,
   //final,includes shipping
-  payment_method: ''
+  payment_method: '',
+  orderList: []
 };
 var getters = {
   el: function el(state) {
@@ -43,6 +46,9 @@ var getters = {
   },
   payment_method: function payment_method(state) {
     return state.payment_method;
+  },
+  orderList: function orderList(state) {
+    return state.orderList;
   }
 };
 var mutations = {
@@ -69,6 +75,9 @@ var mutations = {
   },
   setAddress: function setAddress(state, value) {
     state.delivery_address = value;
+  },
+  setOrderList: function setOrderList(state, value) {
+    state.orderList = value;
   }
 };
 var actions = {
@@ -115,6 +124,66 @@ var actions = {
         }
       }
     }, null, this, [[1, 12]]);
+  },
+  placeOrderAction: function placeOrderAction(_ref3, value) {
+    var commit, _ref4, _ref4$data, cartList, user, order, error;
+
+    return regeneratorRuntime.async(function placeOrderAction$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            commit = _ref3.commit;
+            _context2.prev = 1;
+            _context2.next = 4;
+            return regeneratorRuntime.awrap((0, _order.createOrder)(value));
+
+          case 4:
+            _ref4 = _context2.sent;
+            _ref4$data = _ref4.data;
+            cartList = _ref4$data.cartList;
+            user = _ref4$data.user;
+            order = _ref4$data.order;
+            commit('auth/setCart', cartList, {
+              root: true
+            });
+            commit('auth/setCartLength', cartList.length, {
+              root: true
+            });
+            commit('auth/setUserData', user, {
+              root: true
+            });
+            commit('setOrderList', order);
+
+            this._vm.$swal({
+              icon: 'success',
+              title: 'Yeah!',
+              text: 'Successfully place an order'
+            });
+
+            commit('setEl', 3);
+            _context2.next = 20;
+            break;
+
+          case 17:
+            _context2.prev = 17;
+            _context2.t0 = _context2["catch"](1);
+
+            if (_context2.t0.response) {
+              error = _context2.t0.response.data.msg;
+
+              this._vm.$swal({
+                icon: "error",
+                title: 'Oops!',
+                text: error
+              });
+            }
+
+          case 20:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, null, this, [[1, 17]]);
   }
 };
 var _default = {

@@ -19,6 +19,7 @@ const getters = {
    refreshToken: state => state.refreshToken,
    userData:state => state.userData,
    cartList: state => state.cartList,
+   couponList: state => state.userData.couponList,
    cartLength: state => state.cartLength,
    favList: state => state.favList,
    showEmailBox: state => state.showEmailBox,
@@ -26,7 +27,7 @@ const getters = {
 }
 
 const actions = { 
-    async signInOrUp ({ commit } , data) {
+    async signInOrUp ({ commit ,state} , data) {
         try{                  
            const alertText = data.captchaText ? 'logged in!':'registered'
 
@@ -39,9 +40,12 @@ const actions = {
            commit('setToken', token)
            commit('setRefreshToken', refreshToken)
            commit('setUserData', user)
-           commit('setCart', user.cartList)
-           commit('setCartLength',user.cartList.length)
-           commit('setFavList',user.favList)
+           commit('setCart',state.userData.cartList)
+           commit('setCartLength',state.userData.cartList.length)
+           commit('setFavList',state.userData.favList)
+         //   commit('setCart', user.cartList)
+         //   commit('setCartLength',user.cartList.length)
+         //   commit('setFavList',user.favList)
           
            this._vm.$swal({
               icon:'success',
@@ -95,6 +99,7 @@ const mutations = {
         state.favList = []
         state.refreshToken = null
         state.userData = null 
+        state.avatar64 = null 
       },
       setCart(state,cart) {
          state.cartList = cart 

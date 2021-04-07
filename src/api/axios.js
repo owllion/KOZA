@@ -21,8 +21,8 @@ instance.interceptors.response.use( res => res ,
             //get new tokens    
              const refresh = Cookies.get('refreshToken')
               if(!refresh) {
-                alert('Please login again!')
-                router.push('/')
+                console.log('Please login again!')
+               return  router.push('/login')
             }
              return instance.post('/getNewToken', { refresh })
              .then( res=> {

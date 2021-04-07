@@ -38,10 +38,10 @@
           <router-view name='Cart'/>
         </v-stepper-content>
   
-        <v-stepper-content step="2">
+        <v-stepper-content step="2" >
          <router-view name="Info"></router-view>
-        <div class="pa-flex pa-justify-end">
-          <a  href="#" @click="setEl(1)"  class="pa-block pa-text-center pa-font-semibold pa-w-36 black--text pa-bg-gray-100  pa-p-3 hover:pa-bg-gray-300 pa-transition pa-duration-500" >
+        <div class="pa-flex pa-justify-end pa-pr-2">
+          <a  href="#" @click="setEl(1)"  class="pa-block pa-text-center pa-font-semibold pa-w-36 black--text pa-bg-gray-100  pa-p-3 hover:pa-bg-gray-300 pa-transition pa-duration-500 " >
            <i class="fas fa-chevron-left pa-pr-3"></i> <span>BACK</span>
           </a>
          </div>
@@ -51,15 +51,13 @@
            <router-view name="Fin"></router-view>
 
           <div class="pa-flex pa-justify-center">
-          <v-btn
-             tile
+          <router-link to="userprofile/order"
              color="pink darken-3"
-             @click="setEl(1)"
              height="60"
              class="white--text pa-p-6"
           >
             Check order
-          </v-btn>
+          </router-link>
           </div>
         </v-stepper-content>
       </v-stepper-items>
@@ -91,5 +89,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media (max-width:361px) {
+    .v-stepper__content {
+       padding: 24px 15px 24px 15px  !important;
+}
+}
 
 </style>

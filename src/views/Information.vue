@@ -1,14 +1,14 @@
 <template>
-  <div class="row pa-flex">
+  <div class="row pa-flex lg:pa-flex-col">
     <Loading :active.sync="isLoading">
     <fingerprint-spinner :animation-duration="2000" :size="100" color="#22c1c3" />
     </Loading>
-   <div class="shipAndPay pa-w-1/2 pa-p-14  md:pa-w-full">
+   <div class="shipAndPay pa-w-1/2 pa-p-14  md:pa-w-full xs:pa-px-5 xxs:pa-p-2">
      <div class="container">
        <form>     
        <div class="row">
          <!--shipping-->
-         <div class="shipping pa-mb-16 pa-p-6 ">
+         <div class="shipping pa-mb-16 pa-p-6 xs:pa-p-1">
             <h3 class="pa-font-semibold pa-text-3xl pa-pb-3"><i class="fas fa-address-card pa-mr-2"></i>SHIPPING </h3>
  
             <span class="text-title pa-inline-block pa-font-semibold  pa-p-2 black--text">Name</span>
@@ -18,6 +18,7 @@
               label="Name"
               clearable
               :value =$store.state.auth.userData.name
+              prepend-icon="mdi-account-edit"
             ></v-text-field>
 
             <span class="text-title pa-inline-block pa-font-semibold  pa-p-2 black--text">County </span>
@@ -29,7 +30,7 @@
             menu-props="auto"
             label="Select"
             hide-details
-            prepend-icon="mdi-map"
+            prepend-icon="mdi-map-marker"
             single-line
           ></v-select>
 
@@ -41,13 +42,14 @@
             menu-props="auto"
             label="Select"
             hide-details
-            prepend-icon="mdi-map"
+            prepend-icon="mdi-map-marker"
             single-line
           ></v-select>
           <span class="text-title pa-inline-block pa-mt-8 pa-font-semibold  pa-p-2 black--text">Address</span>
            <v-text-field
               color="green darken-1 "
               label="Address"
+               prepend-icon="mdi-map-marker"
               clearable
               v-model='de_address'
             ></v-text-field> 
@@ -60,12 +62,12 @@
          <!--shipping--> 
        
           <!--  payment -->
-          <div class="payment pa-p-6">
+          <div class="payment pa-p-6 xs:pa-p-1 xxs:pa-p-0">
           <h3 class="pa-font-semibold pa-text-3xl pa-pb-6 "><i class="fas fa-money-check-alt pa-mr-2"></i>PAYMENT</h3>
 
           <div class="radio-container pa-mb-10">
           <input type="radio" name='payment' v-model='payment' value='credit'  checked >
-          <label for="payment"><span class="pa-inline-block pa-mx-3 pa-font-semibold pa-text-xl">Credit Card</span>
+          <label for="payment"><span class="pa-inline-block pa-mx-3 pa-font-semibold pa-text-2xl">Credit Card</span>
             <img src="@/assets/svg/cards.svg" alt="" class="pa-inline-block pa-w-9 pa-h-9"> </label>
           </div>  
             <Credit/> 
@@ -85,8 +87,8 @@
    </div>
 
      <!-- order-preview -->
-       <div class="summary pa-w-1/2 ">
-         <div class="container pa-w-full pa-py-16 pa-px-16">
+       <div class="summary pa-w-1/2 lg:pa-w-full">
+         <div class="container pa-w-full pa-py-16 pa-px-16 xs:pa-p-2">
            <h2 class="pa-bg-black white--text  pa-p-3 pa-text-xl pa-font-semibold pa-w-full">Order Summary</h2>
 
            <!-- cart item -->
@@ -112,12 +114,13 @@
            <!-- cart item -->
 
            <!-- final price & coupon apply-->
-           <div class="coupon pa-relative  pa-flex pa-justify-between pa-p-6 pa-border-b-2 pa-broder-solid pa-border-gray-100">
-           
+           <div class="coupon pa-relative  pa-flex pa-flex-wrap pa-justify-between pa-p-6 pa-border-b-2 pa-broder-solid pa-border-gray-100 xs:pa-p-1 xs:pa-py-5">
+             
              <input type="text" class="focus:pa-outline-none 
-             focus:pa-border-opacity-0 focus:pa-ring-2 focus:pa-ring-blue-300 pa-border-2 pa-border-solid pa-border-gray-200 pa-rounded-lg pa-w-4/5 pa-pl-3" placeholder="Your promo code" v-model="code"><i class="pa-cursor-pointer pa-absolute grey--text fas fa-times" v-if='code' @click='clearDiscount'></i>
+             focus:pa-border-opacity-0 focus:pa-ring-2 focus:pa-ring-blue-300 pa-border-2 pa-border-solid pa-border-gray- 200 pa-rounded-lg 
+             pa-block pa-w-4/5 pa-pl-3 md:pa-w-full md:pa-h-14 md:pa-mb-5" placeholder="Your promo code" v-model="code"><i class="pa-cursor-pointer pa-absolute grey--text fas fa-times" v-if='code' @click='clearDiscount'></i>
 
-             <button class='focus:pa-outline-none pa-rounded-lg pa-bg-blue-200 white--text pa-p-3 pa-font-bold' @click="apply(code,total)">APPLY</button>
+             <button :disabled='discount' class='focus:pa-outline-none pa-rounded-lg pa-bg-blue-200 white--text pa-p-3 pa-font-bold pa-block lg:pa-w-full   ' @click="apply(code,total)" >APPLY</button>
            </div>
            <div class="subtotal pa-flex pa-justify-between pa-p-6">
              <h4 class="pa-font-semibold">SUBTOTAL</h4>
@@ -137,7 +140,8 @@
              <span class="red--text pa-font-bold">${{total}}</span>
            </div>
            <div>
-             <button class="order-btn pa-p-6 pa-w-full pa-mt-5 pa-inline-block pa-text-center pa-bg-black white--text pa-font-bold pa-tracking-widest" @click="setEl(3)">PLACE ORDER</button>
+             <button class="order-btn pa-p-6 pa-w-full pa-mt-5 pa-inline-block pa-text-center pa-bg-black white--text pa-font-bold pa-tracking-widest" 
+             @click="placeOrder()">PLACE ORDER</button>
            </div>
            <!-- final price -->
          </div>
@@ -178,7 +182,6 @@ export default {
        const sub = this.$store.state.order.subTotal
       
        let ship = 10
-       console.log(sub)
 
        if(sub >= 100) {
          return ship = 0
@@ -233,6 +236,30 @@ export default {
    methods: {
      ...mapMutations('order',
      ['setEl','setCode','setPaymethod','setCode','setAddress','setDiscount']),
+
+     placeOrder() {
+       if(!this.agree) {
+         this.$swal({
+           icon:'warning',
+           title:'Hey!',
+           text:'You have to agree with our policy!'
+         })
+       }else {
+         const completeAddress =`${this.currCity}${this.currDistrict}${this.de_address}`
+         console.log(completeAddress)
+         const payload = { 
+          total_price:this.total, 
+          delivery_address: completeAddress,
+          order_item:this.order_item,
+          payment_method:this.payment,
+          discount_code:this.code ? this.code:null,
+          discount:this.discount ? this.discount:null, 
+        }     
+        console.log(payload)
+        this.$store.dispatch('order/placeOrderAction',payload)
+        
+       }           
+     },
      apply(code,total) {     
        const payload = { code, totalPrice:total }
        this.$store.dispatch('order/applyCoupon', payload)
@@ -250,6 +277,7 @@ export default {
    },
    created() {
      this.clearDiscount()
+     //this.de_address = ''
    } 
 }
 </script>

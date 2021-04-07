@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import Layout from '@/components/Layout.vue'
 export default {
   name: 'App',
@@ -20,7 +21,10 @@ export default {
     this.$store.dispatch('address/getLocations')
     this.$store.commit('product/clear')
     this.$store.commit('product/closeFilter')
-
+    const token = Cookies.get('token')
+    console.log(token)
+    this.$store.commit('auth/setToken',token)
+    
   }
 };
 </script>

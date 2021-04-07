@@ -39,6 +39,9 @@ var getters = {
   cartList: function cartList(state) {
     return state.cartList;
   },
+  couponList: function couponList(state) {
+    return state.userData.couponList;
+  },
   cartLength: function cartLength(state) {
     return state.cartLength;
   },
@@ -54,13 +57,13 @@ var getters = {
 };
 var actions = {
   signInOrUp: function signInOrUp(_ref, data) {
-    var commit, alertText, res, _res$data$result, token, refreshToken, user, error;
+    var commit, state, alertText, res, _res$data$result, token, refreshToken, user, error;
 
     return regeneratorRuntime.async(function signInOrUp$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            commit = _ref.commit;
+            commit = _ref.commit, state = _ref.state;
             _context.prev = 1;
             alertText = data.captchaText ? 'logged in!' : 'registered';
 
@@ -99,9 +102,11 @@ var actions = {
             commit('setToken', token);
             commit('setRefreshToken', refreshToken);
             commit('setUserData', user);
-            commit('setCart', user.cartList);
-            commit('setCartLength', user.cartList.length);
-            commit('setFavList', user.favList);
+            commit('setCart', state.userData.cartList);
+            commit('setCartLength', state.userData.cartList.length);
+            commit('setFavList', state.userData.favList); //   commit('setCart', user.cartList)
+            //   commit('setCartLength',user.cartList.length)
+            //   commit('setFavList',user.favList)
 
             this._vm.$swal({
               icon: 'success',
@@ -185,6 +190,7 @@ var mutations = {
     state.favList = [];
     state.refreshToken = null;
     state.userData = null;
+    state.avatar64 = null;
   },
   setCart: function setCart(state, cart) {
     state.cartList = cart;

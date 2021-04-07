@@ -35,9 +35,8 @@ instance.interceptors.response.use(function (res) {
       var refresh = _jsCookie["default"].get('refreshToken');
 
       if (!refresh) {
-        alert('Please login again!');
-
-        _router["default"].push('/');
+        console.log('Please login again!');
+        return _router["default"].push('/login');
       }
 
       return instance.post('/getNewToken', {

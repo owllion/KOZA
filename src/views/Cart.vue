@@ -110,6 +110,7 @@
       </a>
      </div>
         <!-- continue link -->
+       
 </div>
   </section>
 </template>
@@ -123,6 +124,11 @@ export default {
     }
   }, 
   computed: {
+    test() {
+      console.log(this.cartList)
+      console.log(this.cartLength)
+      return 1
+    },
     ...mapGetters('auth',['cartList','cartLength']),
     ...mapGetters('order',['order_item']),
     subTotal() {
@@ -243,7 +249,7 @@ export default {
   watch: {
     subTotal(newVal) {
         this.setSubTotal(newVal)
-        console.log(this.subTotal)
+
     }
   },
   created() {
