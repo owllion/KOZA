@@ -25,22 +25,38 @@
      </div>
      <!--avatar-->
 
-    <label for="" class="pa-block pa-mb-3 pa-font-semibold pa-text-3xl">NAME</label> 
-    <input type="text" :placeholder="$store.state.auth.userData.name" class="pa-inline-block pa-w-full pa-p-3 pa-border-2 pa-border-black pa-border-solid pa-mb-3" v-model='name' >
-   
+    <label for="" class="pa-block pa-mb-3 pa-font-semibold pa-text-3xl">NAME</label>  
+        <v-text-field
+        class="pa-font-bold"
+        color="black"
+        clearable
+         loading
+        :rules="[rules.required, rules.counter]"
+        :value =$store.state.auth.userData.name
+        prepend-icon="mdi-account-edit"
+        v-model='name'
+        ></v-text-field>
     <!-- errmsg -->
-    <div class="pa-flex-shrink-0 pa-max-w-sm pa-w-full pa-flex pa-justify-start pa-flex-col pa-mt-3 ">
+    <!-- <div class="pa-flex-shrink-0 pa-max-w-sm pa-w-full pa-flex pa-justify-start pa-flex-col pa-mt-3 ">
       <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.name.required">Please enter your name</span>
 
         <span class=" pa-text-red-500 pa-font-black" v-if=" $v.$dirty && !$v.name.minLength ||
         !$v.name.maxLength">  
         Name must be at least 3 characters and less than 6 characters                         
         </span>
-        </div>
+        </div> -->
           <!-- errmsg -->
   <!-- email-->
     <label for="" class="pa-block pa-mb-3 pa-font-semibold pa-text-3xl">Email</label>
-    <input type="text" :placeholder="$store.state.auth.userData.email" class="pa-block pa-w-full pa-p-3 pa-border-2 pa-border-black pa-border-solid pa-mb-5" v-model='email'>
+     <v-text-field
+        class="pa-font-bold"
+        color="black"
+        clearable
+        :rules="[rules.required, rules.email]"
+        :value =$store.state.auth.userData.email
+        prepend-icon="mdi-gmail"
+        v-model='email'
+        ></v-text-field>
    <!-- email -->
    <!-- address -->
     <label class="pa-block  pa-font-semibold pa-text-3xl">County </label>        
@@ -98,7 +114,7 @@ export default {
   computed: {
     switchAvatar() {
         if(this.$store.state.auth.avatar64) { 
-          return `data:image/jpg;base64,${this.avatar64}`
+          return `data:image/jpg;base64,${this.$store.state.auth.avatar64}`
         }
         return this.$store.state.auth.userData.avatarDefault
       },
@@ -128,7 +144,15 @@ export default {
       isLoading:false,
       name:this.$store.state.auth.userData.name,
       email:this.$store.state.auth.userData.email,
-    }
+       rules: {
+          required: value => !!value || 'Required.',
+          counter: value => value.length <= 6 || 'Max 6 characters',
+          email: value => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return pattern.test(value) || 'Invalid e-mail.'
+          },
+    },
+  }
   },
   validations: {
            name: {

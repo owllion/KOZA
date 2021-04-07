@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper pa-w-full">
       <h3 class=" animate__animated animate__shakeY pa-font-normal pa-p-4 pa-rounded-md black--text pa-text-6xl pa-my-6 pa-text-center ">My COUPON</h3>
-      <div class="pa-w-full">
-          <ul class="pa-flex pa-mb-5 pa-ml-5" >
+      
+      <div class="pa-w-full ">
+          <ul class="pa-flex pa-mb-5 pa-ml-5 md:pa-flex md:pa-justify-center md:pa-items-center md:pa-ml-0" >
               <li>
                 <a href="#" class="pa-transition pa-duration-500 hover:pa-bg-green-500 pa-p-3 black--text pa-font-semibold pa-border-r-2 pa-border-black pa-border-dotted" @click.prevent="status='unused'">Unused</a>
               </li>
@@ -16,7 +17,7 @@
         :items-per-page="5"
         class="elevation-1
         "
-        v-if='filterList'
+        v-if='filterList.length'
     > 
     <template v-slot:header.date="{ header }">
         <a href="#" class="pa-text-lg black--text" >
@@ -56,11 +57,11 @@
     </v-data-table>
 
     <!--when filterList.length ===0-->
-    <div class="pa-flex pa-justify-center pa-items-center pa-py-10" v-if='!filterList'>
+    <div class="pa-flex pa-justify-center pa-items-center pa-py-10 xs:pa-flex-col " v-if='!filterList.length'>
       <div>
       <img src="@/assets/svg/coupon-svg.svg" alt="">
       </div>
-      <p class="pa-text-3xl pa-font-bold ">There's nothing here...</p>  
+      <p class="pa-text-3xl pa-font-bold xs:pa-text-lg pa-mt-6">There's nothing here...</p>  
     </div>
      <!--when filterList.length ===0-->
 

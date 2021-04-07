@@ -7,7 +7,7 @@
     <h3 class="animate__animated animate__heartBeat pa-font-normal pa-p-4 pa-rounded-md black--text pa-text-6xl pa-my-6 pa-text-center ">Change Password</h3>
 
     <div class="pa-flex pa-justify-center pa-items-center">
-    <div class="pa-w-96 pa-border-2 pa-border-solid pa-p-6 pa-border-black">
+    <div class="pa-w-96 pa-border-2 pa-border-solid pa-p-6 pa-border-black xs:pa-w-full ">
     <label for="" class="pa-block pa-mb-3 pa-font-semibold pa-text-3xl"> Old Password</label>
     <input type="text" placeholder="Password" class="pa-block pa-w-full pa-p-3 pa-border-2 pa-border-black pa-border-solid pa-mb-5">
 

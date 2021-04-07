@@ -12,6 +12,7 @@
         :items-per-page="5"
         class="elevation-1
         "
+        v-if='list.length'
     > 
     <template v-slot:header.name="{ header }">
         <a href="#" class="pa-text-xl black--text" >
@@ -49,6 +50,16 @@
     </router-link>
   </template>
     </v-data-table>
+    <!--when list.length ===0-->
+    <div class="pa-flex-col pa-flex pa-justify-center pa-items-center pa-py-10 xs:pa-flex-col " v-if='!list.length'>
+      
+      <p class="pa-text-3xl pa-font-bold xs:pa-text-lg pa-mt-6 s:pa-text-sm">You haven't bought anything!</p>  
+      <div>
+      <img src="@/assets/svg/order.svg" alt="">
+      </div>
+    </div>
+     <!--when list.length ===0-->
+
       </div> 
      
   </section>
