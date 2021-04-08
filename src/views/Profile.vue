@@ -1,19 +1,16 @@
 <template>
- <section class="pa-border-2 pa-border-solid pa-border-gray-100 pa-shadow-2xl">
-  <div class="xs:pa-flex-col pa-flex pa-p-6 pa-items-center pa-justify-center"> 
-     <Loading :active.sync="isLoading">
-    <fingerprint-spinner :animation-duration="2000" :size="100" color="#22c1c3" />
-    </Loading>
+ <section class="pa-border-2 pa-border-solid pa-border-gray-100 pa-shadow-2xl  pa-rounded-lg">
+  <div class="xs:pa-flex-col pa-flex pa-p-6 pa-items-center pa-justify-center pa--mt-36 pa-mx-auto pa-mb-0 "> 
 
   <!-- profile -->
-    <div class="pa-w-full pa-border-2 pa-border-solid pa-p-6 pa-border-black xs:pa-w-full">
+    <div class="pa-w-full pa-p-6 pa-mt-10 xs:pa-w-full">
     
-    <div class="pa-relative pa-w-64 pa-h-64 pa-m-auto xs:pa-mr-0 pa-mb-10">
+    <div class="pa-relative pa-w-56 pa-h-56 pa-m-auto xs:pa-mr-0 pa-mb-10">
       <img :src=switchAvatar alt="avatar" class="pa-w-full pa-h-full pa-object-contain pa-rounded-full">
        <v-btn
         small
         color="brown lighten-3"
-        class="ma-2 white--text focus:pa-outline-none pa-absolute pa-bottom-14 pa-left-48"
+        class="ma-2 white--text focus:pa-outline-none pa-absolute pa-bottom-10 pa-left-32"
         fab
         @click='$refs.avatar.click()'
       >
@@ -24,40 +21,43 @@
       <input type="file" name="image" ref="avatar" class='pa-hidden' @change='uploadAvatar'>
      </div>
      <!--avatar-->
-
     <label for="" class="pa-block pa-mb-3 pa-font-semibold pa-text-3xl">NAME</label>  
         <v-text-field
-        class="pa-font-bold"
+        class="pa-font-bold "
+       
         color="black"
         clearable
-         loading
-        :rules="[rules.required, rules.counter]"
         :value =$store.state.auth.userData.name
         prepend-icon="mdi-account-edit"
         v-model='name'
         ></v-text-field>
     <!-- errmsg -->
-    <!-- <div class="pa-flex-shrink-0 pa-max-w-sm pa-w-full pa-flex pa-justify-start pa-flex-col pa-mt-3 ">
+    <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
       <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.name.required">Please enter your name</span>
+      <span class=" pa-text-red-500 pa-font-black" v-if=" $v.$dirty && !$v.name.minLength || !$v.name.maxLength">      
+       Name must be at least 3 characters and less than 6 characters  </span>                               
+   </div> 
+   <!-- errmsg -->
 
-        <span class=" pa-text-red-500 pa-font-black" v-if=" $v.$dirty && !$v.name.minLength ||
-        !$v.name.maxLength">  
-        Name must be at least 3 characters and less than 6 characters                         
-        </span>
-        </div> -->
-          <!-- errmsg -->
-  <!-- email-->
+   <!-- email-->
     <label for="" class="pa-block pa-mb-3 pa-font-semibold pa-text-3xl">Email</label>
      <v-text-field
         class="pa-font-bold"
         color="black"
         clearable
-        :rules="[rules.required, rules.email]"
         :value =$store.state.auth.userData.email
         prepend-icon="mdi-gmail"
         v-model='email'
         ></v-text-field>
    <!-- email -->
+   <!-- errorMessage -->
+      <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
+        <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.email.required">Please enter your email</span>
+        <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.email.email">Invalid Email :(</span>
+       <span class=" pa-text-red-500 pa-font-black " v-if="error ==='duplicate'">Email already exists</span>
+     </div>
+    <!-- errorMessage -->
+
    <!-- address -->
     <label class="pa-block  pa-font-semibold pa-text-3xl">County </label>        
          <v-select
@@ -90,12 +90,12 @@
               label="Address"
               prepend-icon="mdi-map-marker"
               clearable
-              v-model='de_address'
+              v-model='proAddress'
             ></v-text-field> 
       <!-- address -->
     <button class="pa-block pa-bg-black white--text pa-p-3 pa-w-full pa-transform hover:pa-scale-95 pa-duration-500 pa-text-xl" @click='checkForm'>Submit</button>
    </div> 
-     
+    
      <!-- profile -->
 
    </div> <!--flex-->
@@ -103,55 +103,69 @@
 </template>
 
 <script>
-import { upload } from '@/api/user'
-import { FingerprintSpinner } from 'epic-spinners'
-import { required, minLength, maxLength,  } from 'vuelidate/lib/validators'
-import { mapGetters } from 'vuex'
+import { upload, userInfoModify } from '@/api/user'
+import { required, minLength, maxLength,email } from 'vuelidate/lib/validators'
+import { mapGetters,mapMutations } from 'vuex'
 export default {
-  components: {
-   FingerprintSpinner
-  },
   computed: {
+    ...mapGetters('auth', ['isLoading','userAddress','userCity','userDistrict','avatar64','cityList','districtList']),
+    loading: {
+      get() {
+         return this.isLoading
+      },
+      set(value) {
+        return this.$store.commit('auth/setLoading', value)
+      }
+    },
     switchAvatar() {
-        if(this.$store.state.auth.avatar64) { 
-          return `data:image/jpg;base64,${this.$store.state.auth.avatar64}`
+        if(this.avatar64) { 
+          return `data:image/jpg;base64,${this.avatar64}`
         }
         return this.$store.state.auth.userData.avatarDefault
       },
-    dis() {
-       return this.districtList[0].map(dis=> dis.name)
-     },
-       currCity: {
-         get() {
-           return this.$store.state.address.currCity
-         },
-         set(value) {
-           this.$store.commit('address/setcurrCity', value)
-         }
-       },
-       currDistrict: {
-         get() {
-           return this.$store.state.address.currDistrict
-         },
-         set(value) {
-           this.$store.commit('address/setcurrDistrict', value)
-         }
-       },
-       ...mapGetters('address',['cityList','districtList']),
+    currCity: {
+      get() {
+        return this.$store.state.auth.userCity
+      },set(value) {
+        return this.setUserCity(value)
+      }
+      
+    },
+    currDistrict: {
+      get() {     
+        return this.$store.state.auth.userDistrict
+         
+      },set(value) {
+        return this.setUserDistrict(value)
+      }
+    },
+    proAddress: {
+      get() {
+        if(this.userAddress) {
+          return this.userAddress
+        }else {
+          return ''
+        }
+      },
+      set(value) {
+        return this.setUserAddress(value)
+      }
+    },
+     dis() {
+        return this.districtList[0].map(dis=> dis.name)
+      },
+    userEmail() {
+      if(this.email === this.$store.state.auth.userData.email) {
+        return ''
+      }
+      return this.email
+    }
   },
   data() {
     return {
-      isLoading:false,
+      error:'',
       name:this.$store.state.auth.userData.name,
       email:this.$store.state.auth.userData.email,
-       rules: {
-          required: value => !!value || 'Required.',
-          counter: value => value.length <= 6 || 'Max 6 characters',
-          email: value => {
-            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            return pattern.test(value) || 'Invalid e-mail.'
-          },
-    },
   }
   },
   validations: {
@@ -160,30 +174,53 @@ export default {
              minLength: minLength(3),
              maxLength: maxLength(6)
          },
-           email: { required },
+           email: { required, email },
     },
    methods: {
+     ...mapMutations('auth',['setUserDistrict','setUserCity','setUserAddress']),
      async checkForm() {
          this.$v.$touch()
          if (!this.$v.$invalid) {
            try {
-              // this.isLoading = true
-              console.log('成功')
-             
-              // this.isLoading = false
-              // this.$swal({
-              //     icon:"success",
-              //     title:':)',
-              //     text:'success '
-              // })
-              // this.$router.push('/')
+             console.log('成功')
+               this.loading = true
+               const payload = {
+                  name:this.name,
+                  email:this.userEmail,
+                  county:this.currCity,
+                  township:this.currDistrict,
+                  road:this.proAddress
+               }
+               console.log(payload)
+               const { data: {user,address} } = await userInfoModify(payload)
+
+               const county = address.substring(0,3)
+               const district = address.substring(3,6)
+               const road = address.substring(6)
+
+               this.$store.commit('auth/setUserData', user)
+               this.$store.commit('auth/setUserCity', county)
+               this.$store.commit('auth/setUserDistrict', district)
+               this.$store.commit('auth/setUserAddress', road)             
+               this.loading = false
+               this.error = ''
+               this.$swal({
+                   icon:"success",
+                   title:'😌',
+                   text:'Successfully Update!'
+               })
+              
            }catch(err) {
-              this.isLoading = false
+             console.log('errr')
+              this.loading = false
               if(err.response) {
                   const error = err.response.data.msg
+                   if( error.includes('duplicate')) {
+                   this.error = 'duplicate'
+                 } 
                   this.$swal({
                       icon:'error',
-                      title:'Oops!',
+                      title:'🤔',
                       text:error
                   })
               }
@@ -192,7 +229,7 @@ export default {
     },  
      async uploadAvatar(){
        try{
-            this.isLoading = true
+            this.loading = true
             const uploadFile = this.$refs.avatar.files[0]
 
             const formData =new FormData()
@@ -202,16 +239,16 @@ export default {
             const { data: { base64 } } = await upload(formData)
             this.$store.commit('auth/setAvatar',base64)     
             this.avatar = this.$store.state.auth.avatar64               
-            this.isLoading = false
+            this.loading = false
 
               }catch(err) {   
-                this.isLoading = false    
+                this.loading = false    
                 if(err.response) {
                   const error = err.response.data.msg
                   this.$swal({
-                    icon:'error',
+                    icon:'error',                  
+                    title:'Oh No!',
                     text:error,
-                    title:'something wrong'
                   })
                 }
             }
@@ -220,7 +257,7 @@ export default {
       watch: {
         districtList(districts) {
         const [ first ] = districts[0];
-       this.currDistrict = first.name
+        this.currDistrict = first.name
      }
    },
       created() {
@@ -234,6 +271,7 @@ section {
   margin:50px 0;  
   min-width: 320px;
   width: 650px;
+  
 }
 
 </style>

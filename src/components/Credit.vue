@@ -4,53 +4,74 @@
 <form>
     <h4 class="pa-text-xl pa-font-semibold pa-mt-14"><i class="pa-mr-2 fas fa-pencil-alt"></i>Card information</h4>
      <v-text-field
-      v-for="(item,i) in field" :key='i'
         class="pa-mb-3"
-        color="green darken-1"
-        :label=item.label
-        :prepend-icon="`mdi-${item.icon}`"
+        color="black"
+        label='Number'
+        prepend-icon="mdi-numeric"
         clearable
-        :name=item.name
-        :hint=item.hint 
-        persistent-hint     
+        name='number'
+        hint='Please start with 4 , 51 to 9 and 62. (e.g. 5399 9999 9999 9999)' 
+        persistent-hint
+        v-model='number'  
         ></v-text-field>
+        <v-text-field
+        class="pa-mb-3"
+        color="black"
+        label='Name'
+        prepend-icon="mdi-account-edit"
+        clearable
+        name='Name'
+        v-model='name'  
+        ></v-text-field>
+        <v-text-field
+        class="pa-mb-3"
+        color="black"
+        label='Expiry'
+        prepend-icon="mdi-calendar-range"
+        clearable
+        name='expiry'
+        persistent-hint
+        v-model='expiry'  
+        ></v-text-field>
+        <v-text-field
+        class="pa-mb-3"
+        color="black"
+        label='CVC'
+        prepend-icon="mdi-shield-lock"
+        clearable
+        name='cvc'
+        v-model='cvc'
+        maxlength='3'  
+        ></v-text-field>
+         <!-- errmsg -->
+    <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
+      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.cvc.required">Please enter your name</span>              
+   </div> 
+   <!-- errmsg -->
    </form>
   </div>
 </template>
 
 <script>
 import * as Card from "card";
+import { helpers,required } from 'vuelidate/lib/validators'
+const numAndValidator = helpers.regex('numeric', /\b(4\d{3}(?:[\s._-]*\d{4}){3})\b/);
+
 export default {
     name: "CreditCard",
     data()  {
       return  {
-        field:[
-          {
-            label:'Number',
-            name:'number',
-            hint:'Please start with 4 , 51 to 9 and 62. (e.g. 5399 9999 9999 9999)',
-            icon:'numeric',
-          },
-          {
-            label:'Name',
-            name:'name',
-            hint:'',
-            icon:'account-edit',
-          },
-          {
-            label:'Expiry',
-            name:'expiry',
-            hint:'',
-            icon:'calendar-range',
-          },
-          {
-            label:'CVC',
-            name:'cvc',
-            hint:'',
-            icon:'shield-lock',
-          }        
-        ]
+        name:'',
+        number:'',
+        expiry:'',
+        cvc:'',
       }
+    },
+     validations: {
+           name: { required },         
+           number: { required,numAndValidator },
+           expiry: { required },
+           cvc: { required },
     },
     mounted() {
     new Card({ 

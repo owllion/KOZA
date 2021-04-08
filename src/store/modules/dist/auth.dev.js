@@ -14,6 +14,7 @@ var _jsCookie = _interopRequireDefault(require("js-cookie"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var state = {
+  isLoading: false,
   token: null,
   refreshToken: null,
   userData: '',
@@ -21,9 +22,16 @@ var state = {
   cartLength: '',
   favList: [],
   showEmailBox: false,
-  avatar64: ''
+  avatar64: '',
+  userCity: '桃園市',
+  userDistrict: '中壢區',
+  userAddress: '',
+  location: []
 };
 var getters = {
+  isLoading: function isLoading(state) {
+    return state.isLoading;
+  },
   isAuthenticated: function isAuthenticated(state) {
     return state.token !== null;
   },
@@ -53,6 +61,29 @@ var getters = {
   },
   avatar64: function avatar64(state) {
     return state.avatar64;
+  },
+  userAddress: function userAddress(state) {
+    return state.userAddress;
+  },
+  userDistrict: function userDistrict(state) {
+    return state.userDistrict;
+  },
+  userCity: function userCity(state) {
+    return state.userCity;
+  },
+  cityList: function cityList(state) {
+    return state.location.map(function (item) {
+      return item.name;
+    });
+  },
+  districtList: function districtList(state) {
+    return state.location.filter(function (item) {
+      if (item.name === state.userCity) {
+        return item.name === state.userCity;
+      }
+    }).map(function (d) {
+      return d.districts;
+    });
   }
 };
 var actions = {
@@ -104,9 +135,7 @@ var actions = {
             commit('setUserData', user);
             commit('setCart', state.userData.cartList);
             commit('setCartLength', state.userData.cartList.length);
-            commit('setFavList', state.userData.favList); //   commit('setCart', user.cartList)
-            //   commit('setCartLength',user.cartList.length)
-            //   commit('setFavList',user.favList)
+            commit('setFavList', state.userData.favList);
 
             this._vm.$swal({
               icon: 'success',
@@ -168,6 +197,21 @@ var actions = {
   }
 };
 var mutations = {
+  setLocation: function setLocation(state, data) {
+    state.location = data;
+  },
+  setLoading: function setLoading(state, data) {
+    state.isLoading = data;
+  },
+  setUserAddress: function setUserAddress(state, data) {
+    state.userAddress = data;
+  },
+  setUserCity: function setUserCity(state, data) {
+    state.userCity = data;
+  },
+  setUserDistrict: function setUserDistrict(state, data) {
+    state.userDistrict = data;
+  },
   setAvatar: function setAvatar(state, data) {
     state.avatar64 = data;
   },

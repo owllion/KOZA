@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import router from '@/router'
 
 const token = Cookies.get('token')
-console.log(token)
+
 const instance = axios.create({
     baseURL: process.env.VUE_APP_AXIOS_BASE_URL,
     headers: {

@@ -2,6 +2,7 @@ import { userRegister, userLogin } from '@/api/user'
 import router from '@/router'
 import Cookies from 'js-cookie'
 const state = {
+    isLoading:false,
     token: null,
     refreshToken:null,
     userData:'',
@@ -9,11 +10,16 @@ const state = {
     cartLength:'',
     favList:[],
     showEmailBox:false,
-    avatar64:''
+    avatar64:'',
+    userCity:'桃園市',
+    userDistrict:'中壢區',
+    userAddress:'',
+    location:[],
    
 }
 
 const getters = { 
+   isLoading: state => state.isLoading,
    isAuthenticated : state => state.token !== null,
    token: state => state.token,
    refreshToken: state => state.refreshToken,
@@ -23,7 +29,19 @@ const getters = {
    cartLength: state => state.cartLength,
    favList: state => state.favList,
    showEmailBox: state => state.showEmailBox,
-   avatar64: state => state.avatar64
+   avatar64: state => state.avatar64,
+
+   userAddress: state => state.userAddress,
+   userDistrict: state => state.userDistrict,
+   userCity: state => state.userCity,
+
+   cityList: state => state.location.map( item => item.name),
+   districtList: state => state.location.filter(item=> {
+     if(item.name ===state.userCity) {
+         return item.name ===state.userCity
+       }
+     }).map(d=> d.districts)
+     
 }
 
 const actions = { 
@@ -43,9 +61,6 @@ const actions = {
            commit('setCart',state.userData.cartList)
            commit('setCartLength',state.userData.cartList.length)
            commit('setFavList',state.userData.favList)
-         //   commit('setCart', user.cartList)
-         //   commit('setCartLength',user.cartList.length)
-         //   commit('setFavList',user.favList)
           
            this._vm.$swal({
               icon:'success',
@@ -77,6 +92,21 @@ const actions = {
 }
 
 const mutations = {
+      setLocation(state, data) {
+         state.location = data
+      },
+      setLoading(state, data) {
+         state.isLoading = data
+      },
+      setUserAddress(state, data) {
+         state.userAddress = data
+      },
+      setUserCity(state, data) {
+         state.userCity = data
+      },
+      setUserDistrict(state, data) {
+         state.userDistrict = data
+      },
       setAvatar(state, data) {
          state.avatar64 = data
       },

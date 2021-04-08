@@ -1,9 +1,6 @@
 <template>
   <section class="wrapper pa-w-full">
-    <Loading :active.sync="isLoading">
-    <fingerprint-spinner :animation-duration="2000" :size="100" color="#22c1c3" />
-    </Loading>
-
+   
       <h3 class=" animate__animated animate__tada pa-font-normal pa-p-4 pa-rounded-md black--text pa-text-6xl pa-my-6 pa-text-center ">My Order</h3>
       <div >
       <v-data-table
@@ -59,7 +56,6 @@
       </div>
     </div>
      <!--when list.length ===0-->
-
       </div> 
      
   </section>
@@ -67,10 +63,18 @@
 
 <script>
 import { getOrder } from '@/api/order'
-import { FingerprintSpinner } from 'epic-spinners'
+import { mapGetters } from 'vuex'
 export default {
-  components: {
-     FingerprintSpinner
+  computed: {
+    ...mapGetters('auth',['isLoading']),
+    loading: {
+      get() {
+         return this.isLoading
+      },
+      set(value) {
+        return this.$store.commit('auth/setLoading', value)
+      }
+    }
   },
   methods: {
     cancelOrder() {
@@ -82,7 +86,6 @@ export default {
   },
    data() {
      return {
-       isLoading:false,
        list:[],       
        headers: [
         {
@@ -101,14 +104,14 @@ export default {
       ]
     }
   },
-  async created() {
+  async created() {   
       try {
-        this.isLoading = true
+        this.loading = true
         const {data: { orderList }} = await getOrder()
         this.list = orderList
-        this.isLoading = false
+        this.loading = false
       }catch(err) {
-        this.isLoading = false
+        this.loading = false
         if(err.response) {
           const error =err.response.data.msg
            this.$swal({

@@ -15,8 +15,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var token = _jsCookie["default"].get('token');
 
-console.log(token);
-
 var instance = _axios["default"].create({
   baseURL: process.env.VUE_APP_AXIOS_BASE_URL,
   headers: {

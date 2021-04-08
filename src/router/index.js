@@ -86,7 +86,12 @@ const routes = [
         }
       }
     ]  
-   },  
+   }, 
+   {
+    path: '/order/detail',
+    name: 'OrderDetail',
+    component: () => import('../views/Order_detail')
+   }, 
    {
     path: '/admin',
     name: 'Admin',

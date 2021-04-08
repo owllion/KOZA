@@ -154,6 +154,9 @@
 import Credit from '@/components/Credit'
 import { mapGetters, mapMutations } from 'vuex'
 import { FingerprintSpinner } from 'epic-spinners'
+import { helpers,required } from 'vuelidate/lib/validators'
+const numAndValidator = helpers.regex('numeric', /\b(4\d{3}(?:[\s._-]*\d{4}){3})\b/);
+
 export default {
   components: {
     Credit,
@@ -161,13 +164,17 @@ export default {
   },
    data() {
      return {
-       name:'',
-       address:'',
        agree:true,
-       isLoading :false
+       
 
      }
    },
+   validations: {
+           name: { required },         
+           number: { required,numAndValidator },
+           expiry: { required },
+           cvc: { required },
+    },
    computed: { 
      ...mapGetters('order',['order_item','payment_method','discount_code','discount','delivery_address']),
      de_address: {
@@ -212,7 +219,7 @@ export default {
        }
      },
      dis() {
-       return this.districtList[0].map(dis=> dis.name)
+       return this.districtList.map(dis=> dis.name)
      },
        currCity: {
          get() {
@@ -256,28 +263,30 @@ export default {
           discount:this.discount ? this.discount:null, 
         }     
         console.log(payload)
-        this.$store.dispatch('order/placeOrderAction',payload)
-        
+        this.$store.dispatch('order/placeOrderAction',payload)       
        }           
      },
      apply(code,total) {     
        const payload = { code, totalPrice:total }
        this.$store.dispatch('order/applyCoupon', payload)
      },
-     clearDiscount() {
+     clearAllField() {
        this.code = ''
        this.setDiscount(null)
+       this.de_address = ''
+       this.currCity ='台北市'
+       this.currDistrict ='信義區'
      }
    },
    watch: {
      districtList(districts) {
-       const [ first ] = districts[0];
+       const [ first ] = districts;
        this.currDistrict = first.name
      }
    },
    created() {
-     this.clearDiscount()
-     //this.de_address = ''
+    this.clearAllField()
+     
    } 
 }
 </script>

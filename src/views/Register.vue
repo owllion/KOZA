@@ -154,7 +154,6 @@ export default {
            }catch(err) {
               this.isLoading = false
               if(err) {
-                console.log(err)
                const msg = err             
                if( msg.includes('duplicate')) {
                   this.error = 'duplicate'

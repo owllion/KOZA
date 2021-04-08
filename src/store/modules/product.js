@@ -43,7 +43,7 @@ const actions = {
             const { data: { cartList } } = await addToCart(value)
             commit('auth/setCart', cartList, { root: true })
             commit('auth/setCartLength', cartList.length, { root: true })
-            
+    
             this._vm.$toast.open({
                 message: 'ADD TO CART!',
                 type:'success',

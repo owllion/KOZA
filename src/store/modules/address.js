@@ -7,16 +7,17 @@ const state = {
     currDistrict: '北投區',
     //api回傳的縣市、行政區資訊
     location: [],
+    
 }
 
 const getters = { 
     cityList: state => state.location.map( item => item.name),
-    //districtList: state =>state.location.find(item=> item.name === state.currCity)?.districts || []
-    districtList: state => state.location.filter(item=> {
-     if(item.name ===state.currCity) {
-         return item.name ===state.currCity
-     }
-     }).map(d=> d.districts)
+    districtList: state =>state.location.find(item=> item.name === state.currCity)?.districts || []
+    //districtList: state => state.location.filter(item=> {
+    //  if(item.name ===state.currCity) {
+    //      return item.name ===state.currCity
+    //  }
+    //  }).map(d=> d.districts)
    
 }
 
@@ -27,6 +28,7 @@ const actions = {
        const { data }  = await axios.get(api)        
 
        commit('setAreaLoction', data)
+       commit('auth/setLocation', data , {root: true})
    }
 }
 

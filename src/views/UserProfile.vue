@@ -15,7 +15,7 @@
        <!-- nav -->
 
        <!--content-->
-       <div class="pa-w-full  pa-flex pa-justify-center pa-items-center pa-border-2 pa-border-solid pa-border-gray-100">
+       <div class="pa-w-full  pa-flex pa-justify-center pa-items-center ">
         <router-view></router-view>
        </div>
        <!--content-->

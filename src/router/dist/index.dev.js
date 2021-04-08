@@ -155,6 +155,14 @@ var routes = [{
     }
   }]
 }, {
+  path: '/order/detail',
+  name: 'OrderDetail',
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Order_detail'));
+    });
+  }
+}, {
   path: '/admin',
   name: 'Admin',
   component: function component() {

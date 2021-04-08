@@ -51,8 +51,11 @@ var actions = {
             _ref2 = _context.sent;
             data = _ref2.data;
             commit('setAreaLoction', data);
+            commit('auth/setLocation', data, {
+              root: true
+            });
 
-          case 7:
+          case 8:
           case "end":
             return _context.stop();
         }
