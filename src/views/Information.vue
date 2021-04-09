@@ -10,12 +10,11 @@
  
             <span class="text-title pa-inline-block pa-font-semibold  pa-p-2 black--text">Name</span>
             <v-text-field
-            class="pa-font-bold"
+              class="pa-font-bold"
               color="black"
-              label="Name"
               clearable
-              :value =$store.state.auth.userData.name
               prepend-icon="mdi-account-edit"
+              v-model="name"
             ></v-text-field>
     <!-- errmsg -->
     <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
@@ -82,18 +81,11 @@
           <h3 class="pa-font-semibold pa-text-3xl pa-pb-6 "><i class="fas fa-money-check-alt pa-mr-2"></i>PAYMENT</h3>
 
           <div class="radio-container pa-mb-10">
-          <input type="radio" name='payment' v-model='payment' value='credit'  checked >
+          <input type="checkbox" name='payment' v-model='payment' value='credit' checked="checked" class="checkbox">
           <label for="payment"><span class="pa-inline-block pa-mx-3 pa-font-semibold pa-text-2xl">Credit Card</span>
             <img src="@/assets/svg/cards.svg" alt="" class="pa-inline-block pa-w-9 pa-h-9"> </label>
           </div>  
             <Credit/> 
-          <div class="radio-container">
-          <input type="radio" name='payment' v-model='payment' value='paypal'>
-          
-          <label for="paypal" class="pa-inline-block pa-ml-3">
-            <img src="@/assets/svg/paypal.svg" alt="" class="pa-inline-block pa-w-32 pa-h-32">
-            </label>
-          </div>
        
           </div>
           <!-- payment -->
@@ -105,7 +97,7 @@
      <!-- order-preview -->
        <div class="summary pa-w-1/2 lg:pa-w-full">
          <div class="container pa-w-full pa-py-16 pa-px-16 xs:pa-p-2">
-           <h2 class="pa-bg-black white--text  pa-p-3 pa-text-xl pa-font-semibold pa-w-full">Order Summary</h2>
+           <h2 class="pa-bg-black pa-text-center white--text  pa-p-6 pa-text-sm pa-font-semibold pa-w-full pa-rounded-lg  pa-tracking-widest">ORDER SUMMARY</h2>
 
            <!-- cart item -->
            <div class="cart-item pa-flex pa-justify-between pa-border-b-2 pa-border-gray-100 pa-border-solid" v-for="(item,i) in order_item" :key='i'>
@@ -156,7 +148,7 @@
              <span class="red--text pa-font-bold">${{total}}</span>
            </div>
            <div>
-             <button class="order-btn pa-p-6 pa-w-full pa-mt-5 pa-inline-block pa-text-center pa-bg-black white--text pa-font-bold pa-tracking-widest" 
+             <button class="order-btn  pa-rounded-lg pa-p-6 pa-w-full pa-mt-5 pa-inline-block pa-text-center pa-bg-black white--text pa-font-bold pa-tracking-widest" 
              @click="placeOrder()">PLACE ORDER</button>
            </div>
            <!-- final price -->
@@ -177,7 +169,7 @@ export default {
    data() {
      return {
        agree:true,
-       name:''
+       name:this.$store.state.auth.userData.name
      }
    },
    validations: {
@@ -253,7 +245,7 @@ export default {
          }
        },
        ...mapGetters('address',['cityList','districtList']),
-       
+       ...mapGetters('auth',['creditStatus'])
    },
    methods: {
      ...mapMutations('order',
@@ -264,11 +256,34 @@ export default {
          this.$swal({
            icon:'warning',
            title:'Hey!',
-           text:'You have to agree with our policy!'
+           text:'You have to agree with our policy!',
+           showClass: {
+            popup: 'animate__animated animate__rotateIn'
+           } ,
+           hideClass: {
+            popup: 'animate__animated animate__flipOutY'
+           },
+         })
+       }else if(!this.payment) {
+         this.$swal({
+           icon:'warning',
+           title:'Hey!',
+           text:'You have to choose your payment method!',
+           showClass: {
+            popup: 'animate__animated animate__rotateIn'
+           } ,
+           hideClass: {
+            popup: 'animate__animated animate__flipOutY'
+           },
          })
        }else {
+         this.$v.$touch()
+         if (!this.$v.$invalid && status) {
+
          const completeAddress =`${this.currCity}${this.currDistrict}${this.de_address}`
+
          console.log(completeAddress)
+
          const payload = { 
           total_price:this.total, 
           delivery_address: completeAddress,
@@ -277,9 +292,21 @@ export default {
           discount_code:this.code ? this.code:null,
           discount:this.discount ? this.discount:null, 
         }     
-        console.log(payload)
-        this.$store.dispatch('order/placeOrderAction',payload)       
-       }           
+         console.log(payload)
+         this.$store.dispatch('order/placeOrderAction',payload)       
+         }
+         this.$swal({
+           icon:'warning',
+           title:'🥴',
+           text:'You\'ve missed some fields!',
+           showClass: {
+            popup: 'animate__animated animate__bounceInRight'
+           } ,
+           hideClass: {
+            popup: 'animate__animated animate__bounceOutUp'
+           },
+         })  
+       }         
      },
      apply(code,total) {     
        const payload = { code, totalPrice:total }
@@ -289,8 +316,8 @@ export default {
        this.code = ''
        this.setDiscount(null)
        this.de_address = ''
-       this.currCity ='台北市'
-       this.currDistrict ='信義區'
+       this.currCity =''
+       this.currDistrict =''
      }
    },
    watch: {
@@ -358,7 +385,7 @@ export default {
         left: 4px;
         bottom:6px;
         z-index: -1;
-        background: rgb(245, 202, 29);
+        background: rgb(242, 206, 26);
    }
    }
    .order-btn {
@@ -371,7 +398,7 @@ export default {
           content: '';
           height:0%;
           width:100%;
-          background: rgb(226, 187, 55);
+          background: rgb(226, 66, 55);
           position: absolute;
           left: 0;
           top: 0;

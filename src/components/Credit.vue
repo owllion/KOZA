@@ -16,13 +16,13 @@
         ></v-text-field>
     <!-- errmsg -->
     <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
-      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.number.required">Required!</span>
-      <span class=" pa-text-red-500 pa-font-black" v-if=" $v.$dirty && !$v.number.numAndValidator">      
-      Invalid!At least 16 numbers!</span>                               
+      <span class=" pa-text-red-500 pa-font-black " v-if="!$v.number.required">Required! ↑</span>
+      <span class=" pa-text-red-500 pa-font-black" v-if=" !$v.number.numAndValidator">      
+      Invalid!At least 16 numbers! ↑</span>                               
    </div> 
    <!-- errmsg -->
         <v-text-field
-        class="pa-mb-3"
+        class="pa-mb-2"
         color="black"
         label='Name'
         prepend-icon="mdi-account-edit"
@@ -31,8 +31,8 @@
         v-model='name'  
         ></v-text-field>
     <!-- errmsg -->
-    <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
-      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.name.required">Required!</span>                       
+    <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 ">
+      <span class=" pa-text-red-500 pa-font-black " v-if="!$v.name.required">Required! ↑</span>                       
    </div> 
    <!-- errmsg -->
         <v-text-field
@@ -42,14 +42,15 @@
         prepend-icon="mdi-calendar-range"
         clearable
         name='expiry'
+        hint=" Pattern like this: 0929 "
         persistent-hint
         v-model='expiry'  
         ></v-text-field>
     <!-- errmsg -->
     <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
-      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.expiry.required">Required!</span> 
-      <span class=" pa-text-red-500 pa-font-black" v-if=" $v.$dirty && !$v.expiry.expiryValidator ">      
-      Invalid!</span>      
+      <span class=" pa-text-red-500 pa-font-black " v-if="!$v.expiry.required">Required! ↑</span> 
+      <span class=" pa-text-red-500 pa-font-black" v-if=" !$v.expiry.expiryValidator ">      
+      Invalid! ↑</span>      
                        
    </div> 
    <!-- errmsg -->
@@ -65,7 +66,7 @@
         ></v-text-field>
          <!-- errmsg -->
     <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
-      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.cvc.required">Please enter your name</span>              
+      <span class=" pa-text-red-500 pa-font-black " v-if="!$v.cvc.required">Required! ↑</span>              
    </div> 
    <!-- errmsg -->
    </form>
@@ -100,6 +101,33 @@ export default {
            },
            cvc: { required },
     },
+    computed: {
+       detectStatus() {
+         if(!this.$v.$invalid) {
+           console.log('valid!')
+           return true         
+         }
+         console.log('invalid')
+           return false
+       },
+    },
+    watch: {
+      detectStatus(value) {
+         if(value) {
+            this.$store.commit('auth/setCreditStatus', true)
+         }else {
+           
+            this.$store.commit('auth/setCreditStatus', false)
+            console.log(this.$store.state.auth.creditStatus)
+         }
+          
+         
+         
+      }
+     
+
+     
+    },
     mounted() {
     new Card({ 
       form: "form",
@@ -108,7 +136,7 @@ export default {
         numberInput: "input[name='number']",
         expiryInput:  "input[name='expiry']",
         cvcInput: "input[name='cvc']",
-        nameInput: "input[name='name']"
+        nameInput: "input[name='Name']"
       },
       width: 320,
       formatting: true,

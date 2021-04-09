@@ -15,6 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var state = {
   isLoading: false,
+  creditStatus: false,
   token: null,
   refreshToken: null,
   userData: '',
@@ -31,6 +32,9 @@ var state = {
 var getters = {
   isLoading: function isLoading(state) {
     return state.isLoading;
+  },
+  creditStatus: function creditStatus(state) {
+    return state.creditStatus;
   },
   isAuthenticated: function isAuthenticated(state) {
     return state.token !== null;
@@ -202,6 +206,9 @@ var mutations = {
   },
   setLoading: function setLoading(state, data) {
     state.isLoading = data;
+  },
+  setCreditStatus: function setCreditStatus(state, data) {
+    state.creditStatus = data;
   },
   setUserAddress: function setUserAddress(state, data) {
     state.userAddress = data;

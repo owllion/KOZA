@@ -3,6 +3,7 @@ import router from '@/router'
 import Cookies from 'js-cookie'
 const state = {
     isLoading:false,
+    creditStatus:false,
     token: null,
     refreshToken:null,
     userData:'',
@@ -20,6 +21,7 @@ const state = {
 
 const getters = { 
    isLoading: state => state.isLoading,
+   creditStatus: state => state.creditStatus,
    isAuthenticated : state => state.token !== null,
    token: state => state.token,
    refreshToken: state => state.refreshToken,
@@ -97,6 +99,9 @@ const mutations = {
       },
       setLoading(state, data) {
          state.isLoading = data
+      },
+      setCreditStatus(state, data) {
+         state.creditStatus = data
       },
       setUserAddress(state, data) {
          state.userAddress = data
