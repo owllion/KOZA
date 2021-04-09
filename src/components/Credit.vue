@@ -14,6 +14,13 @@
         persistent-hint
         v-model='number'  
         ></v-text-field>
+    <!-- errmsg -->
+    <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
+      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.number.required">Required!</span>
+      <span class=" pa-text-red-500 pa-font-black" v-if=" $v.$dirty && !$v.number.numAndValidator">      
+      Invalid!At least 16 numbers!</span>                               
+   </div> 
+   <!-- errmsg -->
         <v-text-field
         class="pa-mb-3"
         color="black"
@@ -23,6 +30,11 @@
         name='Name'
         v-model='name'  
         ></v-text-field>
+    <!-- errmsg -->
+    <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
+      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.name.required">Required!</span>                       
+   </div> 
+   <!-- errmsg -->
         <v-text-field
         class="pa-mb-3"
         color="black"
@@ -33,6 +45,14 @@
         persistent-hint
         v-model='expiry'  
         ></v-text-field>
+    <!-- errmsg -->
+    <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
+      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.expiry.required">Required!</span> 
+      <span class=" pa-text-red-500 pa-font-black" v-if=" $v.$dirty && !$v.expiry.expiryValidator ">      
+      Invalid!</span>      
+                       
+   </div> 
+   <!-- errmsg -->
         <v-text-field
         class="pa-mb-3"
         color="black"
@@ -55,7 +75,8 @@
 <script>
 import * as Card from "card";
 import { helpers,required } from 'vuelidate/lib/validators'
-const numAndValidator = helpers.regex('numeric', /\b(4\d{3}(?:[\s._-]*\d{4}){3})\b/);
+const numAndValidator = helpers.regex('numeric', /\b(?:(?:\d[ -]*?){17,}|((?:\d[ -]*?){16}))\b/);
+const expiryValidator  = helpers.regex('numeric', /\b(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})\b/)
 
 export default {
     name: "CreditCard",
@@ -69,8 +90,14 @@ export default {
     },
      validations: {
            name: { required },         
-           number: { required,numAndValidator },
-           expiry: { required },
+           number: { 
+             required,
+             numAndValidator 
+            },
+           expiry: { 
+             required,
+             expiryValidator
+           },
            cvc: { required },
     },
     mounted() {

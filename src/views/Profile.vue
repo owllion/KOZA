@@ -35,7 +35,7 @@
     <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
       <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.name.required">Please enter your name</span>
       <span class=" pa-text-red-500 pa-font-black" v-if=" $v.$dirty && !$v.name.minLength || !$v.name.maxLength">      
-       Name must be at least 3 characters and less than 6 characters  </span>                               
+       Name must be at least 3 characters and less than 20 characters  </span>                               
    </div> 
    <!-- errmsg -->
 
@@ -172,7 +172,7 @@ export default {
            name: {
              required,
              minLength: minLength(3),
-             maxLength: maxLength(6)
+             maxLength: maxLength(20)
          },
            email: { required, email },
     },

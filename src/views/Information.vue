@@ -1,8 +1,5 @@
 <template>
   <div class="row pa-flex lg:pa-flex-col">
-    <Loading :active.sync="isLoading">
-    <fingerprint-spinner :animation-duration="2000" :size="100" color="#22c1c3" />
-    </Loading>
    <div class="shipAndPay pa-w-1/2 pa-p-14  md:pa-w-full xs:pa-px-5 xxs:pa-p-2">
      <div class="container">
        <form>     
@@ -14,17 +11,22 @@
             <span class="text-title pa-inline-block pa-font-semibold  pa-p-2 black--text">Name</span>
             <v-text-field
             class="pa-font-bold"
-              color="green darken-1"
+              color="black"
               label="Name"
               clearable
               :value =$store.state.auth.userData.name
               prepend-icon="mdi-account-edit"
             ></v-text-field>
-
-            <span class="text-title pa-inline-block pa-font-semibold  pa-p-2 black--text">County </span>
-            
+    <!-- errmsg -->
+    <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
+      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.name.required">Please enter your name</span>
+      <span class=" pa-text-red-500 pa-font-black" v-if=" $v.$dirty && !$v.name.minLength || !$v.name.maxLength">      
+       Name must be at least 3 characters and less than 20 characters  </span>                               
+   </div> 
+   <!-- errmsg -->
+            <span class="text-title pa-inline-block pa-font-semibold  pa-p-2 black--text">County </span>         
              <v-select
-            color="green darken-1"
+            color="black"
             v-model="currCity"
             :items="cityList"
             menu-props="auto"
@@ -33,10 +35,14 @@
             prepend-icon="mdi-map-marker"
             single-line
           ></v-select>
-
+    <!-- errmsg -->
+    <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
+      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.currCity.required">Required!</span>                              
+   </div> 
+   <!-- errmsg -->
             <span class="text-title pa-inline-block pa-mt-8 pa-font-semibold pa-p-2 black--text"> District </span>
             <v-select
-            color="green darken-1"
+            color="black"
             v-model="currDistrict"
             :items="dis"
             menu-props="auto"
@@ -45,15 +51,25 @@
             prepend-icon="mdi-map-marker"
             single-line
           ></v-select>
+           <!-- errmsg -->
+    <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
+      <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.currDistrict.required">Required!</span>                              
+   </div> 
+   <!-- errmsg -->
           <span class="text-title pa-inline-block pa-mt-8 pa-font-semibold  pa-p-2 black--text">Address</span>
            <v-text-field
-              color="green darken-1 "
+              color="black"
               label="Address"
-               prepend-icon="mdi-map-marker"
+              prepend-icon="mdi-map-marker"
               clearable
               v-model='de_address'
             ></v-text-field> 
-            
+           <!-- errmsg -->
+        <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
+          <span class=" pa-text-red-500 pa-font-black " v-if="$v.$dirty && !$v.de_address.required">Required!</span>                              
+      </div> 
+   <!-- errmsg -->
+
           <input type="checkbox" checked="checked" class="checkbox pa-mr-3" name="agree" v-model="agree"> 
             <label for="agree" class="pa-font-semibold ">
             Shipping address same as billing
@@ -153,27 +169,26 @@
 <script>
 import Credit from '@/components/Credit'
 import { mapGetters, mapMutations } from 'vuex'
-import { FingerprintSpinner } from 'epic-spinners'
-import { helpers,required } from 'vuelidate/lib/validators'
-const numAndValidator = helpers.regex('numeric', /\b(4\d{3}(?:[\s._-]*\d{4}){3})\b/);
-
+import { required,minLength, maxLength } from 'vuelidate/lib/validators'
 export default {
   components: {
     Credit,
-    FingerprintSpinner
   },
    data() {
      return {
        agree:true,
-       
-
+       name:''
      }
    },
    validations: {
-           name: { required },         
-           number: { required,numAndValidator },
-           expiry: { required },
-           cvc: { required },
+           name: { 
+             required,
+             minLength: minLength(3),
+             maxLength: maxLength(20)
+           },         
+           currDistrict: { required },
+           currCity: { required },
+           de_address: { required },
     },
    computed: { 
      ...mapGetters('order',['order_item','payment_method','discount_code','discount','delivery_address']),
