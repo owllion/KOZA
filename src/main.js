@@ -18,6 +18,10 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import JwPagination from 'jw-vue-pagination';
 Vue.component('jw-pagination', JwPagination);
 import VueToast from 'vue-toast-notification';
+import moment from 'moment'
+import VueMeta from 'vue-meta'
+Vue.use(VueMeta)
+
 import 'vue-toast-notification/dist/theme-sugar.css';
 Vue.use(VueToast, {
 	position: 'top'
@@ -47,6 +51,7 @@ Vue.component('Loading', Loading);
 Vue.config.productionTip = false;
 Vue.prototype.$lottie = lottie;
 Vue.prototype.$axios = axios;
+Vue.prototype.$moment = moment
 
 router.beforeEach((to,from,next) => {
 	const isLogin = store.getters['auth/token']

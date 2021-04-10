@@ -40,10 +40,11 @@ const actions = {
   },
     async addActions({commit}, value) {
         try {
+            commit('auth/setLoading', true, { root:true })
             const { data: { cartList } } = await addToCart(value)
             commit('auth/setCart', cartList, { root: true })
             commit('auth/setCartLength', cartList.length, { root: true })
-    
+            commit('auth/setLoading', false, { root:true })
             this._vm.$toast.open({
                 message: 'ADD TO CART!',
                 type:'success',
@@ -51,6 +52,7 @@ const actions = {
                 duration:2000             
                 }); 
         }catch(err) {
+            commit('auth/setLoading', false, { root:true })
             if(err.response) {
               const error = err.response.data.msg
               this._vm.$swal({
@@ -108,11 +110,13 @@ const actions = {
         }
     },
     async adjustQty({ commit }, value) {
-        try {           
+        try {
+            commit('auth/setLoading',true, { root : true })        
             const {data: { cartList } } = await updateQty(value)
             commit('auth/setCart', cartList, { root: true })
-
+            commit('auth/setLoading',false, { root : true }) 
            } catch(err) {
+            commit('auth/setLoading',false, { root : true }) 
              if(err.response) {
                  const error = err.response.data.message
                this._vm.$swal({

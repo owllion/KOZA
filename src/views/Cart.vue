@@ -55,14 +55,15 @@
       <td class="pa-font-semibold">${{item.price}}</td>
       <td>
         <div class="quantity ">
-            <button class="pa-p-5  pa-text-2xl plus-btn focus:pa-outline-none " type="button" name="button"  @click="plus(i)" :disabled=' item.qty === item.stock' >
-            <img src="@/assets/svg/plus.svg" alt="" > 
+            <button class="pa-pr-2 plus-btn focus:pa-outline-none " type="button" name="button"  @click="plus(i)" :disabled=' item.qty === item.stock' >
+             <i class="fas fa-plus pa-text-sm"></i>
+            <!-- <img src="@/assets/svg/plus.svg" alt="" >  -->
           </button>
           <input type="text" class="pa-w-10   pa-text-center pa-border-2 pa-border-gray-100 pa-border-solid  focus:pa-outline-none " maxlength="2" v-model='item.qty' readonly>
 
-          <button class="pa-p-5  minus-btn focus:pa-outline-none " type="button" name="button"  :disabled='item.qty === 1' @click="minus(i)">
-            <!--  -->
-              <img src="@/assets/svg/minus.svg" alt="" class="" > 
+          <button class="pa-pl-2 minus-btn focus:pa-outline-none " type="button" name="button"  :disabled='item.qty === 1' @click="minus(i)">
+            <i class="fas fa-minus pa-text-sm"></i>
+              <!-- <img src="@/assets/svg/minus.svg" alt="" class="" >  -->
           </button>
         </div>
         <div>
@@ -124,11 +125,6 @@ export default {
     }
   }, 
   computed: {
-    test() {
-      console.log(this.cartList)
-      console.log(this.cartLength)
-      return 1
-    },
     ...mapGetters('auth',['cartList','cartLength']),
     ...mapGetters('order',['order_item']),
     subTotal() {

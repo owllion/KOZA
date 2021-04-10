@@ -1,8 +1,5 @@
 <template>
   <div class="wrapper pa-pt-20 pa-w-full">
-    <Loading :active.sync="isLoading">
-    <fingerprint-spinner :animation-duration="2000" :size="100" color="#22c1c3" />
-    </Loading>
       <div class="container pa-flex pa-justify-center pa-items-center pa-w-full pa-p-10 lg-m:pa-block md:pa-p-5">
           <div class="left">
               <div class="md:pa-w-full md:pa-p-0 md:pa-h-full pa-w-99 pa-h-99 pa-p-14">
@@ -50,19 +47,33 @@
 </template>
 
 <script>
-import { FingerprintSpinner } from 'epic-spinners'
 import { getProduct } from '@/api/product'
+import { mapGetters } from 'vuex'
 export default {
-  components: {
-    FingerprintSpinner
-  },
     data() {
       return {
-        isLoading:false,
         itemId:'',
         itemDetail:'',
-        qty:1
+        qty:1,
+        itemName:''
       }
+    },
+    computed: {
+    ...mapGetters('auth',['isLoading']),
+    loading: {
+      get() {
+         return this.isLoading
+      },
+      set(value) {
+        return this.$store.commit('auth/setLoading', value)
+      }
+    }
+  },
+   metaInfo() {
+     return {
+         title:this.itemName
+     }
+     
     },
     methods: {
       add(id,qty) {
@@ -82,13 +93,14 @@ export default {
     async created() {
       this.itemId = this.$route.params.id
       try {
-        this.isLoading = true
+        this.loading = true
         const payload = { productId : this.itemId }
         const { data:{ productDetail } } = await getProduct(payload) 
         this.itemDetail = productDetail
-        this.isLoading = false
+        this.itemName = productDetail.productName
+        this.loading = false
       }catch(err) {
-        this.isLoading = false
+        this.loading = false
         if(err.response) {
           const error = err.response.data.msg
           this.$swal({

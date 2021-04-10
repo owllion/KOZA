@@ -29,7 +29,7 @@
         <v-stepper-step 
         step="3" 
         color="black">
-          Finished!
+          Finish
         </v-stepper-step>
       </v-stepper-header>
   
@@ -80,6 +80,9 @@ export default {
   },
   methods: {
     ...mapMutations('order',['setEl'])
+  },
+  metaInfo: {
+    title:'Checkout'
   },
   created() {
     this.setEl(1)

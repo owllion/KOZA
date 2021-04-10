@@ -10,3 +10,5 @@ import instance from './axios'
 
     //cancel order(change order status)
     export const cancelOrder = data => instance.post('/order/cancel', data)
+    //get an order
+    export const getOrderDetail = data => instance.post('/order/detail', data)

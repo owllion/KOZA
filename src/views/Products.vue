@@ -102,6 +102,9 @@ export default {
         }
     }
   },
+  metaInfo: {
+     title:'Our Products'    
+    },
   computed: {
     ...mapGetters('product',['allItems','price','keyword','category','sort','origin']),
     keywords: {

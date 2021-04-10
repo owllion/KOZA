@@ -93,7 +93,7 @@ import { mapGetters,mapActions } from 'vuex'
              link:'SHOP'
            },
            {
-             name:'Home',
+             name:'About',
              link:'ABOUT'
            },
         ]

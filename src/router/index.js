@@ -88,9 +88,14 @@ const routes = [
     ]  
    }, 
    {
-    path: '/order/detail',
+    path: '/order/detail/:id',
     name: 'OrderDetail',
     component: () => import('../views/Order_detail')
+   }, 
+   {
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/About')
    }, 
    {
     path: '/admin',

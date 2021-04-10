@@ -38,6 +38,10 @@ var _jwVuePagination = _interopRequireDefault(require("jw-vue-pagination"));
 
 var _vueToastNotification = _interopRequireDefault(require("vue-toast-notification"));
 
+var _moment = _interopRequireDefault(require("moment"));
+
+var _vueMeta = _interopRequireDefault(require("vue-meta"));
+
 require("vue-toast-notification/dist/theme-sugar.css");
 
 var _vueTilt = _interopRequireDefault(require("vue-tilt.js"));
@@ -47,6 +51,8 @@ var _vuelidate = _interopRequireDefault(require("vuelidate"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 _vue["default"].component('jw-pagination', _jwVuePagination["default"]);
+
+_vue["default"].use(_vueMeta["default"]);
 
 _vue["default"].use(_vueToastNotification["default"], {
   position: 'top'
@@ -76,6 +82,7 @@ _vue["default"].component('Loading', _vueLoadingOverlay["default"]);
 _vue["default"].config.productionTip = false;
 _vue["default"].prototype.$lottie = _lottieWeb["default"];
 _vue["default"].prototype.$axios = _axios["default"];
+_vue["default"].prototype.$moment = _moment["default"];
 
 _router["default"].beforeEach(function (to, from, next) {
   var isLogin = _store["default"].getters['auth/token'];

@@ -85,6 +85,9 @@ export default {
        featureIcon:img.featureIcon
     }
   },
+  metaInfo: {
+     title:'KOZA'    
+    },
 
 }
 </script>

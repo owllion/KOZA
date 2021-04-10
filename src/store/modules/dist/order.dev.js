@@ -134,10 +134,13 @@ var actions = {
           case 0:
             commit = _ref3.commit;
             _context2.prev = 1;
-            _context2.next = 4;
+            commit('auth/setLoading', true, {
+              root: true
+            });
+            _context2.next = 5;
             return regeneratorRuntime.awrap((0, _order.createOrder)(value));
 
-          case 4:
+          case 5:
             _ref4 = _context2.sent;
             _ref4$data = _ref4.data;
             cartList = _ref4$data.cartList;
@@ -153,6 +156,9 @@ var actions = {
               root: true
             });
             commit('setOrderList', order);
+            commit('auth/setLoading', false, {
+              root: true
+            });
 
             this._vm.$swal({
               icon: 'success',
@@ -161,12 +167,15 @@ var actions = {
             });
 
             commit('setEl', 3);
-            _context2.next = 20;
+            _context2.next = 23;
             break;
 
-          case 17:
-            _context2.prev = 17;
+          case 19:
+            _context2.prev = 19;
             _context2.t0 = _context2["catch"](1);
+            commit('auth/setLoading', false, {
+              root: true
+            });
 
             if (_context2.t0.response) {
               error = _context2.t0.response.data.msg;
@@ -178,12 +187,12 @@ var actions = {
               });
             }
 
-          case 20:
+          case 23:
           case "end":
             return _context2.stop();
         }
       }
-    }, null, this, [[1, 17]]);
+    }, null, this, [[1, 19]]);
   }
 };
 var _default = {

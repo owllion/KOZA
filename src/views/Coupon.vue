@@ -19,41 +19,76 @@
         "
         v-if='filterList.length'
     > 
-    <template v-slot:header.date="{ header }">
-        <a href="#" class="pa-text-lg black--text" >
-          {{ header.text.toUpperCase() }}</a>
+    <!--header-->
+    <template v-slot:header.amount="{ header }">
+        <span class="pa-text-base pa-font-semibold pa-tracking-wide" >
+          {{ header.text.toUpperCase() }}</span>
       </template>
-     <template #item.can="{ value }">
-       <button  class="pa-p-2 blue--text pa-font-semibold">
-          {{ value }}
-        </button>
-        
-    </template> 
-     <template v-slot:item.email="{ value }">   
-          <v-chip
-              class="ml-0 mr-2 black--text"
-              label
-              small
-              color='red  lighten-4'
-                >
-               <a :href="`mailto:${value}`" class="pa-font-semibold ">
-          {{ value }}
-        </a>
-                </v-chip>
-        
-    </template>
 
-     <template #item.email="{ value }">
-       <v-chip color="green" ><a :href="`mailto:${value}`" class="pa-p-2 white--text pa-font-semibold ">
-          {{ value }}
-        </a></v-chip>
-        
-    </template>
-     <template #item.name="{ item }">
-    <router-link class="pa-text-xl black--text" :to="{ name: 'company', params: { id: item.id } }">
-      {{ item.name }}
-    </router-link>
-  </template>
+      <template v-slot:header.expiry_date="{ header }">
+        <span class="pa-text-base pa-font-semibold pa-tracking-wide" >
+          {{ header.text.toUpperCase() }}</span>
+      </template>
+
+      <template v-slot:header.discount_type="{ header }">
+        <span class="pa-text-base pa-font-semibold pa-tracking-wide" >
+          {{ header.text.toUpperCase() }}</span>
+      </template>
+
+      <template v-slot:header.code="{ header }">
+        <span class="pa-text-base pa-font-semibold pa-tracking-wide" >
+          {{ header.text.toUpperCase() }}</span>
+      </template>
+
+      <template v-slot:header.minimum_amount="{ header }">
+        <span class="pa-text-base pa-font-semibold pa-tracking-wide" >
+          {{ header.text.toUpperCase() }}</span>
+      </template>
+      <!--header-->
+
+      <!-- content -->
+       <template #item.amount="{ value }">
+       <v-chip label  color="red darken-3" class="white--text font-weight-bold ">
+         <v-icon left small>
+        mdi-star-face
+      </v-icon>{{value}}
+      </v-chip>
+      </template>
+
+      <template #item.discount_type="{ value }">
+       <v-chip label  color="brown lighten-1" class="white--text font-weight-bold ">
+          <v-icon left small>
+        mdi-label
+      </v-icon>{{value}}
+       </v-chip>
+      </template>
+
+       <template #item.expiry_date="{ value }">
+       <v-chip color="orange lighten-7" class="white--text font-weight-bold ">
+          <v-icon left>
+        mdi-clock-time-eight
+      </v-icon>{{$moment(value).format('l')}}
+       </v-chip>
+      </template>
+  
+      <template #item.code="{ value }">
+       <v-chip label  color="lime darken-3" class="white--text font-weight-bold ">
+          <v-icon left >
+        mdi-ticket-confirmation
+      </v-icon>{{value}}
+       </v-chip>
+      </template>
+
+      <template #item.minimum_amount="{ value }">
+       <v-chip label color="brown lighten-1" class="white--text font-weight-bold ">
+          <v-icon left>
+        mdi-currency-usd
+      </v-icon>{{value}}
+       </v-chip>
+      </template>
+
+      <!-- content -->
+     
     </v-data-table>
 
     <!--when filterList.length ===0-->
@@ -94,6 +129,9 @@ export default {
            }           
        }
    },
+   metaInfo: {
+     title:'Coupon List'
+   },
    data() {
      return {
      status:'', 
@@ -103,6 +141,7 @@ export default {
           align: 'start',        
           value: 'amount',
         },
+        { text: 'Type', value: 'discount_type' , sortable: false,},
         { text: 'Expire Date ', value: 'expiry_date',align: 'start',  },
         { text: 'Code', value: 'code' , sortable: false,},
         { text: 'Minimum Amount', value: 'minimum_amount' , sortable: false,},

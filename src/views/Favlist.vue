@@ -15,6 +15,9 @@ export default {
   },
   computed: {
     ...mapGetters('auth',['favList'])
+  },
+  metaInfo: {
+     title:'Favorites List'
   }
 }
 </script>

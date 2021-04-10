@@ -119,14 +119,8 @@ export default {
            
             this.$store.commit('auth/setCreditStatus', false)
             console.log(this.$store.state.auth.creditStatus)
-         }
-          
-         
-         
-      }
-     
-
-     
+         }                  
+      }        
     },
     mounted() {
     new Card({ 

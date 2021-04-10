@@ -79,15 +79,15 @@
           <!--  payment -->
           <div class="payment pa-p-6 xs:pa-p-1 xxs:pa-p-0">
           <h3 class="pa-font-semibold pa-text-3xl pa-pb-6 "><i class="fas fa-money-check-alt pa-mr-2"></i>PAYMENT</h3>
-
+        
           <div class="radio-container pa-mb-10">
-          <input type="checkbox" name='payment' v-model='payment' value='credit' checked="checked" class="checkbox">
+          <input type="checkbox" name='payment' v-model='payment' value='credit' checked="checked" class='checkbox'>       
           <label for="payment"><span class="pa-inline-block pa-mx-3 pa-font-semibold pa-text-2xl">Credit Card</span>
             <img src="@/assets/svg/cards.svg" alt="" class="pa-inline-block pa-w-9 pa-h-9"> </label>
           </div>  
             <Credit/> 
-       
-          </div>
+
+        </div>
           <!-- payment -->
        </div>
        </form>
@@ -278,7 +278,7 @@ export default {
          })
        }else {
          this.$v.$touch()
-         if (!this.$v.$invalid && status) {
+         if (!this.$v.$invalid && this.creditStatus) {
 
          const completeAddress =`${this.currCity}${this.currDistrict}${this.de_address}`
 
@@ -293,8 +293,9 @@ export default {
           discount:this.discount ? this.discount:null, 
         }     
          console.log(payload)
-         this.$store.dispatch('order/placeOrderAction',payload)       
-         }
+         this.$store.dispatch('order/placeOrderAction',payload) 
+         return      
+      }
          this.$swal({
            icon:'warning',
            title:'🥴',
@@ -311,6 +312,9 @@ export default {
      apply(code,total) {     
        const payload = { code, totalPrice:total }
        this.$store.dispatch('order/applyCoupon', payload)
+     },
+     clearDiscount() {
+       this.code = ''
      },
      clearAllField() {
        this.code = ''

@@ -73,14 +73,15 @@ const actions =  {
 
     },
     async placeOrderAction({commit}, value) {
-        try {        
+        try {    
+            commit('auth/setLoading', true, {root: true})    
             const { data: { cartList, user, order } } = await createOrder(value)
 
             commit('auth/setCart', cartList , { root:true })
             commit('auth/setCartLength', cartList.length , { root:true })
             commit('auth/setUserData', user , { root:true })
             commit('setOrderList', order )
-           
+            commit('auth/setLoading', false, { root:true }) 
             this._vm.$swal({
                 icon:'success',
                 title:'Yeah!',
@@ -88,6 +89,7 @@ const actions =  {
             })
             commit('setEl',3)
         }catch(err) {
+            commit('auth/setLoading', false, {root: true}) 
             if(err.response){
                 const error = err.response.data.msg
                 this._vm.$swal({

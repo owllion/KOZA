@@ -176,7 +176,10 @@ export default {
          },
            email: { required, email },
     },
-   methods: {
+  metaInfo: {
+        title:'Profile'
+    },
+  methods: {
      ...mapMutations('auth',['setUserDistrict','setUserCity','setUserAddress']),
      async checkForm() {
          this.$v.$touch()

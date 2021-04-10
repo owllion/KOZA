@@ -155,11 +155,19 @@ var routes = [{
     }
   }]
 }, {
-  path: '/order/detail',
+  path: '/order/detail/:id',
   name: 'OrderDetail',
   component: function component() {
     return Promise.resolve().then(function () {
       return _interopRequireWildcard(require('../views/Order_detail'));
+    });
+  }
+}, {
+  path: '/about',
+  name: 'About',
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/About'));
     });
   }
 }, {

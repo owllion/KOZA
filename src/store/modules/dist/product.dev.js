@@ -90,16 +90,22 @@ var actions = {
           case 0:
             commit = _ref3.commit;
             _context2.prev = 1;
-            _context2.next = 4;
+            commit('auth/setLoading', true, {
+              root: true
+            });
+            _context2.next = 5;
             return regeneratorRuntime.awrap((0, _user.addToCart)(value));
 
-          case 4:
+          case 5:
             _ref4 = _context2.sent;
             cartList = _ref4.data.cartList;
             commit('auth/setCart', cartList, {
               root: true
             });
             commit('auth/setCartLength', cartList.length, {
+              root: true
+            });
+            commit('auth/setLoading', false, {
               root: true
             });
 
@@ -110,12 +116,15 @@ var actions = {
               duration: 2000
             });
 
-            _context2.next = 14;
+            _context2.next = 17;
             break;
 
-          case 11:
-            _context2.prev = 11;
+          case 13:
+            _context2.prev = 13;
             _context2.t0 = _context2["catch"](1);
+            commit('auth/setLoading', false, {
+              root: true
+            });
 
             if (_context2.t0.response) {
               error = _context2.t0.response.data.msg;
@@ -127,12 +136,12 @@ var actions = {
               });
             }
 
-          case 14:
+          case 17:
           case "end":
             return _context2.stop();
         }
       }
-    }, null, this, [[1, 11]]);
+    }, null, this, [[1, 13]]);
   },
   addToFavActions: function addToFavActions(_ref5, value) {
     var commit, _ref6, favList, error;
@@ -269,21 +278,30 @@ var actions = {
           case 0:
             commit = _ref10.commit;
             _context6.prev = 1;
-            _context6.next = 4;
+            commit('auth/setLoading', true, {
+              root: true
+            });
+            _context6.next = 5;
             return regeneratorRuntime.awrap((0, _user.updateQty)(value));
 
-          case 4:
+          case 5:
             _ref11 = _context6.sent;
             cartList = _ref11.data.cartList;
             commit('auth/setCart', cartList, {
               root: true
             });
-            _context6.next = 12;
+            commit('auth/setLoading', false, {
+              root: true
+            });
+            _context6.next = 15;
             break;
 
-          case 9:
-            _context6.prev = 9;
+          case 11:
+            _context6.prev = 11;
             _context6.t0 = _context6["catch"](1);
+            commit('auth/setLoading', false, {
+              root: true
+            });
 
             if (_context6.t0.response) {
               error = _context6.t0.response.data.message;
@@ -295,12 +313,12 @@ var actions = {
               });
             }
 
-          case 12:
+          case 15:
           case "end":
             return _context6.stop();
         }
       }
-    }, null, this, [[1, 9]]);
+    }, null, this, [[1, 11]]);
   },
   deleteItemActions: function deleteItemActions(_ref12, value) {
     var commit, _ref13, cartList, error;
