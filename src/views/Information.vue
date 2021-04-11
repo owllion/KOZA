@@ -226,7 +226,7 @@ export default {
        }
      },
      dis() {
-       return this.districtList[0]?.map(dis=> dis.name)
+      return this.districtList.map(dis=> dis.name)
      },
        currCity: {
          get() {
@@ -327,7 +327,7 @@ export default {
    },
    watch: {
      districtList(districts) {
-       const [ first ] = districts[0];
+       const [ first ] = districts;
        this.currDistrict = first.name
      }
    },

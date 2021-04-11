@@ -38,11 +38,7 @@ const getters = {
    userCity: state => state.userCity,
 
    cityList: state => state.location.map( item => item.name),
-   districtList: state => state.location.filter(item=> {
-     if(item.name ===state.currCity) {
-         return item.name ===state.currCity
-     }
-     })?.map(d=> d.districts)
+   districtList: state =>state.location.find(item=> item.name === state.currCity)?.districts || []
      
 }
 

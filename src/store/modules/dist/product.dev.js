@@ -16,7 +16,7 @@ var state = {
   keyword: '',
   category: '',
   price: [],
-  sort: '',
+  sortVal: '',
   showFilter: false,
   origin: ''
 };
@@ -33,8 +33,8 @@ var getters = {
   price: function price(state) {
     return state.price;
   },
-  sort: function sort(state) {
-    return state.sort;
+  sortVal: function sortVal(state) {
+    return state.sortVal;
   },
   origin: function origin(state) {
     return state.origin;
@@ -386,7 +386,7 @@ var mutations = {
     state.price = data;
   },
   setSortType: function setSortType(state, data) {
-    state.sort = data;
+    state.sortVal = data;
   },
   setOrigin: function setOrigin(state, data) {
     state.origin = data;

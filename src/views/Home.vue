@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import ScrollToTop from '@/components/ScrollToTop.vue'
 import img from '@/assets/json/img-link.json'
 import myAd from '@/components/Ad.vue'
@@ -88,6 +89,10 @@ export default {
   metaInfo: {
      title:'KOZA'    
     },
+    created() {
+      const cookie = Cookies.get('token')
+      console.log(`首頁跳轉有無cookie-->${cookie}`)
+    }
 
 }
 </script>

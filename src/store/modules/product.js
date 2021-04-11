@@ -8,7 +8,7 @@ const state =  {
     keyword: '',
     category: '',
     price: [],
-    sort: '',
+    sortVal: '',
     showFilter:false,
     origin:'',
 }
@@ -17,7 +17,7 @@ const getters = {
     keyword:  state => state.keyword,
     category: state => state.category,
     price: state => state.price,
-    sort: state => state.sort,
+    sortVal: state => state.sortVal,
     origin: state => state.origin,
    
 }
@@ -169,7 +169,7 @@ const mutations = {
        state.price = data
     },
     setSortType(state, data) {
-        state.sort = data
+        state.sortVal = data
     },
     setOrigin(state, data) {
         state.origin = data
