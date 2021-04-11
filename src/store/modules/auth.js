@@ -39,10 +39,10 @@ const getters = {
 
    cityList: state => state.location.map( item => item.name),
    districtList: state => state.location.filter(item=> {
-     if(item.name ===state.userCity) {
-         return item.name ===state.userCity
-       }
-     }).map(d=> d.districts)
+     if(item.name ===state.currCity) {
+         return item.name ===state.currCity
+     }
+     })?.map(d=> d.districts)
      
 }
 
@@ -50,28 +50,45 @@ const actions = {
     async signInOrUp ({ commit ,state} , data) {
         try{                  
            const alertText = data.captchaText ? 'logged in!':'registered'
-
+           commit('setLoading', true)
            const res = data.captchaText ? await userLogin(data): await userRegister(data) 
             
            const { token, refreshToken , user } = res.data.result
+
+           const address =user.address
+           if(address) {
+               const county = address.substring(0,3)
+               const district = address.substring(3,6)
+               const road = address.substring(6)
+               commit('setUserCity', county)
+               commit('setUserDistrict', district)
+               commit('setUserAddress', road)
+           }
+           
+
            Cookies.set('token', token, { expires: 6 })
            Cookies.set('refreshToken', refreshToken, {expires: 29 })
-  
+           console.log(Cookies.get('token'))
+
            commit('setToken', token)
            commit('setRefreshToken', refreshToken)
            commit('setUserData', user)
            commit('setCart',state.userData.cartList)
            commit('setCartLength',state.userData.cartList.length)
            commit('setFavList',state.userData.favList)
-          
+
+           commit('setLoading', false)
+
            this._vm.$swal({
-              icon:'success',
+              imageUrl: "https://upload.cc/i1/2021/04/11/AUwNzI.png",
               title:'Success',
-              text:`You have successfully ${alertText}`
+              text:`You have successfully ${alertText}`,
+              confirmButtonColor: "#000000",
            })
            router.push('/')
            
        }catch(err) {
+           commit('setLoading', false)
            if(err.response) {
             const error = err.response.data.msg        
             throw error   
@@ -85,9 +102,10 @@ const actions = {
          Cookies.remove("token")
          Cookies.remove("refreshToken")
          this._vm.$swal({
-            icon:'success',
+            imageUrl:'https://upload.cc/i1/2021/04/11/AUwNzI.png',
             title:'SUCCESS!',
-            text:'You have been successfully logged out! '
+            text:'You have been successfully logged out! ',
+            confirmButtonColor: "#000000",
          })
          router.push('/')
      }
@@ -134,7 +152,10 @@ const mutations = {
         state.favList = []
         state.refreshToken = null
         state.userData = null 
-        state.avatar64 = null 
+        state.avatar64 = null
+        state.userCity = ''
+        state.userDistrict = ''
+        state.userAddress = '' 
       },
       setCart(state,cart) {
          state.cartList = cart 

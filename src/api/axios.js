@@ -27,7 +27,7 @@ instance.interceptors.response.use( res => res ,
              return instance.post('/getNewToken', { refresh })
              .then( res=> {
                 console.log(res)
-                 
+                 console.log(token)
                 //  Cookies.set('token', token)
 
                 //  Cookies.set('refreshToken',refreshToken)

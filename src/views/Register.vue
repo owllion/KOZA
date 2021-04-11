@@ -1,9 +1,6 @@
 <template>
-  <section class="pa-relative pa-min-w-screen pa-min-h-screen  pa-flex pa-justify-center pa-items-center  pa-my-16 ">
-  <Loading :active.sync="isLoading">
-    <fingerprint-spinner :animation-duration="2000" :size="100" color="#22c1c3" />
-  </Loading>
-
+  <section class="pa-relative pa-min-w-screen pa-min-h-screen  pa-flex pa-justify-center pa-items-center pa-my-16 ">
+    
   <!-- container -->
   <div class="pa-shadow-lg pa-relative pa-w-120 pa-h-100 pa-bg-green-100 pa-overflow-hidden pa-rounded-3xl lg:pa-max-w-md sm:pa-min-w-full">
     <div class="signupBx pa-absolute pa-top-0 pa-left-0 pa-w-full pa-h-full pa-flex">
@@ -99,16 +96,14 @@ import MyInput from '@/components/Input.vue'
 import MyButton from '@/components/Button.vue'
 import Password from '@/components/Password.vue'
 import { required, minLength, maxLength,email,sameAs } from 'vuelidate/lib/validators'
-import { FingerprintSpinner } from 'epic-spinners'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
     components: {
-        MyInput,MyButton,Password,FingerprintSpinner
+        MyInput,MyButton,Password
     },
     data() {
         return {
-            isLoading:false,
             error:'',
             registerPass:'',
             //can't be sent to backend,so write it outside the registerData 
@@ -142,6 +137,17 @@ export default {
             }
         },
   },
+  computed: {
+    ...mapGetters('auth',['isLoading']),
+    loading: {
+      get() {
+         return this.isLoading
+      },
+      set(value) {
+        return this.$store.commit('auth/setLoading', value)
+      }
+    },
+  },
   methods: {
      ...mapActions('auth',['signInOrUp']),
 
@@ -149,10 +155,10 @@ export default {
          this.$v.$touch()
          if (!this.$v.registerData.$invalid) {
            try {
-              this.isLoading = true
               await this.signInOrUp(data)
+              
            }catch(err) {
-              this.isLoading = false
+              this.loading = false
               if(err) {
                const msg = err             
                if( msg.includes('duplicate')) {

@@ -1,9 +1,5 @@
 <template>
-  <section class="pa-relative pa-min-w-screen pa-min-h-screen  pa-flex pa-justify-center pa-items-center  pa-my-16 ">
-    <Loading :active.sync="isLoading">
-    <fingerprint-spinner :animation-duration="2000" :size="100" color="#22c1c3" />
-    </Loading>
-    
+  <section class="pa-relative pa-min-w-screen pa-min-h-screen  pa-flex pa-justify-center pa-items-center  pa-my-16 "> 
     <EmailPop/>
   <!-- container -->
   <div class="pa-shadow-lg pa-relative pa-w-120 pa-h-100 pa-bg-green-100 pa-overflow-hidden pa-rounded-3xl lg:pa-max-w-md sm:pa-min-w-full">
@@ -118,13 +114,11 @@ import MyButton from '@/components/Button.vue'
 import Password from '@/components/Password.vue'
 import { loginCaptcha  } from '@/api/user'
 import { required } from 'vuelidate/lib/validators'
-import { FingerprintSpinner } from 'epic-spinners'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 import EmailPop from '@/components/Email-pop'
 export default {
     components: {
         MyInput,MyButton,Password,
-        FingerprintSpinner,
         EmailPop
     },
      data() {
@@ -140,6 +134,17 @@ export default {
         }      
       }
   },
+  computed: {
+    ...mapGetters('auth',['isLoading']),
+    loading: {
+      get() {
+         return this.isLoading
+      },
+      set(value) {
+        return this.$store.commit('auth/setLoading', value)
+      }
+    },
+  },
     validations: {
        loginData: {
           email: { required },
@@ -154,10 +159,9 @@ export default {
           this.$v.$touch()
           if (!this.$v.loginData.$invalid) {
             try {
-              this.isLoading = true
               await this.signInOrUp(data)
            }catch(err) {
-              this.isLoading = false
+              this.loading = false
               if(err) {
                 console.log(err)
                 const msg = err             

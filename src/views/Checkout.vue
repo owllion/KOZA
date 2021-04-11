@@ -50,13 +50,11 @@
         <v-stepper-content step="3">
            <router-view name="Fin"></router-view>
 
-          <div class="pa-flex pa-justify-center">
-          <router-link to="userprofile/order"
-             color="pink darken-3"
-             height="60"
-             class="white--text pa-p-6"
+          <div class="pa-flex pa-justify-center pa-mb-10">
+          <router-link to="/userprofile/order"
+             class="pa-p-5 white--text pa-bg-black"
           >
-            Check order
+            Check order<i class="fas fa-angle-double-right pa-pl-3"></i>
           </router-link>
           </div>
         </v-stepper-content>

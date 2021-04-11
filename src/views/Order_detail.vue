@@ -3,7 +3,7 @@
   
     <div class="container pa-flex pa-justify-center pa-items-center">
       
-     <h2 class="pa-text-7xl pa-font-semibol pa-mb-10">Purchase Order</h2>
+     <h2 class="pa-text-7xl pa-font-semibol pa-mb-10 xs:pa-text-4xl">Purchase Order</h2>
      </div>
 
     <div class="container pa-flex-col pa-flex pa-justify-center pa-items-center md:pa-px-10 ">
@@ -17,39 +17,37 @@
      <!-- title -->
 
      <!--up content -->
-     <div class="detail-content pa-w-full pa-p-10 pa-text-left pa-border-4 pa-border-black pa-relative pa-overflow-hidden pa-z-0 xs:pa-py-6 xs:pa-px-2">
+     <div class="detail-content pa-w-full pa-p-10   pa-text-left pa-border-4 pa-border-black pa-relative pa-overflow-hidden pa-z-0 xs:pa-py-6 xs:pa-px-0">
      <!-- <div class="circle"></div>
      <div class="circle2"></div> -->
-    <ul class="detail-ul pa-p-10">
-      <li class="pa-mb-3">
-        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold xs:pa-text-sm">PURCHASE ORDER :</h3><span class="pa-text-2xl pa-font-semibold xs:pa-text-sm">{{orderDetail.orderId}}</span>
+    <ul class="detail-ul pa-p-5 xs:pa-px-3">
+      <li class="pa-mb-3 pa-flex pa-justify-between">
+        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">PURCHASE ORDER :</h3><span class="pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">{{orderDetail.orderId}}</span>
       </li>
-      <li class="pa-mb-3">
-        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold">PURCHASE DATE :</h3><span class="pa-text-2xl pa-font-semibold">{{$moment(orderDetail.createdAt).format('MMMM Do YYYY, h:mm:ss a')}}</span>
+      <li class="pa-mb-3 pa-flex pa-justify-between">
+        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">PURCHASE DATE :</h3><span class="pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">{{$moment(orderDetail.createdAt).format('MMMM Do YYYY')}}</span>
       </li>
-     <li class="pa-mb-3">
-        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold">SHIP TO :</h3><span class="pa-text-2xl pa-font-semibold">{{orderDetail.delivery_address}}</span>
+     <li class="pa-mb-3 pa-flex pa-justify-between">
+        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">SHIP TO :</h3><span class="pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">{{orderDetail.delivery_address}}</span>
       </li>
-      <li class="pa-mb-3">
-        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold">BILL TO :</h3><span class="pa-text-2xl pa-font-semibold">{{orderDetail.delivery_address}}</span>
+      <li class="pa-mb-3 pa-flex pa-justify-between">
+        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">BILL TO :</h3><span class="pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">{{orderDetail.delivery_address}}</span>
       </li>
-      <li class="pa-mb-3">
-        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold">PAYMENT METHOD :</h3><span class="pa-text-2xl pa-font-semibold">Credit Card</span>
+      <li class="pa-mb-3 pa-flex pa-justify-between">
+        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">PAYMENT METHOD :</h3><span class="pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">Credit Card</span>
       </li>
-     <li class="pa-mb-3">
-        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold">PAYMENT STATUS: </h3>
-        <v-chip color="light-green darken-1" class="white--text font-weight-black" >Paid</v-chip>
+     <li class="pa-mb-3 pa-flex pa-justify-between">
+        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">PAYMENT STATUS: </h3>
+        <v-chip label color="light-green darken-1" class="white--text font-weight-black pa-tracking-widest " > <v-icon x-small class="pa-mr-2">mdi-checkbox-marked-circle</v-icon>PAID</v-chip>
       </li>
-      <li class="pa-mb-3">
-        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold">ORDER STATUS : </h3>
-        <v-chip color="amber darken-4" class="white--text font-weight-black" >{{orderDetail.order_status}}</v-chip>
+      <li class="pa-mb-3 pa-flex pa-justify-between">
+        <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">ORDER STATUS : </h3>
+        <v-chip label :color="orderDetail==='CANCELLED'?'amber darken-4':'red darken-4'" class="white--text font-weight-black pa-tracking-widest" ><v-icon x-small class="pa-mr-2">mdi-emoticon-confused</v-icon>{{orderDetail.order_status}} </v-chip>
       </li>
     </ul>
     </div>
     </div>
      <!-- UP content -->
-
-
 
     <!-- information -->
     <div class="pa-w-full pa-mt-10">
@@ -61,7 +59,7 @@
            <!-- cart item -->
            <div class="cart-item pa-flex pa-justify-between pa-border-b-2 pa-border-gray-100 pa-border-solid" v-for="(item,i) in orderDetail.order_item" :key='i'>
              <div class="left pa-flex ">
-             <div class="pa-w-20 pa-h-24 pa-p-2">
+             <div class="pa-w-20 pa-h-24 pa-px-5">
              <router-link :to="`/item/${item.productId}`" class="pa-w-full pa-h-full">
              <img :src="item.image[0]" alt="" class="pa-w-full pa-h-full pa-object-contain">
              </router-link>
@@ -83,7 +81,7 @@
            <!-- final price -->
            <div class="discount pa-flex pa-justify-between pa-p-6 " v-if="orderDetail.discount">
              <h4 class="pa-font-semibold">DISCOUNT</h4>
-             <span class="pa-font-semibold">${{discount}}</span>
+             <span class="pa-font-semibold">${{orderDetail.discount}}</span>
            </div>
            <div class="total pa-flex pa-justify-between pa-p-6 pa-border-b-2 pa-border-solid pa-border-gray-100">
              <h4 class="pa-font-bold">TOTAL</h4>
@@ -93,20 +91,34 @@
     </div> 
     </div>        
     <!-- information -->
-  
+
+    <!-- button -->
+     <div class="pa-w-full pa-mt-8 pa-flex pa-justify-end">
+          <div class="pa-flex xs:pa-block">
+
+          <button @click="cancel(orderId)" class="pa-mr-6 pa-transition pa-duration-500 hover:pa-bg-red-800 pa-p-3 white--text pa-bg-red-700 pa-font-semibold pa-tracking-widest xs:pa-w-full xs:pa-mb-3" :disabled='orderDetail.order_status==="CANCELLED"'><v-icon color="white" small class="pa-mr-2">mdi-emoticon-cry</v-icon>CANCEL ORDER 
+          </button>
+
+          <router-link to='/userprofile/order' class="xs:pa-w-full pa-block pa-text-center pa-font-semibold pa-w-36 black--text pa-bg-gray-100  pa-p-3 hover:pa-bg-gray-300 pa-transition pa-duration-500 " >
+           <i class="fas fa-chevron-left pa-pr-3"></i> <span>BACK</span>
+          </router-link>
+
+          </div>
+
+         </div>
+    <!-- button -->
     </div>
   </section>
 </template>
 
 <script>
-import { getOrderDetail } from '@/api/order'
+import { getOrderDetail, cancelOrder } from '@/api/order'
 import { mapGetters } from 'vuex'
 export default {
     data() {
         return {
             orderId:'',
             orderDetail:[],
-            time:''
         }
     },
      computed: {
@@ -123,6 +135,35 @@ export default {
   metaInfo: {  
       title:'Purchase Order'       
   },
+  methods: {
+      async cancel(id) {
+        try {
+            this.loading = true
+            await cancelOrder({ orderId: id }) 
+            const payload = { orderId : id }
+            const { data:{ order } } = await getOrderDetail(payload) 
+            this.orderDetail = order
+            this.loading = false
+            this.$toast.open({
+              message: 'Successfully cancel your order!',
+              type:'Info',
+              pauseOnHover:true,
+              duration:2000             
+              });
+        }catch(err) {
+            this.loading = false
+            if(err.response) {
+            const error = err.response.data.msg
+            this.$swal({
+              icon:'error',
+              title:'Oh No!',
+              text:error
+          })
+        }
+        }
+          
+      }
+    },
    async created() {
       this.orderId = this.$route.params.id
       try {
@@ -130,7 +171,6 @@ export default {
         const payload = { orderId : this.orderId }
         const { data:{ order } } = await getOrderDetail(payload) 
         this.orderDetail = order
-        // this.time = $moment(orderDetail
         this.loading = false
       }catch(err) {
         this.loading = false
@@ -159,7 +199,7 @@ export default {
    .detail-ul{
       list-style:url('../assets/svg/sun.svg')  outside !important; 
       li {
-        border-bottom :solid 1px gray;
+        // border-bottom :solid 1px gray;
         padding: 6px 0;
       }
    }

@@ -22,6 +22,25 @@ import moment from 'moment'
 import VueMeta from 'vue-meta'
 Vue.use(VueMeta)
 
+//leadflet
+import { LMap, LTileLayer, LMarker,LPopup, LIcon  } from 'vue2-leaflet';
+import 'leaflet/dist/leaflet.css';
+Vue.component('l-map', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-marker', LMarker);
+Vue.component("l-popup", LPopup);
+Vue.component("l-icon", LIcon);
+
+
+import { Icon } from "leaflet";
+delete Icon.Default.prototype._getIconUrl;
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+  iconUrl: require("leaflet/dist/images/marker-icon.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png")
+});
+//leadflet
+
 import 'vue-toast-notification/dist/theme-sugar.css';
 Vue.use(VueToast, {
 	position: 'top'

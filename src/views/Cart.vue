@@ -192,8 +192,8 @@ export default {
     ...mapActions('product',['adjustQty','deleteItemActions','clearActions']),
      deleteItem(productId,cartList) {
        this.$swal({
-        icon:'warning',
-        title: 'Are you sure ? Really?',
+        imageUrl: "https://upload.cc/i1/2021/04/11/iO7UHD.png",
+        title: 'Are you sure ?',
         showClass: {
           popup: 'animate__animated animate__flipInX'
         },
@@ -204,9 +204,9 @@ export default {
         showCancelButton: true,      
         confirmButtonText: `YES!`,
         denyButtonText: `Wait a minute!`,
-        confirmButtonColor: "#1D7874",
-        denyButtonColor:'#E66262',
-        cancelButtonColor:'#C7A27C'
+        confirmButtonColor: "#000000",
+        denyButtonColor:'#A52422',
+        cancelButtonColor:'#CE8D66'
       }).then(result => { 
         if (result.isConfirmed) {
           const payload = { productId, cartList }

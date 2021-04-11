@@ -2,7 +2,7 @@
   <section class="wrapper pa-w-full">
    
       <h3 class=" animate__animated animate__tada pa-font-normal pa-p-4 pa-rounded-md black--text pa-text-6xl pa-my-6 pa-text-center ">My Order</h3>
-      <div v-for="(p,i) in list" :key='i'>
+      <div>
       <v-data-table
         :headers="headers"
         :items="list"
@@ -44,10 +44,6 @@
         <h4 class="pa-text-base black--text pa-font-bold pa-tracking-wide " >
           {{ header.text.toUpperCase() }}</h4>
       </template>
-      <template v-slot:header.cancel="{ header }">
-        <h4 class="pa-text-base black--text pa-font-bold pa-tracking-wide " >
-          {{ header.text.toUpperCase() }}</h4>
-      </template>
      <!-- header -->
 
      <!-- item -->
@@ -62,14 +58,7 @@
     </template>
      
       <template #item.payment_status="{ value }">
-        <v-chip
-              class="ml-0 white--text font-weight-bold"
-              label
-              small
-              color='yellow darken-4'
-                >
-          {{ value }}
-        </v-chip>
+        <v-chip label color="light-green darken-1" class="white--text font-weight-black pa-tracking-widest" > <v-icon small class="pa-mr-2">mdi-checkbox-marked-circle</v-icon>{{value}}</v-chip>
       </template>
        
        <template #item.payment_method="{ value }">
@@ -77,14 +66,15 @@
       </template>
 
        <template #item.order_status="{ value }">
-        <v-chip
-              class="ml-0 white--text font-weight-bold"
-              label
-              small
-              color='blue lighten-7'
-                >
-          {{ value }}
-        </v-chip>
+       <v-chip label :color="value==='CANCELLED'?'red darken-4':'lime darken-3'" class="white--text font-weight-black pa-tracking-widest" >
+         <v-icon small class="pa-mr-2" v-if="value==='COMPLETED'">
+           mdi-hand-okay
+          </v-icon>
+          <v-icon small class="pa-mr-2" v-else>
+           mdi-emoticon-cry
+          </v-icon>
+          {{value}}
+          </v-chip>
       </template>
 
        <template #item.payment_date="{ value }">
@@ -99,10 +89,6 @@
        <span class="pa-text-lg  pa-font-semibold">${{value}}</span>
       </template>
 
-      <template #item.cancel="{ value }">  
-          <v-icon @click.prevent='cancel(p.orderId)' color='red darken-2' :disabled='p.order_status==="CANCELLED"'>mdi-close-thick</v-icon>
-          <span class="pa-hidden">{{value}}</span>       
-      </template>
     </v-data-table>
 
     <!--when list.length ===0-->
@@ -120,7 +106,7 @@
 </template>
 
 <script>
-import { getOrder,cancelOrder } from '@/api/order'
+import { getOrder } from '@/api/order'
 import { mapGetters } from 'vuex'
 export default {
   computed: {
@@ -132,36 +118,9 @@ export default {
       set(value) {
         return this.$store.commit('auth/setLoading', value)
       }
-    }
-  },
-  methods: {
-      async cancel(id) {
-        try {
-            this.loading = true
-            await cancelOrder({ orderId:id }) 
-            const {data: { orderList }} = await getOrder()
-            this.list = orderList
-            this.loading = false
-            this.$toast.open({
-              message: 'Successfully cancel your order!',
-              type:'Info',
-              pauseOnHover:true,
-              duration:2000             
-              });
-        }catch(err) {
-            this.loading = false
-            if(err.response) {
-            const error = err.response.data.msg
-            this.$swal({
-              icon:'error',
-              title:'Oh No!',
-              text:error
-          })
-        }
-        }
-          
-      }
     },
+  },
+  
    data() {
      return {
        list:[],       
@@ -179,7 +138,6 @@ export default {
         { text: 'Payment Date', value: 'payment_date' , sortable: false, align: 'center'},
         { text: 'Discount', value: 'discount' , sortable: false, align: 'center'},
         { text: 'Total', value: 'total_price', sortable: false,align: 'center' },
-        { text: 'Cancel', value: 'cancel', sortable: false, align: 'center'},
       ]
     }
   },

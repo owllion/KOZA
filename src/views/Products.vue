@@ -23,7 +23,14 @@
         <button class=" focus:pa-outline-none pa-w-36 pa-px-3 pa-h-12 pa-rounded-full pa-border-2 pa-border-solid pa-border-black md:pa-block md:pa-w-full pa-duration-700 pa-transition" @click='openSideFilter'>
           <span class="pa-mr-2 pa-font-semibold" >Filter</span>
           <i class="fas fa-filter"></i>
-        </button>     
+        </button> 
+        <v-select
+          :items="JSON.stringify(sortType.name)"
+          label="SORT"
+          dense
+          outlined
+        ></v-select>
+     
        </div>
       <!-- left -->
 

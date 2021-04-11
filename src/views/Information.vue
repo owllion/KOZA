@@ -81,7 +81,7 @@
           <h3 class="pa-font-semibold pa-text-3xl pa-pb-6 "><i class="fas fa-money-check-alt pa-mr-2"></i>PAYMENT</h3>
         
           <div class="radio-container pa-mb-10">
-          <input type="checkbox" name='payment' v-model='payment' value='credit' checked="checked" class='checkbox'>       
+          <input type="radio" name='payment' v-model='payment' value='Credit Card' checked="checked" class='checkbox'>  
           <label for="payment"><span class="pa-inline-block pa-mx-3 pa-font-semibold pa-text-2xl">Credit Card</span>
             <img src="@/assets/svg/cards.svg" alt="" class="pa-inline-block pa-w-9 pa-h-9"> </label>
           </div>  
@@ -226,7 +226,7 @@ export default {
        }
      },
      dis() {
-       return this.districtList.map(dis=> dis.name)
+       return this.districtList[0]?.map(dis=> dis.name)
      },
        currCity: {
          get() {
@@ -297,9 +297,10 @@ export default {
          return      
       }
          this.$swal({
-           icon:'warning',
-           title:'🥴',
-           text:'You\'ve missed some fields!',
+           imageUrl: "https://upload.cc/i1/2021/04/11/wTV4It.png",
+           text:'You\'ve missed some fields...',
+           confirmButtonColor: '#000000',
+           width:350,
            showClass: {
             popup: 'animate__animated animate__bounceInRight'
            } ,
@@ -326,7 +327,7 @@ export default {
    },
    watch: {
      districtList(districts) {
-       const [ first ] = districts;
+       const [ first ] = districts[0];
        this.currDistrict = first.name
      }
    },
@@ -414,5 +415,15 @@ export default {
          height: 180%;
        }
    }  
+ }
+ @media(max-width:769px) {
+   .container {
+      .coupon {
+        .fa-times {
+          top: 25%;
+          right: 10%;
+        }
+      }
+   }
  }
 </style>

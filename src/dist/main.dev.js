@@ -42,6 +42,12 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _vueMeta = _interopRequireDefault(require("vue-meta"));
 
+var _vue2Leaflet = require("vue2-leaflet");
+
+require("leaflet/dist/leaflet.css");
+
+var _leaflet2 = require("leaflet");
+
 require("vue-toast-notification/dist/theme-sugar.css");
 
 var _vueTilt = _interopRequireDefault(require("vue-tilt.js"));
@@ -52,7 +58,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 _vue["default"].component('jw-pagination', _jwVuePagination["default"]);
 
-_vue["default"].use(_vueMeta["default"]);
+_vue["default"].use(_vueMeta["default"]); //leadflet
+
+
+_vue["default"].component('l-map', _vue2Leaflet.LMap);
+
+_vue["default"].component('l-tile-layer', _vue2Leaflet.LTileLayer);
+
+_vue["default"].component('l-marker', _vue2Leaflet.LMarker);
+
+_vue["default"].component("l-popup", _vue2Leaflet.LPopup);
+
+_vue["default"].component("l-icon", _vue2Leaflet.LIcon);
+
+delete _leaflet2.Icon.Default.prototype._getIconUrl;
+
+_leaflet2.Icon.Default.mergeOptions({
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+  iconUrl: require("leaflet/dist/images/marker-icon.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png")
+}); //leadflet
+
 
 _vue["default"].use(_vueToastNotification["default"], {
   position: 'top'

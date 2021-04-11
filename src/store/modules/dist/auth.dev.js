@@ -134,6 +134,7 @@ var actions = {
               expires: 29
             });
 
+            console.log(_jsCookie["default"].get('token'));
             commit('setToken', token);
             commit('setRefreshToken', refreshToken);
             commit('setUserData', user);
@@ -149,27 +150,27 @@ var actions = {
 
             _router["default"].push('/');
 
-            _context.next = 31;
+            _context.next = 32;
             break;
 
-          case 26:
-            _context.prev = 26;
+          case 27:
+            _context.prev = 27;
             _context.t1 = _context["catch"](1);
 
             if (!_context.t1.response) {
-              _context.next = 31;
+              _context.next = 32;
               break;
             }
 
             error = _context.t1.response.data.msg;
             throw error;
 
-          case 31:
+          case 32:
           case "end":
             return _context.stop();
         }
       }
-    }, null, this, [[1, 26]]);
+    }, null, this, [[1, 27]]);
   },
   logout: function logout(_ref2) {
     var commit;
@@ -242,6 +243,9 @@ var mutations = {
     state.refreshToken = null;
     state.userData = null;
     state.avatar64 = null;
+    state.userCity = '';
+    state.userDistrict = '';
+    state.userAddress = '';
   },
   setCart: function setCart(state, cart) {
     state.cartList = cart;

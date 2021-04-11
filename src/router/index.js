@@ -46,22 +46,24 @@ const routes = [
      requireAuth: true
     },
     component: () => import('../views/UserProfile'),
-    children: [{
+    children: [
+    {
       path:'profile',
       component: () => import('../views/Profile')
-    }, {
+    }, 
+    {
       path:'order',
       component: () => import('../views/Order')
     },
-       {
+    {
       path:'coupon',
       component: () => import('../views/Coupon')
     },
-       {
+    {
       path:'password',
       component: () => import('../views/Modi_pass')
     },
-       {
+    {
       path:'favlist',
       component: () => import('../views/Favlist')
 

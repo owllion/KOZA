@@ -5,8 +5,8 @@
   <!-- profile -->
     <div class="pa-w-full pa-p-6 pa-mt-10 xs:pa-w-full">
     
-    <div class="pa-relative pa-w-56 pa-h-56 pa-m-auto xs:pa-mr-0 pa-mb-10">
-      <img :src=switchAvatar alt="avatar" class="pa-w-full pa-h-full pa-object-contain pa-rounded-full">
+    <div class="pa-relative pa-w-56 pa-h-56 pa-mx-auto  pa-mb-10">
+      <img :src=switchAvatar alt="avatar" class="pa-w-full pa-h-full pa-object-contain pa-rounded-full ">
        <v-btn
         small
         color="brown lighten-3"
@@ -152,7 +152,7 @@ export default {
       }
     },
      dis() {
-        return this.districtList[0].map(dis=> dis.name)
+        return this.districtList.map(dis=> dis.name)
       },
     userEmail() {
       if(this.email === this.$store.state.auth.userData.email) {
@@ -259,7 +259,7 @@ export default {
       },
       watch: {
         districtList(districts) {
-        const [ first ] = districts[0];
+        const [ first ] = districts;
         this.currDistrict = first.name
      }
    },

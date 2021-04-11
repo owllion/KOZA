@@ -8,8 +8,8 @@
          <li class="pa-w-16 "><router-link to='/userprofile/profile' class="s:pa-mb-2">Profile</router-link></li>
          <li class="pa-w-16"><router-link to='/userprofile/order'>Order</router-link></li>
          <li class="pa-w-16"><router-link to='/userprofile/coupon'>Coupon</router-link></li> 
-         <li class="pa-w-16"><router-link to='/userprofile/favlist'>Favlist</router-link></li>   
-         <li class="pa-w-16"><router-link to='/userprofile/password'>Password</router-link></li>
+         <li class="pa-w-16 s:pa-pt-3 xs:pa-pl-3"><router-link to='/userprofile/favlist'>Favlist</router-link></li>   
+         <li class="pa-w-16 xs:pa-pt-5 s:pa-pt-3"><router-link to='/userprofile/password'>Password</router-link></li>
        </ul>
        </div> 
        <!-- nav -->

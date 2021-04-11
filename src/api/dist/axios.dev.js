@@ -40,7 +40,8 @@ instance.interceptors.response.use(function (res) {
       return instance.post('/getNewToken', {
         refresh: refresh
       }).then(function (res) {
-        console.log(res); //  Cookies.set('token', token)
+        console.log(res);
+        console.log(token); //  Cookies.set('token', token)
         //  Cookies.set('refreshToken',refreshToken)
         //  originalReq.headers['Authorization'] = `Bearer ${token}`;
         // //original request already have one, no need to add it again

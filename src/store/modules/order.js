@@ -8,7 +8,7 @@ const state = {
     discount:null,
     discount_code:'',
     total_price:null, //final,includes shipping
-    payment_method:'',
+    payment_method:'Credit Card',
     orderList:[]
 }
 
