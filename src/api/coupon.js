@@ -9,3 +9,4 @@ import instance from './axios'
     // get user's couponList
     export const getUserCouponList = () =>
     instance.get('/user/couponList')
+    export const init = () => instance.get('/test')

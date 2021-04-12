@@ -30,7 +30,7 @@ export default {
     add(id,qty) {
       if(!this.$store.getters['auth/token']) {
         this.$swal({
-          icon:'warning',
+          imageUrl:'https://upload.cc/i1/2021/04/10/u0e6iX.png',
           title:'Oops!',
           text:'You need to login!'
         })

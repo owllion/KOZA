@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getUserCouponList = exports.redeemCoupon = exports.applyCode = void 0;
+exports.init = exports.getUserCouponList = exports.redeemCoupon = exports.applyCode = void 0;
 
 var _axios = _interopRequireDefault(require("./axios"));
 
@@ -29,3 +29,9 @@ var getUserCouponList = function getUserCouponList() {
 };
 
 exports.getUserCouponList = getUserCouponList;
+
+var init = function init() {
+  return _axios["default"].get('/test');
+};
+
+exports.init = init;

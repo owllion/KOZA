@@ -12,7 +12,7 @@
     <div class="pa-w-full">
     <!-- title -->
      <div class="pa-flex pa-justify-start">
-     <h3 class="details  pa-tracking-widest pa-bg-black white--text pa-p-3 ">DETAILS</h3>
+     <h3 class="details  pa-tracking-widest pa-bg-black white--text pa-p-3 "><v-icon color="white" class=" pa-pb-1" small>mdi-file-eye</v-icon> DETAILS</h3>
      </div>
      <!-- title -->
 
@@ -42,7 +42,9 @@
       </li>
       <li class="pa-mb-3 pa-flex pa-justify-between">
         <h3 class="pa-inline-block pa-pr-3 pa-text-2xl pa-font-semibold xs:pa-text-sm s:pa-text-xs">ORDER STATUS : </h3>
-        <v-chip label :color="orderDetail==='CANCELLED'?'amber darken-4':'red darken-4'" class="white--text font-weight-black pa-tracking-widest" ><v-icon x-small class="pa-mr-2">mdi-emoticon-confused</v-icon>{{orderDetail.order_status}} </v-chip>
+        <v-chip label :color="orderDetail.order_status==='CANCELLED'?'red darken-4':'lime darken-2'" class="white--text font-weight-black pa-tracking-widest" ><v-icon x-small class="pa-mr-2" v-if="orderDetail.order_status==='CANCELLED'">mdi-emoticon-confused</v-icon>
+        <v-icon x-small class="pa-mr-2" v-else>mdi-check-bold</v-icon>
+        {{orderDetail.order_status}} </v-chip>
       </li>
     </ul>
     </div>
@@ -52,7 +54,7 @@
     <!-- information -->
     <div class="pa-w-full pa-mt-10">
     <div class="pa-flex pa-justify-start">
-     <h3 class="details  pa-tracking-widest pa-bg-black white--text pa-p-3 ">ITEMS</h3>
+     <h3 class="details  pa-tracking-widest pa-bg-black white--text pa-p-3 "><v-icon color="white" class=" pa-pb-1 pa-mr-2" small>mdi-feather</v-icon>ITEMS</h3>
      </div>
        <div class="summary pa-w-full pa-border-2 pa-border-black">
          <div class="container pa-w-full ">
@@ -94,9 +96,10 @@
 
     <!-- button -->
      <div class="pa-w-full pa-mt-8 pa-flex pa-justify-end">
-          <div class="pa-flex xs:pa-block">
-
-          <button @click="cancel(orderId)" class="pa-mr-6 pa-transition pa-duration-500 hover:pa-bg-red-800 pa-p-3 white--text pa-bg-red-700 pa-font-semibold pa-tracking-widest xs:pa-w-full xs:pa-mb-3" :disabled='orderDetail.order_status==="CANCELLED"'><v-icon color="white" small class="pa-mr-2">mdi-emoticon-cry</v-icon>CANCEL ORDER 
+          <div class="pa-flex xs:pa-block xs:pa-w-full">
+          <button @click="cancel(orderId)" class="pa-mr-6 pa-transition pa-duration-500 hover:pa-bg-red-800 pa-p-3 white--text pa-bg-red-700 pa-font-semibold pa-tracking-widest xs:pa-w-full xs:pa-mb-3" :disabled='orderDetail.order_status==="CANCELLED"'><v-icon color="white" small class="pa-mr-2">mdi-emoticon-cry</v-icon>
+          <span v-if='orderDetail.order_status==="COMPLETED"'> CANCEL ORDER</span> 
+          <span v-else>Stop Pressing!</span> 
           </button>
 
           <router-link to='/userprofile/order' class="xs:pa-w-full pa-block pa-text-center pa-font-semibold pa-w-36 black--text pa-bg-gray-100  pa-p-3 hover:pa-bg-gray-300 pa-transition pa-duration-500 " >
@@ -144,12 +147,11 @@ export default {
             const { data:{ order } } = await getOrderDetail(payload) 
             this.orderDetail = order
             this.loading = false
-            this.$toast.open({
-              message: 'Successfully cancel your order!',
-              type:'Info',
-              pauseOnHover:true,
-              duration:2000             
-              });
+            this.$swal({
+              imageUrl:'https://upload.cc/i1/2021/04/12/ujePnL.png',
+              title:'SUCCESS:(',
+              confirmButtonColor:'#000000'
+            })
         }catch(err) {
             this.loading = false
             if(err.response) {

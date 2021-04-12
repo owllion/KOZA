@@ -61,7 +61,7 @@
    <!-- address -->
     <label class="pa-block  pa-font-semibold pa-text-3xl">County </label>        
          <v-select
-            color="black"
+            color="red darken-2"
             class="pa-mb-6"
             v-model="currCity"
             :items="cityList"
@@ -74,7 +74,7 @@
 
       <label class="pa-block pa-font-semibold pa-text-3xl"> District </label>
           <v-select
-            color="black"
+            color="red darken-2"
             class="pa-mb-5"
             v-model="currDistrict"
             :items="dis"
@@ -86,7 +86,7 @@
           ></v-select>
           <label class="pa-block pa-font-semibold pa-text-3xl">Address</label>
            <v-text-field
-              color="black"
+              color="red darken-2"
               label="Address"
               prepend-icon="mdi-map-marker"
               clearable
@@ -123,6 +123,9 @@ export default {
         }
         return this.$store.state.auth.userData.avatarDefault
       },
+    dis() {
+      return this.districtList.map(dis=> dis.name)
+     },
     currCity: {
       get() {
         return this.$store.state.auth.userCity
@@ -151,9 +154,6 @@ export default {
         return this.setUserAddress(value)
       }
     },
-     dis() {
-        return this.districtList.map(dis=> dis.name)
-      },
     userEmail() {
       if(this.email === this.$store.state.auth.userData.email) {
         return ''
@@ -185,26 +185,22 @@ export default {
          this.$v.$touch()
          if (!this.$v.$invalid) {
            try {
-             console.log('成功')
+             console.log('success')
                this.loading = true
                const payload = {
                   name:this.name,
                   email:this.userEmail,
                   county:this.currCity,
-                  township:this.currDistrict,
+                  district:this.currDistrict,
                   road:this.proAddress
                }
                console.log(payload)
-               const { data: {user,address} } = await userInfoModify(payload)
+               const { data: {user, county, district, road } } = await userInfoModify(payload)
 
-               const county = address.substring(0,3)
-               const district = address.substring(3,6)
-               const road = address.substring(6)
-
-               this.$store.commit('auth/setUserData', user)
-               this.$store.commit('auth/setUserCity', county)
+                this.$store.commit('auth/setUserData', user)
+                this.$store.commit('auth/setUserCity', county)
                this.$store.commit('auth/setUserDistrict', district)
-               this.$store.commit('auth/setUserAddress', road)             
+                this.$store.commit('auth/setUserAddress', road)             
                this.loading = false
                this.error = ''
                this.$swal({

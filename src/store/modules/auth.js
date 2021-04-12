@@ -38,12 +38,12 @@ const getters = {
    userCity: state => state.userCity,
 
    cityList: state => state.location.map( item => item.name),
-   districtList: state =>state.location.find(item=> item.name === state.currCity)?.districts || []
+   districtList: state => state.location.find(item=> item.name === state.userCity)?.districts || []
      
 }
 
 const actions = { 
-    async signInOrUp ({ commit ,state} , data) {
+    async signInOrUp ({ commit } , data) {
         try{                  
            const alertText = data.captchaText ? 'logged in!':'registered'
            commit('setLoading', true)
@@ -51,27 +51,18 @@ const actions = {
             
            const { token, refreshToken , user } = res.data.result
 
-           const address =user.address
-           if(address) {
-               const county = address.substring(0,3)
-               const district = address.substring(3,6)
-               const road = address.substring(6)
-               commit('setUserCity', county)
-               commit('setUserDistrict', district)
-               commit('setUserAddress', road)
-           }
-           
-
            Cookies.set('token', token, { expires: 6 })
            Cookies.set('refreshToken', refreshToken, {expires: 29 })
-           console.log(Cookies.get('token'))
 
            commit('setToken', token)
            commit('setRefreshToken', refreshToken)
            commit('setUserData', user)
-           commit('setCart',state.userData.cartList)
-           commit('setCartLength',state.userData.cartList.length)
-           commit('setFavList',state.userData.favList)
+           commit('setCart',user.cartList)
+           commit('setCartLength',user.cartList.length)
+           commit('setFavList',user.favList)
+           commit('setUserCity', user.county)
+           commit('setUserDistrict', user.district)
+           commit('setUserAddress', user.road)
 
            commit('setLoading', false)
 
@@ -80,8 +71,10 @@ const actions = {
               title:'Success',
               text:`You have successfully ${alertText}`,
               confirmButtonColor: "#000000",
+              width:450
            })
            router.push('/')
+           
            
        }catch(err) {
            commit('setLoading', false)

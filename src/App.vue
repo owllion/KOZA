@@ -23,8 +23,8 @@ export default {
     this.$store.commit('product/closeFilter')
     this.$store.commit('auth/setLoading', false)
     const token = Cookies.get('token')
-    console.log(token)
-    this.$store.commit('auth/setToken',token)
+    console.log(`app.vue拿到的token-->${token}`)
+    //this.$store.commit('auth/setToken',token)
     
   }
 };

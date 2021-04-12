@@ -15,10 +15,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var token = _jsCookie["default"].get('token');
 
+console.log("axios\u7684token-->".concat(token));
+
 var instance = _axios["default"].create({
   baseURL: process.env.VUE_APP_AXIOS_BASE_URL,
   headers: {
-    'Authorization': token
+    Authorization: token
   }
 });
 
@@ -26,30 +28,12 @@ instance.interceptors.response.use(function (res) {
   return res;
 }, function (err) {
   if (err && err.response) {
-    var status = err.response.status; //const originalReq = err.config
+    var status = err.response.status;
 
     if (status === 401) {
-      //get new tokens    
-      var refresh = _jsCookie["default"].get('refreshToken');
+      console.log('Please login again!');
 
-      if (!refresh) {
-        console.log('Please login again!');
-        return _router["default"].push('/login');
-      }
-
-      return instance.post('/getNewToken', {
-        refresh: refresh
-      }).then(function (res) {
-        console.log(res);
-        console.log(token); //  Cookies.set('token', token)
-        //  Cookies.set('refreshToken',refreshToken)
-        //  originalReq.headers['Authorization'] = `Bearer ${token}`;
-        // //original request already have one, no need to add it again
-        //  originalReq.baseURL = '';
-        //  return instance(originalReq)
-      })["catch"](function (err) {
-        return console.log("Refresh error:".concat(err));
-      });
+      _router["default"].push('/login');
     }
   }
 

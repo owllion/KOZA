@@ -123,7 +123,6 @@ export default {
     },
      data() {
       return {
-        isLoading:false,
         img:'',        
         error:'',
         loginData: {

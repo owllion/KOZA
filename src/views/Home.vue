@@ -72,6 +72,7 @@ import ScrollToTop from '@/components/ScrollToTop.vue'
 import img from '@/assets/json/img-link.json'
 import myAd from '@/components/Ad.vue'
 //import myCard from '@/components/Card.vue'
+import {init} from '@/api/coupon'
 export default {
   components: {
     //myCard,
@@ -89,9 +90,12 @@ export default {
   metaInfo: {
      title:'KOZA'    
     },
-    created() {
+    async created() {
       const cookie = Cookies.get('token')
       console.log(`首頁跳轉有無cookie-->${cookie}`)
+      await init()
+      console.log('init成功')
+
     }
 
 }
