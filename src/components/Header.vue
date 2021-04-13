@@ -6,7 +6,7 @@
     </div>
 
         <!-- nav -->
-   <nav class="pa-h-5  pa-flex pa-justify-around  pa-items-center pa-p-8 xs:pa-justify-between md:pa-justify-between">   
+   <nav class="pa-h-5  pa-flex pa-justify-around  pa-items-center pa-p-8 xs:pa-justify-end xxs:pa-justify-end md:pa-justify-between">   
     
       <div class="md:pa-pl-16 xs:pa-hidden">
         <h1>
@@ -14,21 +14,20 @@
       </h1>  
       </div>
   
-      <div class="pa-flex pa-items-center">
+      <div class="pa-flex pa-items-center ">
          <ul class=" pa-flex md:pa-hidden pa-w-full"> 
             <li v-for="(item,i) in navText" :key='i'>
               <router-link  :to="{name:`${item.name}` }" class=" pa-p-3 pa-rounded-sm nav-text">{{item.link}}</router-link></li>
       </ul>
 
       <!-- icon -->
-      <ul class="pa-flex pa-w-full pa-items-center xs:pa-ml-48 xxs:pa-ml-52 s:pa-ml-20">
+      <ul class="pa-flex  pa-items-center ">
       
           <li class="pa-p-2">
             <router-link  v-if="!$store.getters['auth/token']" to="/login" class="login pa-font-semibold pa-p-3 pa-inline-block xs:pa-text-xs xs:pa-p-0">
              LOG IN
           </router-link>
           <a  href='#' v-if="$store.getters['auth/token']"  class="pa-text-3xl " @click.prevent='dropShow = !dropShow'>
-            <!-- <span class="icon icon-face_retouching_natural "></span> -->
              <v-avatar size="43" class="avatar pa-pb-2 pa-relative">
                <img
                 :src=switchAvatar

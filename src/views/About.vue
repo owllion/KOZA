@@ -1,8 +1,10 @@
 <template>
-<div class="pa-my-24  pa-w-full pa-h-96 pa-px-10 lg:pa-h-99">
+<div class="pa-my-24  pa-w-full">
+    <Banner>About</Banner>
+<div class="pa-w-full pa-h-96 pa-px-10 lg:pa-h-99">
    <div class="pa-flex pa-justify-evenly pa-w-full pa-h-full  md:pa-block">
 
-     <div class="about pa-mr-5 pa-w-96 md:pa-mb-16 md:pa-w-full">
+     <div class="about pa-mr-5 pa-w-1/3 pa-flex pa-items-center pa-justify-center md:pa-mb-16 md:pa-w-full">
        <div>
         <h3 class="popTitle pa-text-7xl pa-mb-8 md:pa-text-center xs:pa-text-4xl">OUR STORE</h3>
         <ul class="pa-border-2 pa-border-solid pa-border-black pa-w-full pa-p-6 pa-tracking-widest xs:pa-pt-8 ">
@@ -43,13 +45,17 @@
       </l-marker>
     </l-map>
    </div>
-    
   </div>
+ </div>
 </template>
 
 <script>
-import { latLng } from "leaflet";
+import { latLng } from "leaflet"
+import Banner from '@/components/Header-banner'
 export default {
+  components: {
+    Banner
+  },
   data() {
     return {
       zoom: 13,
@@ -88,6 +94,9 @@ export default {
     showLongText() {
       this.showParagraph = !this.showParagraph;
     },
+  },
+  metaInfo: {
+    title:'About'
   }
 }
 </script>
@@ -97,7 +106,7 @@ export default {
   font-family: 'Train One', cursive;
 }
  #mapContainer {
-   height:50vh;
+   height:95%;
    width: 50%;
 }
 @media(max-width:769px) {
