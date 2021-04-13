@@ -298,9 +298,9 @@ export default {
       }
          this.$swal({
            imageUrl: "https://upload.cc/i1/2021/04/11/wTV4It.png",
-           text:'You\'ve missed some fields...',
+           text:'You missed some fields!',
            confirmButtonColor: '#000000',
-           width:350,
+           width:500,
            showClass: {
             popup: 'animate__animated animate__bounceInRight'
            } ,

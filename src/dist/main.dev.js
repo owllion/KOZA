@@ -120,9 +120,8 @@ _router["default"].beforeEach(function (to, from, next) {
       next();
     } else {
       _vue["default"].swal({
-        icon: 'warning',
-        title: 'Oops...',
-        text: 'You need to login'
+        imageUrl: 'https://upload.cc/i1/2021/04/10/u0e6iX.png',
+        title: 'You need to login'
       });
 
       next({

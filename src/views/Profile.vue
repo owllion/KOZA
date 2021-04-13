@@ -6,7 +6,7 @@
     <div class="pa-w-full pa-p-6 pa-mt-10 xs:pa-w-full">
     
     <div class="pa-relative pa-w-56 pa-h-56 pa-mx-auto  pa-mb-10">
-      <img :src=switchAvatar alt="avatar" class="pa-w-full pa-h-full pa-object-contain pa-rounded-full ">
+      <img :src='switchAvatar' alt="avatar" class="pa-w-full pa-h-full pa-object-contain pa-rounded-full ">
        <v-btn
         small
         color="brown lighten-3"
@@ -117,12 +117,16 @@ export default {
         return this.$store.commit('auth/setLoading', value)
       }
     },
-    switchAvatar() {
-        if(this.avatar64) { 
+    switchAvatar() {     
+        if(this.avatar64) {
           return `data:image/jpg;base64,${this.avatar64}`
         }
-        return this.$store.state.auth.userData.avatarDefault
-      },
+        if(this.avatar) {
+          return `data:image/jpg;base64,${this.avatar}`
+        }  
+          return this.$store.state.auth.userData.avatarDefault
+              
+    },
     dis() {
       return this.districtList.map(dis=> dis.name)
      },
@@ -164,6 +168,7 @@ export default {
   data() {
     return {
       error:'',
+      avatar:'',
       name:this.$store.state.auth.userData.name,
       email:this.$store.state.auth.userData.email,
   }
@@ -226,18 +231,22 @@ export default {
            }
        }
     },  
+    
      async uploadAvatar(){
+       console.log('上傳')
        try{
             this.loading = true
             const uploadFile = this.$refs.avatar.files[0]
 
             const formData =new FormData()
 
-            formData.append("avatar" , uploadFile);
-        
+            formData.append("avatar" , uploadFile)
+          
             const { data: { base64 } } = await upload(formData)
-            this.$store.commit('auth/setAvatar',base64)     
-            this.avatar = this.$store.state.auth.avatar64               
+
+            this.$store.commit('auth/setAvatar',base64)
+            const id = this.$store.state.auth.userData.userId
+            localStorage.setItem(id,base64)
             this.loading = false
 
               }catch(err) {   
@@ -256,12 +265,14 @@ export default {
       watch: {
         districtList(districts) {
         const [ first ] = districts;
-        this.currDistrict = first.name
+        this.currDistrict = first?.name
      }
    },
-      created() {
-        this.avatar = this.$store.state.auth.avatar64 
-      }
+   created() {
+     const id = this.$store.state.auth.userData.userId
+     const base64 = localStorage.getItem(id)
+     this.avatar = base64
+   }
 }
 </script>
 

@@ -77,6 +77,7 @@ import { mapGetters,mapActions } from 'vuex'
     data() {
       return {
         dropShow:false,
+        avatar:'',
         profileText:[
            {name:'PROFILE', path:'profile'},
            {name:'FAVLIST', path:'favlist'},
@@ -104,13 +105,22 @@ import { mapGetters,mapActions } from 'vuex'
   },
   computed: {
       ...mapGetters('auth', ['cartLength','token','userData','avatar64']),
-      switchAvatar() {
-        if(this.avatar64) { 
+       switchAvatar() {     
+        if(this.avatar64) {
           return `data:image/jpg;base64,${this.avatar64}`
         }
-        return this.userData.avatarDefault
-      }
-  }
+        if(this.avatar) {
+          return `data:image/jpg;base64,${this.avatar}`
+        }  
+          return this.$store.state.auth.userData.avatarDefault
+              
+    },
+  },
+  created() {
+     const id = this.$store.state.auth.userData.userId
+     const base64 = localStorage.getItem(id)
+     this.avatar = base64
+   }
  
     
   }  

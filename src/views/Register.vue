@@ -118,7 +118,7 @@ export default {
          registerPass: {
              required,
              minLength: minLength(7),
-             maxLength: maxLength(12)
+             maxLength: maxLength(14)
         },
         registerData:{
             name: {

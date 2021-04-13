@@ -88,7 +88,7 @@ var userInfoModify = function userInfoModify(data) {
 exports.userInfoModify = userInfoModify;
 
 var userPasswordModify = function userPasswordModify(data) {
-  return _axios["default"].patch('/user/password-modify', data);
+  return _axios["default"].post('/user/password-modify', data);
 }; // add the product to the favorite list 
 
 

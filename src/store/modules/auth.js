@@ -11,7 +11,7 @@ const state = {
     cartLength:'',
     favList:[],
     showEmailBox:false,
-    avatar64:'',
+    avatar64:null,
     userCity:'桃園市',
     userDistrict:'中壢區',
     userAddress:'',
@@ -45,7 +45,7 @@ const getters = {
 const actions = { 
     async signInOrUp ({ commit } , data) {
         try{                  
-           const alertText = data.captchaText ? 'logged in!':'registered'
+           //const alertText = data.captchaText ? 'logged in!':'registered'
            commit('setLoading', true)
            const res = data.captchaText ? await userLogin(data): await userRegister(data) 
             
@@ -63,18 +63,18 @@ const actions = {
            commit('setUserCity', user.county)
            commit('setUserDistrict', user.district)
            commit('setUserAddress', user.road)
+           //commit('setAvatar', user.avatarUpload)
 
-           commit('setLoading', false)
-
+           router.push('/')      
+           window.location.reload()
+           commit('setLoading', false)    
            this._vm.$swal({
-              imageUrl: "https://upload.cc/i1/2021/04/11/AUwNzI.png",
-              title:'Success',
-              text:`You have successfully ${alertText}`,
-              confirmButtonColor: "#000000",
-              width:450
-           })
-           router.push('/')
-           
+            imageUrl: "https://upload.cc/i1/2021/04/11/AUwNzI.png",
+            title:'Success,but pls wait a minute...',
+            showConfirmButton: false,
+            width:450,
+            timer: 2500
+         })
            
        }catch(err) {
            commit('setLoading', false)

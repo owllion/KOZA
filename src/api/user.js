@@ -34,7 +34,7 @@ import instance from './axios'
     export const userInfoModify = data => instance.patch('/user/info-modify', data)
    
     //modify user password 
-    export const userPasswordModify = data => instance.patch('/user/password-modify', data)
+    export const userPasswordModify = data => instance.post('/user/password-modify', data)
    
     // add the product to the favorite list 
     export const addToFav = data => instance.post('/user/add/favlist', data)

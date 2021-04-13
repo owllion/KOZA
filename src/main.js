@@ -79,9 +79,8 @@ router.beforeEach((to,from,next) => {
 			next()
 		}else {	
 			Vue.swal({
-				icon: 'warning',
-				title: 'Oops...',
-				text: 'You need to login',
+				imageUrl:'https://upload.cc/i1/2021/04/10/u0e6iX.png',
+				title: 'You need to login',
 			})
 			next({
 				path:'/login',
