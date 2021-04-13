@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 const state = {
     isLoading:false,
     creditStatus:false,
+    dirty:false,
     token: null,
     refreshToken:null,
     userData:'',
@@ -22,6 +23,7 @@ const state = {
 const getters = { 
    isLoading: state => state.isLoading,
    creditStatus: state => state.creditStatus,
+   dirty: state => state.dirty,
    isAuthenticated : state => state.token !== null,
    token: state => state.token,
    refreshToken: state => state.refreshToken,
@@ -106,6 +108,9 @@ const mutations = {
       },
       setCreditStatus(state, data) {
          state.creditStatus = data
+      },
+      setDirty(state, data) {
+         state.dirty = data
       },
       setUserAddress(state, data) {
          state.userAddress = data

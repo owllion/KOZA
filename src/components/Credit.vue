@@ -16,8 +16,8 @@
         ></v-text-field>
     <!-- errmsg -->
     <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
-      <span class=" pa-text-red-500 pa-font-black " v-if="!$v.number.required">Required! ↑</span>
-      <span class=" pa-text-red-500 pa-font-black" v-if=" !$v.number.numAndValidator">      
+      <span class=" pa-text-red-500 pa-font-black " v-if="detectDirty && !$v.number.required">Required!</span>
+      <span class=" pa-text-red-500 pa-font-black" v-if="$v.$dirty && !$v.number.numAndValidator">      
       Invalid!At least 16 numbers! ↑</span>                               
    </div> 
    <!-- errmsg -->
@@ -32,7 +32,7 @@
         ></v-text-field>
     <!-- errmsg -->
     <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 ">
-      <span class=" pa-text-red-500 pa-font-black " v-if="!$v.name.required">Required! ↑</span>                       
+      <span class=" pa-text-red-500 pa-font-black " v-if="detectDirty && !$v.name.required">Required! </span>                       
    </div> 
    <!-- errmsg -->
         <v-text-field
@@ -48,14 +48,14 @@
         ></v-text-field>
     <!-- errmsg -->
     <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
-      <span class=" pa-text-red-500 pa-font-black " v-if="!$v.expiry.required">Required! ↑</span> 
-      <span class=" pa-text-red-500 pa-font-black" v-if=" !$v.expiry.expiryValidator ">      
-      Invalid! ↑</span>      
+      <span class=" pa-text-red-500 pa-font-black " v-if="detectDirty && !$v.expiry.required">Required! </span> 
+      <span class=" pa-text-red-500 pa-font-black" v-if="detectDirty && !$v.expiry.expiryValidator ">      
+      Invalid! </span>      
                        
    </div> 
    <!-- errmsg -->
         <v-text-field
-        class="pa-mb-3"
+        class="pa-mb-1"
         color="black"
         label='CVC'
         prepend-icon="mdi-shield-lock"
@@ -66,7 +66,7 @@
         ></v-text-field>
          <!-- errmsg -->
     <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
-      <span class=" pa-text-red-500 pa-font-black " v-if="!$v.cvc.required">Required! ↑</span>              
+      <span class=" pa-text-red-500 pa-font-black " v-if="detectDirty && !$v.cvc.required">Required! ↑</span>              
    </div> 
    <!-- errmsg -->
    </form>
@@ -110,13 +110,22 @@ export default {
          console.log('invalid')
            return false
        },
+       detectDirty() {
+         if(this.$store.state.auth.dirty === true) {
+            return true
+           }else {
+             return false
+           }
+         
+       }
     },
     watch: {
       detectStatus(value) {
-         if(value) {
+         if(value===true) {
+           console.log('全都填寫了')
             this.$store.commit('auth/setCreditStatus', true)
          }else {
-           
+            console.log('沒填')
             this.$store.commit('auth/setCreditStatus', false)
             console.log(this.$store.state.auth.creditStatus)
          }                  
@@ -142,6 +151,7 @@ export default {
       }
     });
   },
+
 }
 </script>
 

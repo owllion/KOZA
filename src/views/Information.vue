@@ -278,8 +278,10 @@ export default {
          })
        }else {
          this.$v.$touch()
+         this.$store.commit('auth/setDirty', true)
+        
          if (!this.$v.$invalid && this.creditStatus) {
-
+                 
          const completeAddress =`${this.currCity}${this.currDistrict}${this.de_address}`
 
          console.log(completeAddress)
@@ -294,7 +296,7 @@ export default {
         }     
          console.log(payload)
          this.$store.dispatch('order/placeOrderAction',payload) 
-         return      
+          return      
       }
          this.$swal({
            imageUrl: "https://upload.cc/i1/2021/04/11/wTV4It.png",
@@ -328,12 +330,12 @@ export default {
    watch: {
      districtList(districts) {
        const [ first ] = districts;
-       this.currDistrict = first.name
+       this.currDistrict = first?.name
      }
    },
    created() {
     this.clearAllField()
-     
+    this.$store.commit('auth/setDirty',false)
    } 
 }
 </script>

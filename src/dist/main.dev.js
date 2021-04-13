@@ -14,8 +14,6 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _vueAxios = _interopRequireDefault(require("vue-axios"));
 
-var _lottieWeb = _interopRequireDefault(require("lottie-web"));
-
 var _vueLoadingOverlay = _interopRequireDefault(require("vue-loading-overlay"));
 
 require("vue-loading-overlay/dist/vue-loading.css");
@@ -106,7 +104,6 @@ _vue["default"].use(_vueLoadingOverlay["default"], {
 _vue["default"].component('Loading', _vueLoadingOverlay["default"]);
 
 _vue["default"].config.productionTip = false;
-_vue["default"].prototype.$lottie = _lottieWeb["default"];
 _vue["default"].prototype.$axios = _axios["default"];
 _vue["default"].prototype.$moment = _moment["default"];
 
