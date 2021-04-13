@@ -41,6 +41,11 @@ Icon.Default.mergeOptions({
 });
 //leadflet
 
+
+
+
+
+
 import 'vue-toast-notification/dist/theme-sugar.css';
 Vue.use(VueToast, {
 	position: 'top'
@@ -80,7 +85,7 @@ router.beforeEach((to,from,next) => {
 		}else {	
 			Vue.swal({
 				imageUrl:'https://upload.cc/i1/2021/04/10/u0e6iX.png',
-				title: 'You need to login',
+				title: 'You need to login!',
 			})
 			next({
 				path:'/login',
@@ -95,9 +100,11 @@ router.beforeEach((to,from,next) => {
 	}
 })
 
+
 new Vue({
 	router,
 	store,
 	vuetify,
+	
 	render: (h) => h(App)
 }).$mount('#app');

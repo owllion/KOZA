@@ -99,12 +99,12 @@ var actions = {
           case 5:
             _ref4 = _context2.sent;
             cartList = _ref4.data.cartList;
-            console.log(value);
-            console.log(cartList);
             commit('auth/setCart', cartList, {
               root: true
-            }); // commit('auth/setCartLength', cartList.length, { root: true })
-
+            });
+            commit('auth/setCartLength', cartList.length, {
+              root: true
+            });
             commit('auth/setLoading', false, {
               root: true
             });
@@ -116,11 +116,11 @@ var actions = {
               duration: 2000
             });
 
-            _context2.next = 18;
+            _context2.next = 17;
             break;
 
-          case 14:
-            _context2.prev = 14;
+          case 13:
+            _context2.prev = 13;
             _context2.t0 = _context2["catch"](1);
             commit('auth/setLoading', false, {
               root: true
@@ -136,12 +136,12 @@ var actions = {
               });
             }
 
-          case 18:
+          case 17:
           case "end":
             return _context2.stop();
         }
       }
-    }, null, this, [[1, 14]]);
+    }, null, this, [[1, 13]]);
   },
   addToFavActions: function addToFavActions(_ref5, value) {
     var commit, _ref6, favList, error;

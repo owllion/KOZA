@@ -148,7 +148,7 @@ export default {
             this.orderDetail = order
             this.loading = false
             this.$swal({
-              imageUrl:'https://upload.cc/i1/2021/04/12/ujePnL.png',
+              imageUrl:'https://upload.cc/i1/2021/04/13/c3KMtm.png',
               title:'SUCCESS:(',
               confirmButtonColor:'#000000'
             })

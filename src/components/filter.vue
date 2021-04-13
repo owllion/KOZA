@@ -135,6 +135,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 @mixin basicStyle($width,$height,$lineHeight,$borderRadius) {
    border-bottom:1px solid rgb(174, 172, 172);
       label div {
@@ -202,6 +203,9 @@ export default {
   max-width: 350px;
   backface-visibility: hidden;
   transform-origin: 10% 90%;
+   label::after {
+     content: none;
+   }
    .clear {
      button {
        border:1px solid whitesmoke;
@@ -228,9 +232,6 @@ export default {
      background-color: rgba(0, 0, 0, 0.7)
  }
 
-// .slide-side.move {
-//     transition: all .6ms ease-in-out 50ms
-// }
  .slide-side-enter-active{
      transition: all .9s 
  }

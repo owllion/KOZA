@@ -45,7 +45,6 @@ const getters = {
 const actions = { 
     async signInOrUp ({ commit } , data) {
         try{                  
-           //const alertText = data.captchaText ? 'logged in!':'registered'
            commit('setLoading', true)
            const res = data.captchaText ? await userLogin(data): await userRegister(data) 
             
@@ -63,14 +62,13 @@ const actions = {
            commit('setUserCity', user.county)
            commit('setUserDistrict', user.district)
            commit('setUserAddress', user.road)
-           //commit('setAvatar', user.avatarUpload)
 
            router.push('/')      
            window.location.reload()
            commit('setLoading', false)    
            this._vm.$swal({
-            imageUrl: "https://upload.cc/i1/2021/04/11/AUwNzI.png",
-            title:'Success,but pls wait a minute...',
+            imageUrl: "https://upload.cc/i1/2021/04/13/LJbpP8.png",
+            title:'Success, but pls wait ...',
             showConfirmButton: false,
             width:450,
             timer: 2500
@@ -91,9 +89,8 @@ const actions = {
          Cookies.remove("token")
          Cookies.remove("refreshToken")
          this._vm.$swal({
-            imageUrl:'https://upload.cc/i1/2021/04/11/AUwNzI.png',
-            title:'SUCCESS!',
-            text:'You have been successfully logged out! ',
+            imageUrl:'https://upload.cc/i1/2021/04/13/LJbpP8.png',
+            title:'You have been successfully logged out! ',
             confirmButtonColor: "#000000",
          })
          router.push('/')

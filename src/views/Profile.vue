@@ -209,9 +209,8 @@ export default {
                this.loading = false
                this.error = ''
                this.$swal({
-                   icon:"success",
-                   title:'😌',
-                   text:'Successfully Update!'
+                   imageUrl:'https://upload.cc/i1/2021/04/13/LJbpP8.png',
+                   title:'Successfully Update!',
                })
               
            }catch(err) {
@@ -233,7 +232,6 @@ export default {
     },  
     
      async uploadAvatar(){
-       console.log('上傳')
        try{
             this.loading = true
             const uploadFile = this.$refs.avatar.files[0]

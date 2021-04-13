@@ -21,12 +21,7 @@ var _order = _interopRequireDefault(require("./modules/order"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-_vue["default"].use(_vuex["default"]); //Vue.use(VueAxios, axios)
-//Vue.use(Cookies)
-//import axios from 'axios'
-//import VueAxios from 'vue-axios'
-//import Cookies from 'js-cookie'
-
+_vue["default"].use(_vuex["default"]);
 
 var vuexLocalStorage = new _vuexPersist["default"]({
   storage: window.localStorage

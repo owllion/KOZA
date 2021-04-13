@@ -8,11 +8,7 @@ import address from './modules/address'
 import order from './modules/order'
 
 Vue.use(Vuex)
-//Vue.use(VueAxios, axios)
-//Vue.use(Cookies)
-//import axios from 'axios'
-//import VueAxios from 'vue-axios'
-//import Cookies from 'js-cookie'
+
 const vuexLocalStorage = new VuexPersist({
   storage: window.localStorage, 
 })
@@ -22,7 +18,7 @@ const store = new Vuex.Store({
       auth,
       product,
       address,
-      order
+      order,
     },
     plugins: [vuexLocalStorage.plugin]
  })

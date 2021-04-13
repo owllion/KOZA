@@ -155,7 +155,7 @@ export default {
     },
     clear(){
       this.$swal({
-        icon:'warning',
+        imageUrl:'https://upload.cc/i1/2021/04/11/i1RyAL.png',
         title: 'Are you sure?',
         showClass: {
           popup: 'animate__animated animate__flipInX'
@@ -192,7 +192,7 @@ export default {
     ...mapActions('product',['adjustQty','deleteItemActions','clearActions']),
      deleteItem(productId,cartList) {
        this.$swal({
-        imageUrl: "https://upload.cc/i1/2021/04/11/iO7UHD.png",
+        imageUrl: "https://upload.cc/i1/2021/04/13/VZucMr.png",
         title: 'Are you sure ?',
         showClass: {
           popup: 'animate__animated animate__flipInX'
@@ -224,7 +224,7 @@ export default {
      checkCart() {
        if(this.subTotal===0) {       
          this.$swal({
-           icon:'warning',
+           imageUrl:'https://upload.cc/i1/2021/04/13/Emo6YX.png',
            title:'Hey!',
            text:'You have not chosen anything!'
          })

@@ -254,7 +254,7 @@ export default {
      placeOrder() {
        if(!this.agree) {
          this.$swal({
-           icon:'warning',
+           imageUrl:'https://upload.cc/i1/2021/04/10/u0e6iX.png',
            title:'Hey!',
            text:'You have to agree with our policy!',
            showClass: {
@@ -266,7 +266,7 @@ export default {
          })
        }else if(!this.payment) {
          this.$swal({
-           icon:'warning',
+           imageUrl:'https://upload.cc/i1/2021/04/10/u0e6iX.png',
            title:'Hey!',
            text:'You have to choose your payment method!',
            showClass: {
