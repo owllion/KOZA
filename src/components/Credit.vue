@@ -17,7 +17,7 @@
     <!-- errmsg -->
     <div class="pa-w-full pa-flex pa-justify-start pa-flex-col  pa-pl-6 pa-mb-3">
       <span class=" pa-text-red-500 pa-font-black " v-if="detectDirty && !$v.number.required">Required!</span>
-      <span class=" pa-text-red-500 pa-font-black" v-if="$v.$dirty && !$v.number.numAndValidator">      
+      <span class=" pa-text-red-500 pa-font-black" v-if="detectDirty && !$v.number.numAndValidator">      
       Invalid!At least 16 numbers! ↑</span>                               
    </div> 
    <!-- errmsg -->
@@ -102,34 +102,63 @@ export default {
            cvc: { required },
     },
     computed: {
-       detectStatus() {
-         if(!this.$v.$invalid) {
-           console.log('valid!')
-           return true         
+       credit: {
+         get() {
+           return this.$store.state.auth.creditStatus
+         },
+         set(value) {
+           return this.$store.commit('auth/setCreditStatus', value)
          }
-         console.log('invalid')
-           return false
+       },
+       detectStatus() {
+         if(this.$v.$invalid) {
+            return false
+           
+         }else {
+           return true
+         }
+        
+          
        },
        detectDirty() {
+         console.log('dirty觸發')
          if(this.$store.state.auth.dirty === true) {
+           console.log('dirty等於true')
             return true
            }else {
+             console.log('dirty等於false')
              return false
+             
            }
          
        }
     },
     watch: {
-      detectStatus(value) {
-         if(value===true) {
+       detectStatus: {
+         handler(n) {
+             if(n===true) {
            console.log('全都填寫了')
-            this.$store.commit('auth/setCreditStatus', true)
+           this.credit = true
+           console.log(this.credit)
          }else {
             console.log('沒填')
-            this.$store.commit('auth/setCreditStatus', false)
+           this.credit = false
             console.log(this.$store.state.auth.creditStatus)
          }                  
-      }        
+        },
+         immediate: true
+       }
+      // detectStatus(value) {
+      //   console.log('detectstatus觸發')
+      //    if(value===true) {
+      //      console.log('全都填寫了')
+      //      this.credit
+      //    }else {
+      //       console.log('沒填')
+      //       this.$store.commit('auth/setCreditStatus', false)
+      //       console.log(this.$store.state.auth.creditStatus)
+      //    }                  
+      // }        
     },
     mounted() {
     new Card({ 

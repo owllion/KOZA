@@ -1,10 +1,10 @@
 <template>    
     <section class="wrapper" >
-           <div class="picture-container" v-scrollAnimation>   
+           <div class="picture-container" >   
               <img src="@/assets/img/shop.png" alt="shop" class="img-one">    
        </div>
        
-        <div class="content-container" v-scrollAnimation> 
+        <div class="content-container" > 
          <div class="content" >
             <h3 class="pa-mb-5 pa-font-bold">Only The Fresh</h3>
              <h2 class="pa-font-semibold pa-mb-10 ">&ldquo;Value For Money.&rdquo;                

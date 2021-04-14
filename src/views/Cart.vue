@@ -17,7 +17,7 @@
 
       <div class="select-all pa-text-left pa-w-48 xs:pa-w-full  xs:pa-text-center pa-mb-5  pa-border-2 pa-border-gray-100 pa-border-solid pa-py-3 pa-hidden" >
       <div class="pa-flex  pa-w-full pa-pl-7 xs:pa-justify-center xs:pa-pl-0">
-          <input type="checkbox" class="checkbox" v-model="allcheck" @click="checkall" :checked='allcheck' @change='checkall'>
+          <input type="checkbox" class="checkbox" v-model="allcheck" @click="checkall" >
         <span class="pa-pl-5 pa-pt-1.5  pa-text-xl pa-font-semibold ">SELECT All</span>
     </div>
   </div> 
@@ -99,7 +99,7 @@
     <!-- continue link -->
     <div class="continue pa-mt-10 pa-flex pa-justify-between md:pa-block">
       <div class="clearAndShopBtn">
-          <router-link to='/products' class="pa-inline-block pa-bg-black white--text pa-px-6 pa-py-3  pa-mr-9 pa-duration-500 pa-transition md:pa-w-full md:pa-text-center">CONTINUE SHOPPING
+          <router-link to='/allproducts' class="pa-inline-block pa-bg-black white--text pa-px-6 pa-py-3  pa-mr-9 pa-duration-500 pa-transition md:pa-w-full md:pa-text-center">CONTINUE SHOPPING
       </router-link>
           <button  @click="clear" class="clear-btn pa-inline-block pa-bg-black white--text pa-px-6 pa-py-3   pa-duration-500 pa-transition md:pa-w-full md:pa-mt-5 md:pa-text-center">
           CLEAR ALL

@@ -6,7 +6,7 @@
     </div>
 
         <!-- nav -->
-   <nav class="pa-h-5  pa-flex pa-justify-around  pa-items-center pa-p-8 xs:pa-justify-end xxs:pa-justify-end md:pa-justify-between">   
+   <nav class="pa-h-5  pa-flex pa-justify-around  pa-items-center pa-p-8 xs:pa-justify-end xxs:pa-justify-end md:pa-justify-between pa-w-screen">   
     
       <div class="md:pa-pl-16 xs:pa-hidden">
         <h1>
@@ -136,8 +136,8 @@ $white:whitesmoke;
 }
 
  nav {
-  max-width: 1300px;
-  margin: 0 auto;
+  
+  
      ul {
        padding-left: 0;
      }

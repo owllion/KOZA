@@ -52,7 +52,8 @@
 
       <div class="pagination" v-if='filteredByAll.length'>
         
-          <jw-pagination :items="filteredByAll" :pageSize=12 @changePage="onChangePage"  :styles="customStyles" :labels="customLabels" />
+          <jw-pagination :items="filteredByAll" :pageSize=12 @changePage="onChangePage"  :styles="customStyles" :labels="customLabels"
+           />
         </div>
 
       <div class="notFound pa-w-full pa-flex pa-justify-center pa-items-center pa-flex-col pa-my-10 pa-text-center" v-if='filteredByAll.length===0'>
@@ -145,7 +146,7 @@ export default {
       ...mapMutations('product',['setCategory','setShowFilter','setKeyword','setSortType']),
         onChangePage(pageOfItems) {
             this.pageOfItems = pageOfItems;
-        },
+        },      
         changeCat(value) {
           this.setCategory(value)
         },

@@ -149,7 +149,7 @@
            </div>
            <div>
              <button class="order-btn  pa-rounded-lg pa-p-6 pa-w-full pa-mt-5 pa-inline-block pa-text-center pa-bg-black white--text pa-font-bold pa-tracking-widest" 
-             @click="placeOrder()">PLACE ORDER</button>
+             @click="placeOrder();scrollToTop()">PLACE ORDER</button>
            </div>
            <!-- final price -->
          </div>
@@ -250,7 +250,12 @@ export default {
    methods: {
      ...mapMutations('order',
      ['setEl','setCode','setPaymethod','setCode','setAddress','setDiscount']),
-
+    scrollToTop() {
+           window.scrollTo({
+               top:0,
+               behavior: 'smooth'
+           })
+       },
      placeOrder() {
        if(!this.agree) {
          this.$swal({
@@ -279,8 +284,8 @@ export default {
        }else {
          this.$v.$touch()
          this.$store.commit('auth/setDirty', true)
-        
-         if (!this.$v.$invalid && this.creditStatus) {
+         console.log(this.creditStatus)
+          if (!this.$v.$invalid && this.creditStatus) {
                  
          const completeAddress =`${this.currCity}${this.currDistrict}${this.de_address}`
 
@@ -310,7 +315,7 @@ export default {
             popup: 'animate__animated animate__bounceOutUp'
            },
          })  
-       }         
+        }         
      },
      apply(code,total) {     
        const payload = { code, totalPrice:total }
