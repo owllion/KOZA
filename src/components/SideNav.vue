@@ -38,7 +38,7 @@ export default {
              link:'Shop'
            },
            {
-             name:'/',
+             name:'about',
              link:'About'
            },
         ]

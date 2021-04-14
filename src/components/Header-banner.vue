@@ -1,5 +1,5 @@
 <template>
-  <div class="header pa-flex pa-justify-center  pa-items-center pa-bg-hero-lg pa-bg-cover pa-h-96 pa-mb-14" v-scrollAnimation>
+  <div class="header pa-flex pa-justify-center  pa-items-center pa-bg-hero-lg pa-bg-cover pa-h-96 pa-mb-14" >
          <div class="title">
            <h2 class="pa-rounded-lg pa-text-5xl pa-text-center pa-p-16 white--text pa-bg-green-600 pa-w-full xs:pa-p-6 xs:pa-text-4xl ">
                <slot/>

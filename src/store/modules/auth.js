@@ -75,7 +75,6 @@ const actions = {
             width:450,
             timer: 2500
          })
-           
        }catch(err) {
            commit('setLoading', false)
            if(err.response) {
