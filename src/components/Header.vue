@@ -50,9 +50,8 @@
         </li>
        <li class="pa-p-2 pa-relative">
          <router-link  :to="{name:'Checkout'}" class="pa-text-3xl ">   
-           <span class="icon icon-local_grocery_store">
-           </span>
-
+          <i class="fas fa-shopping-bag black--text"></i>
+        
               <!-- cart length -->
              <span class='circle pa-absolute pa-bottom-7 pa-left-6 pa--translate-y-2/4 pa-translate-x-2/4' v-if='token'>
                 <span class='number pa-text-xs pa-py-1 pa-px-2 pa-bg-red-800'>{{cartLength}}</span>

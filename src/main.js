@@ -9,7 +9,6 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import './assets/tailwind.css';
 import vuetify from './plugins/vuetify';
-import '@/assets/font-icon/style.css';
 import '@/assets/css/global.css';
 import ScrollAnimation from '@/directive/scrollAnimation';
 import VueSweetalert2 from 'vue-sweetalert2';

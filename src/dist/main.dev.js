@@ -22,8 +22,6 @@ require("./assets/tailwind.css");
 
 var _vuetify = _interopRequireDefault(require("./plugins/vuetify"));
 
-require("@/assets/font-icon/style.css");
-
 require("@/assets/css/global.css");
 
 var _scrollAnimation = _interopRequireDefault(require("@/directive/scrollAnimation"));
