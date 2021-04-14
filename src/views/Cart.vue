@@ -13,7 +13,7 @@
     </div>
      </div>
 
-     <div class="container pa-p-20 pa-mx-auto pa-my-5 pa-bg-white pa-shadow-md xs:pa-p-4"  v-scrollAnimation v-show='cartList.length'>   
+     <div class="container pa-p-20 pa-mx-auto pa-my-5 pa-bg-white pa-shadow-md xs:pa-p-4"  v-show='cartList.length'>   
 
       <div class="select-all pa-text-left pa-w-48 xs:pa-w-full  xs:pa-text-center pa-mb-5  pa-border-2 pa-border-gray-100 pa-border-solid pa-py-3 pa-hidden" >
       <div class="pa-flex  pa-w-full pa-pl-7 xs:pa-justify-center xs:pa-pl-0">
