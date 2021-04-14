@@ -32,7 +32,8 @@ export default {
         this.$swal({
           imageUrl:'https://upload.cc/i1/2021/04/10/u0e6iX.png',
           title:'Oops!',
-          text:'You need to login!'
+          text:'You need to login!',
+          confirmButtonColor: '#000000'
         })
       }else {
         const params = { productId:id , qty }

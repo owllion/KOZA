@@ -171,14 +171,6 @@ var routes = [{
     });
   }
 }, {
-  path: '/admin',
-  name: 'Admin',
-  component: function component() {
-    return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Admin'));
-    });
-  }
-}, {
   path: '/error',
   name: 'error',
   component: function component() {

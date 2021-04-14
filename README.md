@@ -8,9 +8,9 @@
  
 ### 專案截圖
    首頁
- `<img src='../assets/img/home.png'>`
+ ![alt text](./src/assets/img/home.png)
    商品列表
- `<img src='../assets/img/home.png'>` 
+
 ### 功能
  * 📝登入/登出/註冊功能，使用JWT驗證使用者身分
  * 📝登入驗證碼功能

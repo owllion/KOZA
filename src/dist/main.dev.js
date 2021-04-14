@@ -118,7 +118,8 @@ _router["default"].beforeEach(function (to, from, next) {
     } else {
       _vue["default"].swal({
         imageUrl: 'https://upload.cc/i1/2021/04/10/u0e6iX.png',
-        title: 'You need to login!'
+        title: 'You need to login!',
+        confirmButtonColor: '#000000'
       });
 
       next({

@@ -22,9 +22,10 @@ export default {
        addToFav(id){
         if(!this.$store.getters['auth/token']) {
           this.$swal({
-            icon:'warning',
-            title:'Oops!',
-            text:'You need to login!'
+          imageUrl:'https://upload.cc/i1/2021/04/10/u0e6iX.png',
+          title:'Oops!',
+          text:'You need to login!',
+          confirmButtonColor: '#000000'
         })
       }else {
           const payload = { productId : id , favlist : this.favList }    

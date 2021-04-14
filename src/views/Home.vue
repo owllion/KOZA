@@ -67,15 +67,11 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
 import ScrollToTop from '@/components/ScrollToTop.vue'
 import img from '@/assets/json/img-link.json'
 import myAd from '@/components/Ad.vue'
-//import myCard from '@/components/Card.vue'
-
 export default {
   components: {
-    //myCard,
     myAd,
     ScrollToTop
   },
@@ -89,11 +85,6 @@ export default {
   },
   metaInfo: {
      title:'KOZA'    
-    },
-    async created() {
-      const cookie = Cookies.get('token')
-      console.log(`首頁跳轉有無cookie-->${cookie}`)
-
     }
 
 }

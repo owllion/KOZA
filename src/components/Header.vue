@@ -116,7 +116,8 @@ import { mapGetters,mapActions } from 'vuex'
     },
   },
   created() {
-     const id = this.$store.state.auth.userData.userId
+
+     const id = this.$store.state.auth.userData?.userId
      const base64 = localStorage.getItem(id)
      this.avatar = base64
    }

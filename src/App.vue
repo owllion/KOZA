@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
 import Layout from '@/components/Layout.vue'
 export default {
   name: 'App',
@@ -22,12 +21,9 @@ export default {
     this.$store.commit('product/clear')
     this.$store.commit('product/closeFilter')
     this.$store.commit('auth/setLoading', false)
-    const token = Cookies.get('token')
-    console.log(`app.vue拿到的token-->${token}`)
-    //this.$store.commit('auth/setToken',token)
-    
+
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -85,6 +85,7 @@ router.beforeEach((to,from,next) => {
 			Vue.swal({
 				imageUrl:'https://upload.cc/i1/2021/04/10/u0e6iX.png',
 				title: 'You need to login!',
+				confirmButtonColor: '#000000',
 			})
 			next({
 				path:'/login',

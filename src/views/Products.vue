@@ -26,7 +26,7 @@
         </button> 
       
         <select class=" pa-border-black pa-rounded-lg pa-h-14 black--text pa-font-bold pa-text-sm pa-p-4 pa-border-solid pa-border-2 focus:pa-outline-none md:pa-w-full" v-model="sortModel">       
-        <option  v-for="(item,i) in sortType" :key='i' :value=item.type>{{item.name}} 
+        <option  v-for="(item,i) in sortType" :key='i' :value=item.type>⇅ {{item.name}}
         </option>
         </select>
        </div>
