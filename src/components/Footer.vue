@@ -7,14 +7,14 @@
             <div class="footer-items" v-for='(item, i) in linkText' :key='i'>   
              <h4 >{{item.title}}</h4>
              <ul>
-                 <li v-for='(link,i) in item.content' :key='i'><a href="" class="help pa-inline-block pa-pb-1">{{link}}</a></li>       
+                 <li v-for='(link,i) in item.content' :key='i'><a href="#" class="help pa-inline-block pa-pb-1">{{link}}</a></li>       
              </ul>
            </div> 
            <div class="footer-items">   
              <h4>Follow us</h4>
              <ul class="pa-flex p">
                 <li class="pa-mr-6" v-for='(img,i) in footerIcons' :key="i">
-                  <a href="" class="pa-inline-block ">
+                  <a href="#" class="pa-inline-block ">
                     <img :src="require( `../assets/svg/${img.name}.svg`)" alt="icon"   class="pa-w-14 "></a>
                  </li>
              </ul>
