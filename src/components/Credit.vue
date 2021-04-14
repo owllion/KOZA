@@ -136,7 +136,7 @@ export default {
     watch: {
        detectStatus: {
          handler(n) {
-             if(n===true) {
+          if(n===true) {
            console.log('全都填寫了')
            this.credit = true
            console.log(this.credit)
@@ -148,17 +148,6 @@ export default {
         },
          immediate: true
        }
-      // detectStatus(value) {
-      //   console.log('detectstatus觸發')
-      //    if(value===true) {
-      //      console.log('全都填寫了')
-      //      this.credit
-      //    }else {
-      //       console.log('沒填')
-      //       this.$store.commit('auth/setCreditStatus', false)
-      //       console.log(this.$store.state.auth.creditStatus)
-      //    }                  
-      // }        
     },
     mounted() {
     new Card({ 

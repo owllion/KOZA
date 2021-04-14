@@ -85,7 +85,7 @@ const actions = {
          
        }
      },
-     async logout( { commit } ) {
+    logout( { commit } ) {
          commit("clearAll")
          Cookies.remove("token")
          Cookies.remove("refreshToken")

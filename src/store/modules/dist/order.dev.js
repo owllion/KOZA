@@ -161,9 +161,9 @@ var actions = {
             });
 
             this._vm.$swal({
-              icon: 'success',
-              title: 'Yeah!',
-              text: 'Successfully place an order'
+              imageUrl: 'https://upload.cc/i1/2021/04/14/5aFjqW.png',
+              title: 'Successfully place an order!',
+              confirmButtonColor: '#000000'
             });
 
             commit('setEl', 3);

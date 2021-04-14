@@ -83,9 +83,9 @@ const actions =  {
             commit('setOrderList', order )
             commit('auth/setLoading', false, { root:true }) 
             this._vm.$swal({
-                icon:'success',
-                title:'Yeah!',
-                text:'Successfully place an order'
+               imageUrl:'https://upload.cc/i1/2021/04/14/5aFjqW.png',               
+               title:'Successfully place an order!',
+               confirmButtonColor:'#000000'
             })
             commit('setEl',3)
         }catch(err) {

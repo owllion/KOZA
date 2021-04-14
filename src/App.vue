@@ -21,7 +21,7 @@ export default {
     this.$store.commit('product/clear')
     this.$store.commit('product/closeFilter')
     this.$store.commit('auth/setLoading', false)
-
+    
   }
 }
 </script>
