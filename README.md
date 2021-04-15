@@ -2,15 +2,15 @@
 
 ## 簡介
  * 使用Vue.js和Node.js前後端分離的開發模式，實作電商網站。
----
+ 
 ## 使用技術
-Vue2 + Vuex + Vue Router + Vuetify + Tailwind CSS + SCSS + Node.js + MongoDB
----
+> Vue2 + Vuex + Vue Router + Vuetify + Tailwind CSS + SCSS + Node.js + MongoDB
+ 
  * 使用Vuex集中管理資料狀態
  * 使用Vue Router 做路由控制
  * 使用axios串接後端API
  * 使用Tailwind CSS及SCSS調整樣式及RWD版型規劃
----
+
 ## DEMO
 * [線上DEMO](https://koza-organic.herokuapp.com/)
 * GIF   
@@ -47,7 +47,7 @@ Vue2 + Vuex + Vue Router + Vuetify + Tailwind CSS + SCSS + Node.js + MongoDB
 
 ## 專案運行
 ```
-git clone xxx
+git clone https://github.com/owllion/KOZA.git
 
 npm install
 
