@@ -12,7 +12,12 @@
  * 使用Tailwind CSS及SCSS調整樣式及RWD版型規劃
 
 ## DEMO
-* [線上DEMO](https://koza-organic.herokuapp.com/)
+* [線上DEMO](https://koza-organic.herokuapp.com/)     
+     ✏ 測試帳號(可使用優惠券功能，因新註冊使用者沒有優惠券)
+  ```
+  帳號:100@gmail.com
+  密碼:0000000 (7個0)
+  ```
 * GIF   
   ![ezgif-3-4f540f229096](https://user-images.githubusercontent.com/66667234/114814456-cea6aa00-9de6-11eb-995b-fca16dbf1f73.gif)
 * 影片(畫質較好)   
@@ -27,7 +32,8 @@
  * 📝商品詳情展示
  * 📝商品多重篩選
  * 📝商品排序
- * 📝修改個人資料，包含地址、Email、姓名及頭貼
+ * 📝商品加入最愛
+ * 📝個人中心，可修改個人資料，包含地址、Email、姓名及頭貼，並查看最愛列表、優惠券、訂單等資訊
  * 📝上傳照片
  * 📝使用優惠券，可檢測是否到期、有無達到使用門檻等
  * 📝產生/取消訂單
