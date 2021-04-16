@@ -3,7 +3,7 @@
     <!-- banner -->
     <Banner>Our Products</Banner>
     <!--banner-->
-    <div class="container pa-mx-auto pa-mt-24" v-scrollAnimation>
+    <div class="container pa-mx-auto pa-mt-24" >
 
       <!-- category-icon -->
        <div class="category pa-flex pa-justify-center pa-mb-20 xs:pa-hidden ">
