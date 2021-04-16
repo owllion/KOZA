@@ -24,7 +24,7 @@
       <ul class="pa-flex  pa-items-center pa-w-full ">
       
           <li class="pa-p-2">
-            <router-link  v-if="!$store.getters['auth/token']" to="/login" class="login  pa-font-semibold pa-p-3 pa-inline-block xs:pa-text-xs xs:pa-p-0">
+            <router-link  v-if="!$store.getters['auth/token']" to="/login" class="login  pa-font-semibold pa-p-3 pa-inline-block xs:pa-text-xs ">
              LOG IN
           </router-link>
           <a  href='#' v-if="$store.getters['auth/token']"  class="pa-text-3xl " @click.prevent='dropShow = !dropShow'>
@@ -173,6 +173,7 @@ $white:whitesmoke;
         background-color: $black;
         color: $white
       }
+      
     }
     .nav-text{
         font-weight: 500;

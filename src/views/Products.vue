@@ -156,9 +156,7 @@ export default {
         
     },
     created() {
-      this.keywords = ''
       this.setShowFilter(false)
-      this.setCategory('')
       this.$store.commit('product/clear')
       this.sortModel = 'a_z'
     }

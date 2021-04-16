@@ -15,7 +15,7 @@
 
              <ul class=" pa-text-2xl  pa-w-full pa-font-semibold"> 
             <li v-for="(item,i) in navText" :key='i' class="pa-mb-5">
-              <router-link  :to="{name:`${item.name}` }" class=" pa-p-3  pa-rounded-sm nav-text ">{{item.link}}</router-link></li>
+              <router-link  :to="{name:`${item.name}` }" class=" pa-p-3  pa-rounded-sm nav-text pa-block">{{item.link}}</router-link></li>
        </ul>
      </div>
      </transition>
@@ -70,9 +70,12 @@ export default {
  .nav-text {
     color:whitesmoke ;
     transition: all .5s;
+    padding-left:20px;
  }
  .nav-text:hover {
-   background-color: rgb(211, 92, 92);
+   background-color: white;
+   border-radius: 40px 0 0 40px;
+   color:black !important;
    
  }
 </style>

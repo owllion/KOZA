@@ -18,11 +18,16 @@
      <!-- filter -->
      <div class="filter  pa-px-10 pa-border-b-2 pa-border-solid pa-border-gray-100 pa-mx-auto pa-mb-5 pa-flex pa-justify-between pa-flex pa-items-center md:pa-block md:pa-mb-5">
        <!-- left -->
-       <div class="filter-left pa-flex ">
-        <button class=" focus:pa-outline-none pa-w-36 pa-px-3 pa-h-12 pa-rounded-full pa-border-2 pa-border-solid pa-border-black md:pa-block md:pa-w-full pa-duration-700 pa-transition" @click='openSideFilter'>
+       <div class="filter-left pa-flex pa-flex-wrap">
+        <button class=" focus:pa-outline-none pa-w-36 pa-px-3 pa-h-14 pa-rounded-lg pa-border-2 pa-border-solid pa-border-black  md:pa-w-full pa-duration-700 pa-transition pa-mr-3 md:pa-mr-0 pa-mb-5" @click='openSideFilter'>
           <span class="pa-mr-2 pa-font-semibold" >Filter</span>
           <i class="fas fa-filter"></i>
-        </button>     
+        </button> 
+      
+        <select class=" pa-border-black pa-rounded-lg pa-h-14 black--text pa-font-bold pa-text-sm pa-p-4 pa-border-solid pa-border-2 focus:pa-outline-none md:pa-w-full" v-model="sortModel">       
+        <option  v-for="(item,i) in sortType" :key='i' :value=item.type>⇅ {{item.name}}
+        </option>
+        </select>
        </div>
       <!-- left -->
 
@@ -70,8 +75,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 import ScrollToTop from '@/components/ScrollToTop'
 import img from '@/assets/json/img-link'
-import sortText from '@/assets/json/filter'
-import {filterByPrice, getByCategory,getByKeyword,sort, getByOrigin  } from '@/filter/filter'
+import { filterByPrice, getByCategory,getByKeyword, sort , getByOrigin } from '@/filter/filter'
 import Banner from '@/components/Header-banner'
 import Card from '@/components/Card'
 export default {
@@ -84,7 +88,14 @@ export default {
     return {
         params:'',
         categoryIcon:img.categoryIcon,
-        sortType:sortText.sortType,
+        sortType:[
+          { name:"A-Z",type: "a_z" },
+          { name:"Z-A",type: "z_a" },
+          { name:"HIGH TO LOW",type: "high_low" },
+          { name:"LOW TO HIGH",type: "low_high" },
+          { name:"NEW TO OLD",type: "new_old" },
+          { name:"OLD TO NEW",type: "old_new" }
+        ],         
         pageOfItems: [],
         customLabels : {
             first: '<<',
@@ -102,8 +113,13 @@ export default {
         }
     }
   },
+  metaInfo() {
+     return {
+       title:this.params
+     }
+  },
   computed: {
-    ...mapGetters('product',['allItems','price','keyword','category','sort','origin']),
+    ...mapGetters('product',['allItems','price','keyword','category','sortVal','origin']),
     keywords: {
       get() {
         return this.keyword
@@ -112,22 +128,23 @@ export default {
         this.setKeyword(value)
       }
     },
-    tagShow(){
-        const now = Date.now()
-        const minusFiveDays = new Date().setDate(new Date().getDate()-5)
-        const fiveDaysAgo = new Date(minusFiveDays).getTime()
-
-        return this.allItems.filter(item=> new Date(item.createdAt).getTime() - now < fiveDaysAgo ? true : false )
-    },
+    sortModel: {
+       get() {
+         return this.sortVal
+       },
+       set(value) {
+         return this.setSortType(value)
+       }
+     },
     filteredByAll() {
       return sort( 
        getByCategory ( getByKeyword( getByOrigin( filterByPrice( 
          this.allItems, this.price),this.origin), this.keyword), this.category ),   
-         this.sort );      
+         this.sortVal );      
     }
   },
    methods: {
-      ...mapMutations('product',['setCategory','setShowFilter','setKeyword']),
+      ...mapMutations('product',['setCategory','setShowFilter','setKeyword','setSortType']),
         onChangePage(pageOfItems) {
             this.pageOfItems = pageOfItems;
         },
@@ -140,10 +157,10 @@ export default {
         
     },
     created() {
-      this.keywords = ''
       this.setShowFilter(false)
       this.params = this.$route.params.category
       this.setCategory(this.params)
+      this.$store.commit('product/cateClear')     
     }
 }
 </script>
@@ -170,6 +187,7 @@ export default {
   opacity: $opacity;
   transform: $trans;
 }
+
 section {
     .container{
         max-width: 1600px;
@@ -203,6 +221,9 @@ section {
             background: #000;
             color:white;           
            }
+          }
+          select {
+             text-align-last:center;
           }
           .search-box {
             position: relative;

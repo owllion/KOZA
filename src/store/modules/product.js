@@ -148,11 +148,16 @@ const actions = {
 
 const mutations = {
     clear(state) {
+        state.price = []
+        state.category = ''
+        state.origin = ''
+        state.keyword = ''
+    }, 
+    cateClear(state) {
         state.price = [],
-        state.category = '',
         state.origin = '',
         state.keyword = ''
-    },  
+    }, 
     closeFilter(state) {
         state.showFilter = false
     },
