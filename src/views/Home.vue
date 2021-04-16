@@ -21,7 +21,7 @@
      <main>
 
         <!-- icon features -->
-         <section class="features-wrapper " v-scrollAnimation >
+         <section class="features-wrapper " >
            <div class="features-container ">
 
             <div class="feature " v-for="(item,i) in featureIcon" :key="i" >          
@@ -41,7 +41,7 @@
          <section class="gallery pa-w-full">
            <div class="gallery-container" >
   
-             <div v-for='(img,i) in galleryImages' :key='i' class="gallery-img-container pa-relative" v-scrollAnimation >
+             <div v-for='(img,i) in galleryImages' :key='i' class="gallery-img-container pa-relative" >
                 <img :src=img.src  alt="galleryImage">
                  <div class="gallery-link pa-absolute pa-top-1/2 pa-left-1/2 pa-max-w-sm  pa--translate-x-1/2 pa--translate-y-1/2  pa-text-3xl pa-bg-white">
                 <router-link :to="`/products/${img.link}`" >
