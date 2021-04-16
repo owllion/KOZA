@@ -170,14 +170,6 @@ export default {
   opacity: $opacity;
   transform: $trans;
 }
-.before-enter {
-  @include animation(0, translateX(-500px));
-  transition: all .3s ease-in-out;
-}
-
-.enter {
-  @include animation(1, translateX(0px));
-}
 section {
     .container{
         max-width: 1600px;
