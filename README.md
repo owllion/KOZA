@@ -10,7 +10,6 @@
  * 使用Vue Router 做路由控制
  * 使用axios串接後端API
  * 使用Tailwind CSS及SCSS調整樣式及RWD版型規劃
- * 
 ## 後端repo
 [連結](https://github.com/owllion/E-commerce-server)
 
