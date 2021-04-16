@@ -33,7 +33,7 @@ export default {
           if(index === -1){         
             this.$store.dispatch('product/addToFavActions',payload)   
             this.$toast.open({
-              message: 'Add favorites',
+              message: 'Add to favorites!',
               type:'success',
               pauseOnHover:true,
               duration:2000             
@@ -41,7 +41,7 @@ export default {
           }else {
             this.$store.dispatch('product/removeFromFav',payload)
             this.$toast.open({
-              message: 'Remove favorites',
+              message: 'Delete from favorites!',
               type:'info',
               pauseOnHover:true, 
               duration:2000               
