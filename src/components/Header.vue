@@ -206,5 +206,7 @@ $white:whitesmoke;
   transition: all .2s ease-in;  
   z-index: 10000;
 }
-
+nav {
+  max-width: 100vw;
+}
 </style>

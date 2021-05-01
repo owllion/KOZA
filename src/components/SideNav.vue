@@ -61,7 +61,7 @@ export default {
 }
 .slide-side-enter,
 .slide-side-leave-to {
-  transform: translateX(-100%);
+  transform: translateY(-100%);
 }
 .fa-times{
    color: whitesmoke;
