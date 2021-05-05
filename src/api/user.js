@@ -31,7 +31,7 @@ import instance from './axios'
     export const userLogoutAll = () => instance.get('/user/logoutAll')
   
     //modify uesr info
-    export const userInfoModify = data => instance.patch('/user/info-modify', data)
+    export const userInfoModify = data => instance.post('/user/info-modify', data)
    
     //modify user password 
     export const userPasswordModify = data => instance.post('/user/password-modify', data)

@@ -87,7 +87,7 @@
           <label class="pa-block pa-font-semibold pa-text-3xl">Address</label>
            <v-text-field
               color="red darken-2"
-              label="Address"
+             
               prepend-icon="mdi-map-marker"
               clearable
               v-model='proAddress'
@@ -190,7 +190,7 @@ export default {
          this.$v.$touch()
          if (!this.$v.$invalid) {
            try {
-             console.log('success')
+             
                this.loading = true
                const payload = {
                   name:this.name,
@@ -199,22 +199,21 @@ export default {
                   district:this.currDistrict,
                   road:this.proAddress
                }
-               console.log(payload)
-               const { data: {user, county, district, road } } = await userInfoModify(payload)
+                console.log(payload)
+                const { data: {user, county, district, road } } = await userInfoModify(payload)
 
                 this.$store.commit('auth/setUserData', user)
                 this.$store.commit('auth/setUserCity', county)
-               this.$store.commit('auth/setUserDistrict', district)
+                this.$store.commit('auth/setUserDistrict', district)
                 this.$store.commit('auth/setUserAddress', road)             
-               this.loading = false
-               this.error = ''
-               this.$swal({
+                this.loading = false
+                this.error = ''
+                this.$swal({
                    imageUrl:'https://upload.cc/i1/2021/04/13/LJbpP8.png',
                    title:'Successfully Update!',
                })
               
-           }catch(err) {
-             console.log('errr')
+           }catch(err) {        
               this.loading = false
               if(err.response) {
                   const error = err.response.data.msg
@@ -223,7 +222,7 @@ export default {
                  } 
                   this.$swal({
                       icon:'error',
-                      title:'🤔',
+                      title:'Oops!',
                       text:error
                   })
               }

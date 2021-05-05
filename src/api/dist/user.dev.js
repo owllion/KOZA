@@ -81,7 +81,7 @@ var userLogoutAll = function userLogoutAll() {
 exports.userLogoutAll = userLogoutAll;
 
 var userInfoModify = function userInfoModify(data) {
-  return _axios["default"].patch('/user/info-modify', data);
+  return _axios["default"].post('/user/info-modify', data);
 }; //modify user password 
 
 
