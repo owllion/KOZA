@@ -101,6 +101,9 @@ export default {
                   icon:'success',
                   title:'Your password has been reset successfully!'               
               })
+              this.newPass = ''
+              this.password = ''
+              this.confirm = ''
            }catch(err) {
               this.loading = false
               if(err.response) {
