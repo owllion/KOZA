@@ -102,7 +102,7 @@ var addToFav = function addToFav(data) {
 exports.addToFav = addToFav;
 
 var removeFromFav = function removeFromFav(data) {
-  return _axios["default"]["delete"]("/user/delete/favlist", data);
+  return _axios["default"].post("/user/delete/favlist", data);
 }; //get the cartList
 
 

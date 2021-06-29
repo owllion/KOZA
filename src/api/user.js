@@ -43,7 +43,7 @@ export const addToFav = (data) => instance.post("/user/add/favlist", data);
 
 //remove the product
 export const removeFromFav = (data) =>
-  instance.delete("/user/delete/favlist", data);
+  instance.post("/user/delete/favlist", data);
 
 //get the cartList
 export const getCart = () => instance.get("/cartList");
