@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.53edff9399179b02b263e966397eb35b.js"
+  "/precache-manifest.64168ac8ae23ac4ac4ea1713d39af90a.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "organic-e"});
