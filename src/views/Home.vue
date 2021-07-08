@@ -120,7 +120,7 @@ $height:100%;
         @extend %grid;  
          justify-content: center; 
         grid-template-rows:min-content; 
-
+        
       .features-container {
         grid-column: col-start 1 / full-end;     
         display: grid;
