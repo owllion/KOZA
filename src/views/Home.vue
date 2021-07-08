@@ -213,10 +213,7 @@ $height:100%;
         }    
       }
  @media (max-width:769px) {
-     .features-wrapper {
-       grid-template-rows: 6rem calc(100vh -6rem);
-       
-     }
+     
       .gallery-container {
         display: block ;
          div {
