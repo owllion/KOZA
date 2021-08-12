@@ -2,7 +2,7 @@
   <div class="wrapper pa-pt-20 pa-w-full">
       <div class="container pa-flex pa-justify-center pa-items-center pa-w-full pa-p-10 lg-m:pa-block md:pa-p-5">
           <div class="left">
-              <div class="md:pa-w-full md:pa-p-0 md:pa-h-full pa-w-99 pa-h-99 pa-p-14">
+              <div class="md:pa-w-full md:pa-p-0 md:pa-h-full pa-w-99 pa-h-99 pa-p-14 lg-m:pa-w-full">
          <v-carousel        
            hide-delimiter-background
            hide-delimiters>
@@ -16,14 +16,14 @@
          </div>
         </div>
 
-           <div class="right pa-w-1/2 md:pa-w-full">
+           <div class="right pa-w-1/2 lg-m:pa-w-full md:pa-w-full ">
            <div class=" pa-flex pa-flex-col pa-justify-center pa-h-99 pa-w-full">
               <h1 class="item-name pa-text-7xl pa-font-bold pa-text-center xl:pa-text-3xl ">{{itemDetail.productName}}</h1>
               <h4 class="pa-my-10 pa-text-xl pa-font-semibold pa-text-center xl:pa-my-5">${{itemDetail.price}}</h4>
               
            <div class="number pa-flex pa-justify-evenly pa-mb-6 pa-flex-wrap">
 
-             <div class="quantity  xl:pa-mb-8 pa-text-center ">
+             <div class="quantity  pa-mb-8 lg-m:pa-mb-0 pa-text-center ">
               <button class=" pa-inline-block pa-w-14  pa-h-5 pa-text-2xl plus-btn focus:pa-outline-none " type="button" name="button" @click='qty++' :disabled="qty===itemDetail.stock"> +
              </button>
              <input type="text" class="   pa-text-center pa-border-2 pa-border-black pa-border-solid  focus:pa-outline-none " maxlength="2" v-model='qty'>

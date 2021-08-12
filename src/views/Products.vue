@@ -33,7 +33,7 @@
       <!-- left -->
 
       <!-- center -->
-       <div class="pa-ml-10 pa-px-5 pa-py-2 pa-text-center md:pa-mt-5 md:pa-ml-0">
+       <div class="pa-ml-10 pa-px-5 pa-py-2 pa-text-center lg-m:pa--ml-20 md:pa-mt-5 md:pa-ml-0">
           <p class="pa-font-semibold">item <span class="pa-text-3xl pa-font-normal green--text" :class="{ 'filterNum': filteredByAll.length===0 }">{{filteredByAll.length}} </span> of 
           <span class="pa-text-3xl pa-font-normal">{{allItems.length}}</span> total</p>
         </div>

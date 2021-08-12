@@ -1,5 +1,5 @@
 <template>
-  <section class="pa-my-36">
+  <section class="pa-my-36 lg-m:pa-p-10">
   
     <div class="container pa-flex pa-justify-center pa-items-center">
       

@@ -56,12 +56,12 @@ export default {
   margin: 6rem 0;
   background: #f5ebd3;
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
 
   .picture-container {
     flex-basis: 50%;
     padding: 5rem;
-
     img {
       object-fit: cover;
 
@@ -76,7 +76,7 @@ export default {
     flex-basis: 50%;
 
     .content {
-      padding: 0 6rem;
+      padding: 3.5rem 6rem;
       h3 {
         @extend %font;
         color: rgb(126, 71, 71);

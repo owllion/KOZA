@@ -1,6 +1,6 @@
 <template>
   <div class="row pa-flex lg:pa-flex-col">
-   <div class="shipAndPay pa-w-1/2 pa-p-14  md:pa-w-full xs:pa-px-5 xxs:pa-p-2">
+   <div class="shipAndPay lg-m:pa-w-full pa-w-1/2 pa-p-14  md:pa-w-full xs:pa-px-5 xxs:pa-p-2">
      <div class="container">
        <form>     
        <div class="row">
@@ -126,7 +126,7 @@
              
              <input type="text" class="focus:pa-outline-none 
              focus:pa-border-opacity-0 focus:pa-ring-2 focus:pa-ring-blue-300 pa-border-2 pa-border-solid pa-border-gray- 200 pa-rounded-lg 
-             pa-block pa-w-4/5 pa-pl-3 md:pa-w-full md:pa-h-14 md:pa-mb-5" placeholder="Your promo code" v-model="code"><i class="pa-cursor-pointer pa-absolute grey--text fas fa-times" v-if='code' @click='clearDiscount'></i>
+             pa-block  lg-m:pa-w-full lg-m:pa-p-4 lg-m:pa-mb-5 pa-w-4/5 pa-pl-3 md:pa-w-full md:pa-h-14 md:pa-mb-5" placeholder="Your promo code" v-model="code"><i class="pa-cursor-pointer pa-absolute grey--text fas fa-times " v-if='code' @click='clearDiscount'></i>
 
              <button :disabled='discount' class='focus:pa-outline-none pa-rounded-lg pa-bg-blue-200 white--text pa-p-3 pa-font-bold pa-block lg:pa-w-full   ' @click="apply(code,total)" >APPLY</button>
            </div>
@@ -422,6 +422,17 @@ export default {
          height: 180%;
        }
    }  
+ }
+ @media(max-width:830px) {
+   .container {
+     .coupon {
+      .fa-times {
+        top:25%;
+        right:8%;
+    }
+     }
+   }
+   
  }
  @media(max-width:769px) {
    .container {

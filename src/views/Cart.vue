@@ -284,6 +284,7 @@ export default {
   }
   .container {
     max-width: 1300px;
+    overflow: scroll;
     table {
       border-collapse: collapse;
        width:100% ;

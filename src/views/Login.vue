@@ -98,7 +98,7 @@
                       hover:pa--translate-y-1 pa-tracking-widest pa-text-2xl' @updateParent='checkLoginForm(loginData)'><span class="pa-text-white">Login</span>
                       </my-button>
 
-                      <p class="signup xxs:pa-ml-14 pa-ml-32 pa-mt-3 md:pa-ml-28 xs:pa-ml-2 s:pa-ml-10">Don't have an account?
+                      <p class="signup xxs:pa-ml-14 pa-ml-24 pa-mt-3 md:pa-ml-28 xs:pa-ml-2 s:pa-ml-10">Don't have an account?
                           <router-link to='/register' class=" xxs:pa-ml-14 s:pa-ml-14 pa-text-blue-500 pa-ml-3 pa-transition pa-duration-900 hover:pa-text-green-500 pa-font-black" >Sign up</router-link>
                       </p>
                  </form>
